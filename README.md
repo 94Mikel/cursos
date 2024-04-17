@@ -1,1 +1,125 @@
 # cursos
+### Udayme 2024
+- Java
+	- Universidad Java - De cero a Experto
+		- 171 Secciones
+		- 106 horas en total.
+		- Temario:
+			- Fundamentos
+				- Variables
+				- Tipos primitivos
+				- Operadores
+				- Sentencias de control
+				- Ciclos
+				- Creacion de clases
+				- Métodos
+				- Constructores
+				- Alcance de variables
+				- Paso por valor & paso por referencia
+				- return y null
+				- this
+				- Encapsulamiento
+				- Contexto estatico
+				- Herencia
+				- Sobrecarga de constructores & metodos
+				- Paquetes
+				- Uso de la palabra final
+				- Manejo de arreglos
+				- Manejo de matrices
+				- Diseño de clases
+	 		- Programación
+				- Argumentos variables
+				- Manejo enumeraciones
+				- Bloques de codigo
+				- Manejo foreach
+				- Autoboxing & unboxing
+				- Modificadores de acceso
+				- Sobreescritura de metodos
+				- Polimorfismo
+				- Instance
+				- Conversion a objetos
+				- Clases object(equals, hashCode, toString)
+				- Clases abstractas
+				- Manejo de interfaces
+				- Manejo de javaBeans
+				- Manejo de excepciones
+				- API de collections
+				- Manejo de generics
+				- Manejo de archivos
+			- JDBC
+				- Introducción SQL
+				- Introducción a JDBC
+				- Manejo de JDBC
+				- Manejo de transacciones
+				- Patrones de diseño y buenas practicas
+				- Manejo de Pool de conexiones
+			- Servlets & JSPs
+				- Temario general
+				- Introducción al curso
+				- Concepto de los servlets
+				- Manejo de formularios HTML con Servlets
+				- Manejo de cabeceros HTTP
+				- Código de estado
+				- Cabeceros de respuesta
+				- Manejo de cookies
+				- Manejo de HTTP session
+				- Introduccion JSPs
+				- Elementos de JSPs
+				- Directivas de JSPs
+				- Inclusion de archivos con JSPs
+				- EL(Expression Language) con JSPs
+				- Manejo de JSTL(JSP Standard Tag Library)
+				en JSPs
+				- Patrón de diseño MVC
+			- JavaServer Faces:
+				- Introduccion JavaServer Faces
+				- Managed Beans en JSF
+				- Ciclo de Vida de JSF
+				- Validadores en JSF
+				- Convertidores en JSF
+				- Mensaje e internacionalización en JSF
+				- Manejo de eventos en JSF
+				- Manejo de componentes en JSF
+				- Facelets y templates en JSF
+			- Java EE
+				- Introducción a java empresarial
+				- Enterprise java Beans (EJB's) en java EE
+				- Java persistence API(JPA)
+				- ciclo de vida JPA
+				- Asociaciones en JPA
+				- Consultas en JPQL
+				- API  de criteria en JPA
+				- Transacciones con java EE
+				- Integracion de JavaServer Faces(JSF)
+				- Web services con JAX-WS
+				- REST web services
+				- Seguridad en java empresarial
+			- Struts
+				- Conversiones
+				- Acciones
+				- Mensajes
+				- Resultados
+				- Anotaciones
+				- Validaciones
+				- OGNL
+				- Tags
+				- Internacionalizacion
+				- Tiles
+			- Structs + Spring + JPA (basico)
+			- Structs + Spring + SPA(CRUD)
+			- Structs + Spring + Hibernate
+			- Structs + EJB + JPA
+			- Hibernate
+				- Operaciones básicas.
+				- Aplicacion web
+				- Asociaciones
+				- Ciclo de vida
+				- Persistencia en cascada
+			- Spring
+				- Introduccion spring mvc y thymeleaf
+				- Spring data
+				- Manejo de transacciones
+				- CRUD con completo con Spring Boot y MySql
+				- Validaciones
+				- Manejo de plantillas con thymeleaf
+				
