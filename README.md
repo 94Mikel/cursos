@@ -122,4 +122,59 @@
 				- CRUD con completo con Spring Boot y MySql
 				- Validaciones
 				- Manejo de plantillas con thymeleaf
-				
+			- Validaciones con Spring
+			- Manejo de plantillas con Thymeleaf
+			- Manejo de mensajes e internacionalización con
+			Spring
+			- Seguridad con Spring Framework
+			- Seguridad con Spring Hibernate/JPA
+			- Aplicación final Spring Boot con Bootstrap
+			- Angular y Java EE => Full Stack Java Developer con
+			Angular
+			- Creación de Backend con Java EE y RESTful web
+			Services
+			- Instrución de herramientas para Angular
+			- Creación de FrontEnd con Angular
+			- Angular, HTML, CSS Y javascript
+			- Angular
+				- Fundamentos
+				- Elementos básicos
+				- Directivas
+				- Comunicación entre Componentes
+				- Servicios
+				- Mejora visual
+			- HTML
+				- Elementos básicos
+				- html + css
+				- Links html + css	 	
+				- Tablas
+				- Listas
+				- Elementos inline y block
+				- Formularios
+				- Elementos semanticos
+			- Javascript
+				- Tipos de datos
+				- operadores
+				- Sentencias de control
+				- Ciclos
+				- Arreglos
+				- Funciones
+				- Objetos
+				- Clases
+				- Static
+				- Ejercicio de herencia
+				- Sistema de ventas
+				- proyecto mundo pc
+				- Modo strict
+				- POO
+				- Manejo de errores
+				- Funciones arrow
+				- Funciones callback
+				- Promesas
+				- Manejo DOM HTML
+				- Manejo Eventos DOM HTML y javascript
+				- Aplicacion calculadora con JavaScript y
+				Bootstrap
+				- Aplicacion listado de personas
+				- Aplicación reloj digital
+				- Aplicación presupuesto				
