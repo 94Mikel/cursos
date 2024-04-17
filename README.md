@@ -178,3 +178,49 @@
 				- Aplicacion listado de personas
 				- Aplicación reloj digital
 				- Aplicación presupuesto				
+	- Universidad Spring - Spring Framework y Spring Boot
+		- Spring Data
+		- Manejo Transaccional
+		- CRUD completo con Spring Boot y MySql
+		- Validaciones
+		- Manejo de plantillas con Thymeleaf
+		- Manejo de Mensaje e internacionalizacion
+		- Seguridad con Spring Framework
+		- Seguridad con Spring y Hibernate/JPA
+- AWS
+	- AWS Certified Cloud Pracririoner
+	- ¿Que es el cloud computing?
+	- Identity and access managerment
+	- Elastic Compute Cloud
+	- Alamcenamiento de instancias EC2
+	- ELB Y ASG - Elastic Load Balancing y Auto Scaling Groups
+	- S3
+	- Bases de datos y analiticas
+	- Otros servicion de computación: ECS, Lambda, Batch, Lightsall
+	- Despliegue y gestión de la infraestructura a escala
+	- Aprovechando la infraestructura global de AWS
+	- Integración de Cloud
+	- Monitorización de cloud
+	- Virtual private cloud(VPC)
+	- Seguridad y normativa
+	- Machine learning
+	- Gestion de cuenta, facturación y soporte técnico.
+	- Identidad avanzada
+	- Otros servicios
+	- Arquitectura y ecosistema de AWS
+- ASP .NET
+	- Manejo de presupuestos
+		- Base de datos
+		- CRUD con Dapper
+		- Los otro CRUDs
+		- Reportes
+		- Sistemas de Usuarios
+		- Suplementario
+	- Manejo de tareas
+		- Entity Framework Core
+		- Seguridad
+		- App Multi-idiomas
+		- Entidad tareas
+		- Entidad pasos
+		- Entidad archivos adjuntos
+	- Despliegues
