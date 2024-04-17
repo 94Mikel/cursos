@@ -1,0 +1,13 @@
+# Session 29 Autoboxing & Unboxing
+- Tiene que ver con tipos primitivos.
+- Cada uno de los tipo primitivos tiene una clase en java asociada conocido como clase wrapper(envolvente) del tipo primjitivo. 
+    - int => Integer
+    - long => Long
+    - float => Float
+    - double => Double
+    - boolean => Boolean
+    - byte => Byte
+    - char => Character
+    - short => Short
+- Autoboxing => Envolvier el tipo primitivo en un tipo.
+- Unboxing => Crear otra variable con el valor almacenado de otro objeto(variable).Lo contrario de autboxing
