@@ -1,17 +1,11 @@
 package mx.com.gm.peliculas.datos;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 import mx.com.gm.peliculas.domain.Pelicula;
+import mx.com.gm.peliculas.excepciones.*;
 
-public class AccesoDatosImpl implements AccesoDatos {
+public class AccesoDatosImpl implements IAccesoDatos {
 
     public AccesoDatosImpl() {
     }
@@ -23,111 +17,109 @@ public class AccesoDatosImpl implements AccesoDatos {
     }
 
     @Override
-    public List<Pelicula> listar(String nombre) {
-        List<Pelicula> ps = new ArrayList<>();
+    public List<Pelicula> listar(String nombre) throws LecturaDatosEx {
+        List<Pelicula> peliculas = new ArrayList<>();
         var archivo = new File(nombre);
         try {
-            var entrada = new BufferedReader(new FileReader(archivo));
-            var pelicula = entrada.readLine();
-            while (pelicula != null) {
-                if(!pelicula.isEmpty()){
-                    System.out.println("Pelicula => "+pelicula);
-                    ps.add(new Pelicula(pelicula));
-                }
+            BufferedReader entrada = new BufferedReader(new FileReader(archivo));
+            String linea = null;
+            linea = entrada.readLine();
+            while (linea != null) {
+                peliculas.add(new Pelicula(linea));
+                linea = entrada.readLine();
             }
+            
             entrada.close();
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace(System.out);
+            ex.printStackTrace();
+            throw new LecturaDatosEx("Excepcion al listar peliculas: " + ex.getMessage());
         } catch (IOException ex) {
-            ex.printStackTrace(System.out);
+            ex.printStackTrace();
+            throw new LecturaDatosEx("Excepcion al listar peliculas: " + ex.getMessage());
         }
 
-        return ps;
+        return peliculas;
     }
 
     @Override
-    public void escribir(Pelicula pelicula, String nombreArchivo, Boolean anexar) {
+    public void escribir(Pelicula pelicula, String nombreArchivo, Boolean anexar) throws EscrituraDatosEx{
         File archivo = new File(nombreArchivo);//en memoria
         try {
             //Para anexar información al archivo
-            if (anexar) {
-                PrintWriter salida = new PrintWriter(new FileWriter(archivo, true));
-                salida.println(pelicula);
-                salida.close();
-            } else {
-                PrintWriter salida = new PrintWriter(archivo);
-                salida.println(pelicula);
-                salida.close();
-            }
-
-            System.out.println("Se ha " + (anexar ? "anexado" : "creado") + " información al archivo");
-
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace(System.out);
+            PrintWriter salida = new PrintWriter(new FileWriter(archivo, anexar));
+            salida.println(pelicula.toString());
+            salida.close();
+            System.out.println("Se ha " + (anexar ? "anexado" : "creado") + " información al archivo => "+pelicula);
         } catch (IOException ex) {
-            ex.printStackTrace(System.out);
+            ex.printStackTrace();
+            throw new EscrituraDatosEx("Excepcion al escribir pelicula => "+ex.getMessage());
         }
     }
 
     @Override
-    public String buscar(String nombreArchivo, String buscar) {
+    public String buscar(String nombreArchivo, String buscar) throws LecturaDatosEx{
+        
+        if(buscar == null){
+            return "";
+        }
+        
+        if(nombreArchivo == null){
+            return "";
+        }
+        
         var archivo = new File(nombreArchivo);
+        String resultado = "";
         try {
             var entrada = new BufferedReader(new FileReader(archivo));
-            var peliculas = entrada.readLine();
-            var match = "";
-            while (peliculas != null) {
-                System.out.println("lectura = " + peliculas);
-                if (peliculas.equals(buscar)) {
-                    match = peliculas;
+            String linea = entrada.readLine();
+            int indice = 1;
+            while (linea != null) {
+                System.out.println("lectura = " + linea);
+                if (linea.equalsIgnoreCase(buscar)) {
+                    resultado = "Pelicula => "+linea+ " encontrada en el indice "+indice;
                     break;
                 }
+                linea = entrada.readLine();
+                indice++;
             }
             entrada.close();
-            if (match.isEmpty()) {
-                return "";
-            } else {
-                return match;
-            }
         } catch (FileNotFoundException ex) {
-            ex.printStackTrace(System.out);
-            return "";
+            ex.printStackTrace();
+            throw new LecturaDatosEx("Excepcion al listar peliculas: " + ex.getMessage());
         } catch (IOException ex) {
-            ex.printStackTrace(System.out);
-            return "";
+            ex.printStackTrace();
+            throw new LecturaDatosEx("Excepcion al listar peliculas: " + ex.getMessage());
         }
+        
+        return resultado;
     }
 
     @Override
-    public void crear(String nombreArchivo) {
+    public void crear(String nombreArchivo) throws AccesoDatosEx{
         File archivo = new File(nombreArchivo);//en memoria
         try {
             //Para crear el archivo en el disco duro:
-            PrintWriter salida = new PrintWriter(archivo);
+            PrintWriter salida = new PrintWriter(new FileWriter(archivo));
             salida.close();
-            System.out.println("Se ha creado el archivo " + nombreArchivo);
-            /*
-            Cuando estemos trabajando con la clase PrintWriter y
-            estamos creando un nuevo objeto de esta clase, este constructor
-            puede arrojar un excepción.
-             */
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace(System.out);
+            System.out.println("Se ha creado el archivo => " + nombreArchivo);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            throw new AccesoDatosEx("Excepcion al crear fichero: " + ex.getMessage());
         }
     }
 
     @Override
     public void borrar(String nombreArchivo) {
-        if(!exist(nombreArchivo)){
+        if (nombreArchivo == null) {
             System.out.println("No existe el fichero");
             return;
         }
-        
+
         File f = new File(nombreArchivo);
-        if(f.delete()){
-            System.out.println("Fichero "+nombreArchivo+" eliminado correctamente");
+        if (f.delete()) {
+            System.out.println("Fichero " + nombreArchivo + " eliminado correctamente");
         } else {
-            System.out.println("Error al eliminar el fichero "+nombreArchivo);
+            System.out.println("Error al eliminar el fichero " + nombreArchivo);
         }
     }
 
