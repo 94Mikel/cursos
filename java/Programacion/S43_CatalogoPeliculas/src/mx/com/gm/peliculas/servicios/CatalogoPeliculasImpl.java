@@ -1,4 +1,4 @@
-package mx.com.gm.peliculas.negocio;
+package mx.com.gm.peliculas.servicios;
 
 import mx.com.gm.peliculas.datos.*;
 import mx.com.gm.peliculas.domain.Pelicula;
@@ -15,7 +15,7 @@ public class CatalogoPeliculasImpl implements ICatalogoPeliculas{
     @Override
     public void agregarPelicula(String nombrePelicula) {
         Pelicula pelicula = new Pelicula(nombrePelicula);
-        Boolean anexar = false;
+        Boolean anexar = true;
         try {
             this.datos.exist(NOMBRE_RECURSO);
             datos.escribir(pelicula, NOMBRE_RECURSO, anexar);

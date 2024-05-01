@@ -1,4 +1,4 @@
-package mx.com.gm.peliculas.negocio;
+package mx.com.gm.peliculas.servicios;
 
 public interface ICatalogoPeliculas {
     
