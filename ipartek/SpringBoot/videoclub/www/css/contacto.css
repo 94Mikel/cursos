@@ -1,0 +1,11 @@
+#fondo{
+    background: url("../img/fondoPeli.jpg");
+    background-repeat: repeat;
+}
+
+form{
+    padding: 2em;
+}
+footer{
+    margin-top: 2em;
+}
