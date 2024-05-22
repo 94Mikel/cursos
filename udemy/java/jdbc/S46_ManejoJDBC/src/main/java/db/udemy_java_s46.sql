@@ -1,7 +1,3 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Other/SQLTemplate.sql to edit this template
- */
 /**
  * Author:  mikel
  * Created: 4 may 2024
@@ -19,3 +15,11 @@ INSERT INTO persona(nombre, apellido, email, telefono) VALUES('Aitor', 'Garcia',
 INSERT INTO persona(nombre, apellido, email, telefono) VALUES('Pedro', 'Jimenez', 'pedroJ@gmail.com', '688957454');
 INSERT INTO persona(nombre, apellido, email, telefono) VALUES('Raul', 'Torres', 'raulT@gmail.com', '688677454');
 
+CREATE TABLE usuario (
+    id_usuario SERIAL PRIMARY KEY,
+    usuario VARCHAR(50),
+    password VARCHAR(50)
+);
+
+INSERT INTO usuario(usuario, password) VALUES('javier','asdfg');
+INSERT INTO usuario(usuario, password) VALUES('jon','qwerty');
