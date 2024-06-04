@@ -3,14 +3,12 @@ package datos;
 import dominio.Cliente;
 import java.sql.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author mikel
  */
-public class clienteDaoJDBC {
+public class ClienteDaoJDBC {
 
     private static final String SQL_SELECT = "SELECT id_cliente, nombre, apellido, email, telefono, saldo "
             + "FROM cliente";
@@ -31,7 +29,6 @@ public class clienteDaoJDBC {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Cliente cliente = null;
 
         List<Cliente> clientes = new ArrayList<>();
         try {
@@ -46,8 +43,7 @@ public class clienteDaoJDBC {
                 String telefono = rs.getString("telefono");
                 Double saldo = rs.getDouble("saldo");
 
-                cliente = new Cliente(idCliente, nombre, apellido, email, telefono, saldo);
-                clientes.add(cliente);
+                clientes.add(new Cliente(idCliente, nombre, apellido, email, telefono, saldo));
             }
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);

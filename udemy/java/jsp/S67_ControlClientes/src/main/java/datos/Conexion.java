@@ -10,7 +10,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
  */
 public class Conexion {
     
-    private static final String JDBC_URL = "jdbc:localhost:1433/control_clientes?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+    private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/control_clientes?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     
     private static final String JDBC_USER = "udemy";
     private static final String JDBC_PASSWORD = "chanchito";
