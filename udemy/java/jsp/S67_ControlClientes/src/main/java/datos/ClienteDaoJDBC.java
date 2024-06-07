@@ -63,17 +63,25 @@ public class ClienteDaoJDBC {
         ResultSet rs = null;
 
         try {
+            System.out.println("cliente.getIdCliente() = " + cliente.getIdCliente());
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
             stmt.setInt(1, cliente.getIdCliente());
             rs = stmt.executeQuery();
 
-            rs.absolute(1);//Nos posicionamos en el primer registro
-            String nombre = rs.getString("nombre");
-            String apellido = rs.getString("apellido");
-            String email = rs.getString("email");
-            String telefono = rs.getString("telefono");
-            Double saldo = rs.getDouble("saldo");
+            String nombre = "";
+            String apellido = "";
+            String email = "";
+            String telefono = "";
+            Double saldo = 0.0;
+
+            if (rs.next()) {
+                nombre = rs.getString("nombre");
+                apellido = rs.getString("apellido");
+                email = rs.getString("email");
+                telefono = rs.getString("telefono");
+                saldo = rs.getDouble("saldo");
+            }
 
             cliente.setNombre(nombre);
             cliente.setApellido(apellido);
@@ -82,6 +90,7 @@ public class ClienteDaoJDBC {
             cliente.setSaldo(saldo);
 
         } catch (SQLException ex) {
+            System.out.println("Error en al query get data by id");
             ex.printStackTrace(System.out);
         } finally {
             Conexion.close(rs);
@@ -145,8 +154,8 @@ public class ClienteDaoJDBC {
 
         return rows;
     }
-    
-    public int eliminar(Cliente cliente){
+
+    public int eliminar(Cliente cliente) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -167,5 +176,5 @@ public class ClienteDaoJDBC {
 
         return rows;
     }
-    
+
 }
