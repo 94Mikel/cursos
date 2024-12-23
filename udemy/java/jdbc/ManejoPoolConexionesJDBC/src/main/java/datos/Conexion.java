@@ -11,7 +11,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
  */
 public class Conexion {
 
-    private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/udemy_java_s45";
+    private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/udemydb";
     private static final String JDBC_USER = "udemy";
     private static final String JDBC_PASSWORD = "chanchito";
     private static BasicDataSource dataSource;
