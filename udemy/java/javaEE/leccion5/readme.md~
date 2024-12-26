@@ -1,0 +1,27 @@
+# Java EE: Asociaciones en JPA
+- sga-jee-web:
+	- Asociaciones tipo Lazy y Eager Loading en JPA en JakartaEE
+
+# Teoria Fetch lazy e Eager
+- Lazy
+	- Las entidades relacionadas no se cargan de inmediato junco con la entidad principal. 
+	En lugar de eso, se cargan solo cuando se acceden explícitamente.
+	- Ventajas
+		- Mejor rendimiento si no necesitas acceder siempre a las entidades relacionadas.
+		- Reduce el uso de memoria y carga inicial de datos innecesarios.
+	- Ejemplo
+		- @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
+
+- Eager
+	- Las entidades relacionadas se cargan automáticamente junto con la entidad principal en la misma consulta.
+	- Ventajas
+		- Conveniente si necesitas las entidades relacionadas inmediatamente.
+		- Evita problemas de inicialización perezosa fuera del contexto de persistencia.
+	- Ejemplo
+		- @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+	- Desventajas
+		- Puede cargar datos innecesarios, lo que aumenta el tiempo de respuesta y el uso de
+		memoria.
+		- Si las relaciones tienen muchas entidades (como listas largas), puede resultar en
+		consultas costosas o problemas de rendimiento.
+
