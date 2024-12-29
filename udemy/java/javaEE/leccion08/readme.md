@@ -1,5 +1,7 @@
 # Transacciones con JakartaEE
 
+- El proyecto hay que ejecutar con JDK 11. Properties => compile => jdk 11
+
 ## ¿Que es una transacción?
 Una transacción es un conjunto de operaciones que se ejecutan como una unidad atómica, es decir, 
 todas deben completarse correctamente o ninguna se aplicará. Las transacciones aseguran las propiedades ACID:
