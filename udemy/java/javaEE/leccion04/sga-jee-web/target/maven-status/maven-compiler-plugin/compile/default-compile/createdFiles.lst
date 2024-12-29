@@ -1,0 +1,7 @@
+mx/com/gm/sga/cliente/ciclovidajpa/PersistirObjetoJPA.class
+mx/com/gm/sga/cliente/ciclovidajpa/EncontrarObjetoJPA.class
+mx/com/gm/sga/domain/Usuario.class
+mx/com/gm/sga/cliente/ciclovidajpa/EliminarObjetoJPA.class
+mx/com/gm/sga/cliente/ciclovidajpa/ActualizarObjetoJPA.class
+mx/com/gm/sga/cliente/ciclovidajpa/ActualizarObjetoSesionLarga.class
+mx/com/gm/sga/domain/Persona.class

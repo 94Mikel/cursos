@@ -1,0 +1,14 @@
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/servicio/UsuarioServiceImpl.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/servicio/PersonaService.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/domain/Usuario.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/datos/UsuarioDao.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/web/UsuarioServlet.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/servicio/PersonaServiceImpl.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/datos/PersonaDaoImpl.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/servicio/PersonaServiceRemote.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/datos/PersonaDao.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/servicio/UsuarioService.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/domain/Persona.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/datos/UsuarioDaoImpl.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/web/PersonaServlet.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion3/sga-jee-web/src/main/java/mx/com/gm/sga/servicio/UsuarioServiceRemote.java

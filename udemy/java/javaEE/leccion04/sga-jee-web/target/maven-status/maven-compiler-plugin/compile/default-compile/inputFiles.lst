@@ -1,0 +1,7 @@
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion4/sga-jee-web/src/main/java/mx/com/gm/sga/domain/Persona.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion4/sga-jee-web/src/main/java/mx/com/gm/sga/cliente/ciclovidajpa/PersistirObjetoJPA.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion4/sga-jee-web/src/main/java/mx/com/gm/sga/domain/Usuario.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion4/sga-jee-web/src/main/java/mx/com/gm/sga/cliente/ciclovidajpa/ActualizarObjetoJPA.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion4/sga-jee-web/src/main/java/mx/com/gm/sga/cliente/ciclovidajpa/ActualizarObjetoSesionLarga.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion4/sga-jee-web/src/main/java/mx/com/gm/sga/cliente/ciclovidajpa/EliminarObjetoJPA.java
+/home/mikel/codigo/cursos/udemy/java/javaEE/leccion4/sga-jee-web/src/main/java/mx/com/gm/sga/cliente/ciclovidajpa/EncontrarObjetoJPA.java
