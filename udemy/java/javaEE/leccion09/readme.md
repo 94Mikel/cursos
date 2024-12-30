@@ -1,0 +1,171 @@
+# Integración de JavaServerFaces JSF y PrimeJaces en java
+
+## Ejercicio con JSF + PrimeFaces + EJB + JPA + jdk17
+
+**Para la capa de presentación**
+
+JavaServer Faces (JSF) es una tecnología de Java estándar para construir interfaces de usuario (UI) basadas en la web. 
+Es parte de la plataforma Java EE (ahora conocida como Jakarta EE) y 
+proporciona un framework para el desarrollo de aplicaciones web basadas en componentes. A continuación, se explica en detalle:
+
+## Que es JSF
+JSF es un marco de trabajo para desarrollar aplicaciones web que sigue el patrón Model-View-Controller (MVC). 
+Permite separar la lógica de negocio, la representación de la interfaz de usuario y la navegación, 
+lo que facilita la creación y el mantenimiento de aplicaciones web robustas y
+escalables.
+
+## Caracteristicas principales de JSF
+- Basado en Componentes:
+	- JSF utiliza una arquitectura basada en componentes. 
+	Los desarrolladores pueden utilizar componentes UI predefinidos (como botones, tablas, formularios) o crear componentes personalizados.
+	- Cada componente tiene un modelo de estado que persiste entre solicitudes HTTP.
+- Rendimiento Dinámico:
+	- Genera dinámicamente contenido HTML/CSS/JavaScript según las acciones del usuario.
+- Soporte para Navegación:
+	- JSF tiene una funcionalidad integrada para manejar la navegación entre páginas.
+- Integración con Backing Beans:
+	- Los backing beans son objetos de Java que contienen la lógica de negocio y el estado de los componentes. 
+	Usan anotaciones como **@ManagedBean** o **@Named**.
+- Gestión de Estado:
+	- Mantiene el estado de los componentes de la interfaz entre las solicitudes del cliente 
+	y el servidor (a menudo usando sesiones HTTP).
+- Validación y Conversión:
+	- Incluye un marco para validar entradas del usuario y convertir datos entre tipos (por ejemplo, de String a Integer).
+- Soporte para Plantillas:
+	- Permite usar plantillas para definir el diseño común de las páginas.
+3. Arquitectura de JSF
+JSF sigue una arquitectura basada en ciclos de vida que consta de varias fases:
+- Restore View:
+	- Reconstruye la vista de la interfaz de usuario desde una solicitud previa o crea una nueva vista si es la primera solicitud.
+- Apply Request Values:
+	- Recoge los valores enviados desde el cliente (por ejemplo, entradas de formularios) y los aplica a los componentes correspondientes.
+- Process Validations:
+ 	- Realiza validaciones de los datos ingresados.
+- Update Model Values:
+	- Actualiza los valores en los beans de respaldo con los datos ingresados y validados.
+- Invoke Application:
+	- Ejecuta la lógica de negocio (por ejemplo, invoca métodos en los backing beans).
+- Render Response:
+	- Genera la respuesta (por ejemplo, HTML) que se enviará al cliente.
+## Componentes Clave de JSF
+- Facelets:
+	- Una tecnología de vista para JSF que utiliza plantillas basadas en XML/HTML para diseñar la interfaz. 
+	Se usa comúnmente en lugar de JSP.
+	- Las extensiones de archivo típicas son **.xhtml** o **.jsf**.
+- Backing Beans:
+	- Los objetos Java que respaldan la lógica de la interfaz de usuario y manejan el estado de los componentes.
+	- Se anotan con **@ManagedBean** (o alternativas como CDI con **@Named**).
+- Bibliotecas de Componentes:
+	- Ofrece componentes básicos como <h:inputText>, <h:commandButton>, <h:form>, etc.
+	- Puede extenderse con bibliotecas adicionales como **PrimeFaces**, **RichFaces**, o **IceFaces**.
+## Caracteristicas de PrimeFaces
+- OpenSource y con una comunidad en constante crecimiento.
+- Manejo de mas de 100 componentes(Editor HTML, Gráficas...).
+- Soporte para Ajax basado en el API de AJAX de JSF.
+- Soporte de HTML5, CSS3 y JQuery.
+- Soporte con angualar.
+- Ligero, solo un jar, sin configuraciones extras y sin dependencias.
+- Soporte de Ajax Push via WebSockets.
+- RenderKit de Interfaces para dispositivos móviles basados en web.
+- Manejo de plantillas libres o de pago.
+- Basta documentación
+- ...
+## Ventajas de JSF
+- Separación de Preocupaciones:
+	- Facilita la separación entre la lógica de negocio y la presentación.
+- Componentes Reutilizables:
+	- Los componentes pueden ser reutilizados en múltiples páginas.
+- Ecosistema Rico:
+	- Soporte de bibliotecas como PrimeFaces para crear interfaces avanzadas con facilidad.
+- Integración con Java EE:
+	- JSF trabaja bien con otras tecnologías como EJB, JPA y CDI.
+## Desventajas de JSF
+- Curva de Aprendizaje:
+	- La arquitectura basada en ciclos de vida y los conceptos pueden ser complejos para principiantes.
+- Rendimiento:
+	- Comparado con frameworks modernos como Angular o React, JSF puede ser más lento para aplicaciones muy dinámicas.
+- Requiere Configuración:
+	- Aunque se ha simplificado con versiones recientes, aún puede requerir configuraciones manuales.
+
+JSF es ideal para aplicaciones empresariales donde la estabilidad, el soporte a largo plazo y 
+la integración con el ecosistema Java son esenciales. Sin embargo, 
+su adopción ha disminuido en comparación con frameworks más modernos.
+
+# AJAX
+
+AJAX (Asynchronous JavaScript and XML) es una tecnología utilizada en el desarrollo web para crear aplicaciones más rápidas, 
+interactivas y dinámicas al permitir que las páginas web se comuniquen con el servidor en segundo plano sin necesidad de 
+recargar la página completa. Aquí tienes una explicación detallada:
+
+## ¿Qué es AJAX?
+AJAX no es un lenguaje ni una tecnología específica, sino una combinación de tecnologías existentes que trabajan juntas 
+para proporcionar un comportamiento asíncrono en aplicaciones web. Su objetivo es mejorar la experiencia del usuario 
+al reducir el tiempo de carga y permitir una interacción más fluida.
+
+## Componentes de AJAX
+AJAX combina varias tecnologías que trabajan juntas:
+- HTML y CSS:
+	- Usados para estructurar y dar estilo a la página web.
+- JavaScript:
+	- Proporciona la lógica que permite interactuar con el servidor y actualizar dinámicamente la página.
+- XMLHttpRequest (XHR):
+	- El objeto principal de AJAX que permite la comunicación asíncrona entre el cliente y el servidor.
+- Formato de datos:
+	- Los datos enviados o recibidos del servidor pueden estar en varios formatos:
+		- **XML**: Originalmente el formato estándar.
+		- **JSON**: Actualmente, el más popular por su simplicidad y compatibilidad.
+		- **Texto plano** (TXT) o HTML.
+- Servidor web:
+	- Procesa las solicitudes AJAX y devuelve la respuesta adecuada.
+
+## ¿Cómo funciona AJAX?
+El flujo de trabajo típico de AJAX incluye los siguientes pasos:
+- Evento de Usuario:
+	- El usuario realiza una acción (como hacer clic en un botón o llenar un formulario).
+- Solicitud Asíncrona:
+	- JavaScript usa el objeto **XMLHttpRequest** o el API Fetch para enviar una solicitud al servidor en segundo plano.
+- Procesamiento en el Servidor:
+	- El servidor procesa la solicitud (por ejemplo, accediendo a una base de datos) y envía una respuesta.
+- Respuesta del Servidor:
+	- El servidor devuelve datos al cliente (en formato JSON, XML, etc.).
+- Actualización Dinámica:
+	- JavaScript recibe los datos y actualiza dinámicamente el contenido de la página sin recargarla.
+
+## Ventajas de AJAX
+- Mejor experiencia del usuario:
+	- Actualiza solo partes específicas de la página, proporcionando una experiencia más fluida.
+- Reducción del tráfico:
+	- Solo se transmiten datos necesarios, no la página completa.
+- Interactividad:
+	- Permite aplicaciones más dinámicas y funcionales (como autocompletado en formularios).
+- Compatibilidad:
+	- Funciona con la mayoría de los lenguajes de servidor y bases de datos.
+
+## Desventajas de AJAX
+- Dependencia de JavaScript:
+	- Si el usuario desactiva JavaScript en su navegador, AJAX no funcionará.
+- Dificultad para depurar:
+	- Las solicitudes asíncronas pueden ser más complicadas de depurar.
+- Problemas de accesibilidad:
+    - Los motores de búsqueda y las herramientas de accesibilidad podrían no interpretar adecuadamente los contenidos dinámicos.
+- Problemas con historial del navegador:
+    - Las actualizaciones dinámicas no siempre se registran en el historial, dificultando la navegación hacia atrás.
+
+## Uso Moderno: Fetch API
+El API Fetch es una alternativa moderna y más sencilla al objeto XMLHttpRequest.
+
+## Aplicaciones Comunes de AJAX
+- Autocompletado:
+    - Por ejemplo, sugerencias de búsqueda en Google.
+- Validación de formularios en tiempo real:
+    - Verificar si un nombre de usuario está disponible sin enviar el formulario.
+- Cargas dinámicas de contenido:
+    - Como en redes sociales donde las publicaciones se cargan al desplazarse.
+- Actualización en tiempo real:
+    - Aplicaciones como chats o actualizaciones de bolsa de valores.
+- SPA (Single Page Applications):
+    - Frameworks modernos como React, Angular o Vue usan AJAX extensivamente para crear SPAs.
+
+AJAX revolucionó el desarrollo web y sigue siendo una herramienta fundamental para crear aplicaciones interactivas y eficientes. 
+Aunque tecnologías modernas como WebSockets y APIs RESTful lo complementan o incluso lo reemplazan en algunos casos, 
+AJAX sigue siendo relevante.
