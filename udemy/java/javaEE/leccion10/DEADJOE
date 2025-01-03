@@ -1,0 +1,74 @@
+
+*** These modified files were found in JOE when it aborted on Tue Dec 31 13:09:29 2024
+*** JOE was aborted because the terminal closed
+
+*** File 'readme.md'
+# Java EE: Web Services con JAX-WS en Jakarta EE
+
+Un servicio web (web service) permite a las aplicaciones comunicarse entre sí a través de la red utilizando estándares como SOAP y WSDL. 
+JAX-WS es una API en Jakarta EE (antes Java EE) que facilita la creación y consumo de servicios web basados en SOAP. 
+A continuación, se detalla cómo crear y consumir servicios web utilizando JAX-WS en Jakarta.
+
+## ¿Qué es JAX-WS?
+JAX-WS (Java API for XML Web Services) es una especificación que permite:
+- Crear servicios web que exponen métodos de Java como operaciones accesibles por clientes remotos.
+- Consumir servicios web desde aplicaciones cliente.
+- Generar automáticamente el contrato (WSDL) para definir cómo interactuar con el servicio.
+
+## Características de JAX-WS
+- **Basado en SOAP**: JAX-WS usa SOAP (Simple Object Access Protocol), que define un formato XML estandarizado para intercambiar datos.
+- **WSDL**: Los servicios web JAX-WS generan automáticamente un contrato WSDL (Web Services Description Language).
+- **Interoperabilidad:** Permite que clientes y servicios desarrollados en diferentes plataformas puedan comunicarse.
+
+## Pasos para crear y consumir un servicio web con JAX-WS
+1. Configuración del entorno
+	- Asegúrate de tener un servidor de aplicaciones Jakarta EE compatible (como Payara, WildFly o GlassFish).
+	- Configura un proyecto Maven o Gradle. Ejemplo de pom.xml para Maven
+2. Crear la interfaz del servicio (Service Endpoint Interface - SEI)
+    
+    Define una interfaz con los métodos que estarán disponibles para los clientes. Usa la anotación @WebService para indicarle a JAX-WS que esta interfaz será expuesta como un servicio web.
+
+3. Implementar el servicio
+
+    Implementa la interfaz en una clase concreta y utiliza @WebService para marcar la clase como un servicio web.
+
+4. Publicar el servicio
+
+    Para desplegar el servicio en un servidor Jakarta EE, crea un archivo web.xml (opcional si usas anotaciones) o publícalo programáticamente.
+
+5. Consumir el servicio web
+
+    - Usa herramientas como wsimport (incluido en el JDK) para generar clases Java a partir del WSDL.
+    - wsimport -keep -p com.example.client http: localhost:8080/HelloService?wsdl
+
+6. Despliegue en un servidor de aplicaciones
+    - Empaqueta tu proyecto como un archivo **.war** o **.ear**.
+    - Despliega el archivo en un servidor Jakarta EE como WildFly, GlassFish o Payara.
+
+7. Probar el servicio
+
+    Accede a la URL del servicio desde el navegador para ver el WSDL:
+
+    http://localhost:8080/HelloService?wsdl
+
+    Utiliza herramientas como Postman o clientes SOAP para realizar pruebas adicionales.
+
+
+*** File '(Unnamed)'
+/home/mikel/.bashrc
+/home/mikel/.bashrc
+/home/mikel/codigo/cursos/.git/COMMIT_EDITMSG
+readme.md
+/home/mikel/codigo/cursos/.git/COMMIT_EDITMSG
+readme.md
+/home/mikel/codigo/cursos/.git/COMMIT_EDITMSG
+readme.md
+/home/mikel/codigo/cursos/.git/COMMIT_EDITMSG
+readme.md
+readme.md
+
+*** File '* Startup Log *'
+Processing '/etc/joe/joerc'...
+Processing '/etc/joe/ftyperc'...
+Finished processing /etc/joe/ftyperc
+Finished processing /etc/joe/joerc
