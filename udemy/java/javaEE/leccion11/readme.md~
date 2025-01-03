@@ -1,0 +1,34 @@
+# REST Web Service
+
+Un REST Web Service (Servicio Web RESTful) es una implementación de servicios web que utiliza el estilo 
+arquitectónico REST (Representational State Transfer). 
+En Java, esto implica crear una aplicación que pueda interactuar con clientes a través de protocolos HTTP y 
+manejar datos en formatos como JSON o XML. 
+A continuación, te explico en detalle cómo funcionan los servicios web REST en Java:
+
+## Conceptos Clave de REST
+REST se basa en:
+- **Recursos**: Representan entidades o datos, como usuarios, productos o pedidos. Cada recurso tiene una URI única.
+	- Ejemplo: **https://api.ejemplo.com/usuarios/123** representa el usuario con ID 123.
+- **Métodos HTTP**: Utilizan verbos HTTP para realizar acciones específicas sobre los recursos:
+	- GET: Recuperar datos.
+	- POST: Crear un nuevo recurso.
+	- PUT: Actualizar un recurso existente.
+	- DELETE: Eliminar un recurso.
+	- PATCH: Actualizar parcialmente un recurso.
+- **Representaciones**: Los datos de los recursos se transfieren en formatos como JSON, XML, o texto plano.
+
+## Frameworks Populares en Java
+En Java, varios frameworks facilitan la creación de servicios RESTful:
+- **JAX-RS (Java API for RESTful Web Services):**
+	- Es una especificación estándar de Java EE/Jakarta EE para construir servicios REST.
+	- Implementaciones populares: Jersey, RESTEasy, Apache CXF.
+- **Spring Boot y Spring Web:**
+	- Facilita la creación de servicios REST con anotaciones y configuración mínima.
+
+## Buenas Prácticas
+- **Validación de Datos**: Usa anotaciones como @Valid y @NotNull para validar las entradas.
+- **Excepciones Personalizadas**: Crea controladores de excepciones para manejar errores globalmente.
+- **Seguridad**: Implementa autenticación y autorización, por ejemplo, con Spring Security o JWT.
+- **Documentación**: Usa herramientas como Swagger/OpenAPI para documentar automáticamente tus servicios.
+
