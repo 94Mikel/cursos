@@ -53,8 +53,38 @@ public class PersonaDAO {
         } catch (Exception ex) {
             ex.printStackTrace(System.out);
             em.getTransaction().rollback();//en caso de error para que quede todo como estaba
+        } finally {
+            //Comprobamos si el entity manager es diferente de null.
+            if(em != null){
+                //Si no es null mandamos a llamar al metodo close para cerrar la transacción.
+                em.close();
+            }
         }
-
+    }
+    
+    //Para modificar una persona en la base de datos
+    public void modificar(Persona persona) {
+        try {
+            //Prueba local. Tenemos que abrir y cerrar la transaccion nosotros mismos.
+            em.getTransaction().begin();//abrimos la transacción
+            em.merge(persona);//primero sincronicamos el estado del objeto persona con la base de datos.(actualizamos el objeto persona en la bd)
+            em.getTransaction().commit();//realizamos el commit
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+            em.getTransaction().rollback();//en caso de error para que quede todo como estaba
+        }/* finally {
+            //Comprobamos si el entity manager es diferente de null.
+            if(em != null){
+                //Si no es null mandamos a llamar al metodo close para cerrar la transacción.
+                em.close();
+            }
+        }*/
+    }
+    
+    public Persona buscarPersonaPorId(Persona p) {
+        //select en la base de datos. obtenmos el objeto persona pasando el idPersona
+        //No es necesario iniciar una trasacción ya que estamos recuperando una persona
+        return em.find(Persona.class, p.getIdPersona());
     }
 
 }

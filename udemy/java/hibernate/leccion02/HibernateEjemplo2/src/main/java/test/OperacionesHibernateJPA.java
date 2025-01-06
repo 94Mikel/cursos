@@ -9,14 +9,30 @@ public class OperacionesHibernateJPA {
         personaDao.listar();
         
         //Creamos e inicialiamos una persona
+        /*
         Persona persona = new Persona();
         persona.setNombre("Fatima");
         persona.setApellido("Perez");
         persona.setEmail("fperez@mail.com");
         persona.setTelefono("652542148");
+        */
         
         //Mandamos a llamar al metodo insertar para añadir la persona que hemos creado en la bd
         //personaDao.insertar(persona);
+        
+        //Modificamos la persona
+        //primero recuperamos el objeto persona pasando el id
+        Persona persona = new Persona();
+        persona.setIdPersona(0);
+        persona = personaDao.buscarPersonaPorId(persona);
+        System.out.println("persona encontrada = " + persona);
+        //realizamos los set de modificación
+        persona.setApellido("Esparza");
+        persona.setEmail("cesparza@mail.com");
+        //modificamos la persona en la base de datos mediante la instacia personaDao
+        personaDao.modificar(persona);
+        //listamos todas las personas
+        personaDao.listar();
         
     }
 }
