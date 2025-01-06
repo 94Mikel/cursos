@@ -12,6 +12,7 @@ public class Persona implements Serializable {
     //Column para mapear el idPersona con el id_persona de la base de datos
     @Column(name = "id_persona")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPersona;
 
     //Si el nombre de la columna es igual a la de bd no es necesario poner la anotación @Column
@@ -39,6 +40,14 @@ public class Persona implements Serializable {
         this.nombre = nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    
     public String getEmail() {
         return email;
     }

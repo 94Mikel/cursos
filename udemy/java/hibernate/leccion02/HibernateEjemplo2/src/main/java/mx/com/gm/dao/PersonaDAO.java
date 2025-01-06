@@ -5,29 +5,27 @@ import java.util.List;
 import mx.com.gm.domain.Persona;
 
 public class PersonaDAO {
-    
+
     private EntityManagerFactory emf;
     private EntityManager em;
-    
+
     /*
         Creamos el constructor de la clase.
         En esta clase es donde vamos a crear la instacia de nuestra fábrica para 
         podernos conectar con la unidad de persistencia de Hibernate.
-    */
-    
+     */
     public PersonaDAO() {
         //utilizamos la unidad de persistencia para asignarlo a nuestra variable entityManagerFactory
         emf = Persistence.createEntityManagerFactory("HibernatePU");
         //Instanciasmos nuestra fabrica
         em = emf.createEntityManager();
     }
-    
+
     /*
     Utilizamos tambien el API de JPA. Nos estamos apoyando de todos los objetos que utiliza el API DE JPA(java persistence API)
     Lo que estamos haciendo es conectarnos con la api de Hibernate.
     hql => hibernate query language
-    */
-    
+     */
     public void listar() {
         String hql = "SELECT p FROM Persona p";
         Query query = em.createQuery(hql);//recuperamos objetos completos de tipo persona
@@ -36,5 +34,27 @@ public class PersonaDAO {
             System.out.println("persona = " + persona);
         }
     }
-    
+
+    /*
+    Cuando vamos a insertar un objeto, necesitamos crear una nueva transacción
+    Cuando trabajamos en una aplicación empresarial y desplegamos esta aplicación en un servidor como glasfish,
+    entonces el servidor de glassfish se encarga de crear tanto esta transacción y también de cerrala.
+    Sin embargo si no desplegamos esta aplicación en un servidor empresarial, nosotros somos los responsables 
+    de abrir y cerrar esta transacción.
+    En este caso como no vamos a desplegar esta aplicación en un servidor como glassfish, entonces somos los responsables
+    de abrir y cerrar la transacción.
+     */
+    public void insertar(Persona persona) {
+        try {
+            //Prueba local. Tenemos que abrir y cerrar la transaccion nosotros mismos.
+            em.getTransaction().begin();//abrimos la transacción
+            em.persist(persona);//insertamos la persona
+            em.getTransaction().commit();//realizamos el commit
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+            em.getTransaction().rollback();//en caso de error para que quede todo como estaba
+        }
+
+    }
+
 }
