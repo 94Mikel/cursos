@@ -22,6 +22,7 @@ public class OperacionesHibernateJPA {
         
         //Modificamos la persona
         //primero recuperamos el objeto persona pasando el id
+        /*
         Persona persona = new Persona();
         persona.setIdPersona(0);
         persona = personaDao.buscarPersonaPorId(persona);
@@ -33,6 +34,19 @@ public class OperacionesHibernateJPA {
         personaDao.modificar(persona);
         //listamos todas las personas
         personaDao.listar();
+        */
+        
+        //Eliminasmo la persona
+        //Se podria eliminar el objeto sin tener que buscarlo. simplemente creando un objeto y añadiendo el id, ya que se hace un merge primero
+        Persona persona = new Persona();
+        //Buscamos la persona
+        persona.setIdPersona(0);
+        persona = personaDao.buscarPersonaPorId(persona);
+        System.out.println("persona encontrada = " + persona);
+        //eliminamos la persona en la bd
+        personaDao.eliminar(persona);
+        personaDao.listar();
+        
         
     }
 }
