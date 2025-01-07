@@ -2,6 +2,7 @@ package mx.com.gm.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -27,6 +28,11 @@ public class Alumno implements Serializable {
     @JoinColumn(name = "id_contacto", referencedColumnName = "id_contacto")
     @ManyToOne
     private Contacto contacto;
+    
+    //se mapera a traves el atributo alumno de la clase Alumno
+    //Mappeo bidireccional ya que en esta tabla tenemos la lista de asignaciones y en la clase asignacion tenemos el alumno
+    @OneToMany(mappedBy = "alumno")
+    private List<Asignacion> asignaciones;
     
     public Alumno() {
     }
@@ -75,6 +81,17 @@ public class Alumno implements Serializable {
         this.contacto = contacto;
     }
 
+    public List<Asignacion> getAsignaciones() {
+        return asignaciones;
+    }
+
+    public void setAsignaciones(List<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
+    }
+    
+    //En los metodos toString no se recomienda añadir las listas relacionadas a la clase de entidad
+    //Porque podria ser muy pesado imprimir toda la lista de asociada a cada alumno
+    //No añadimos asociaciones
     @Override
     public String toString() {
         return "Alumno{" + "idAlumno=" + idAlumno + ", nombre=" + nombre + ", apellido=" + apellido + ", domicilio=" + domicilio + ", contacto=" + contacto + '}';

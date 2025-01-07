@@ -2,6 +2,7 @@ package mx.com.gm.domain;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,9 @@ public class Curso implements Serializable {
     private String nombre;
 
     private Double precio;
+
+    @OneToMany(mappedBy = "curso")
+    private List<Asignacion> asignaciones;
 
     public Curso() {
     }
@@ -49,6 +53,14 @@ public class Curso implements Serializable {
         this.precio = precio;
     }
 
+    public List<Asignacion> getAsignaciones() {
+        return asignaciones;
+    }
+
+    public void setAsignaciones(List<Asignacion> asignaciones) {
+        this.asignaciones = asignaciones;
+    }
+    
     @Override
     public String toString() {
         return "Curso{" + "idCurso=" + idCurso + ", nombre=" + nombre + ", precio=" + precio + '}';
