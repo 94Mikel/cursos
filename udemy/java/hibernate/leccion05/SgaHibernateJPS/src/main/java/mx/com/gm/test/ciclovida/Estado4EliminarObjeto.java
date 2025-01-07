@@ -1,36 +1,31 @@
 package mx.com.gm.test.ciclovida;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
 import mx.com.gm.domain.Contacto;
 
-public class Estado3ModificarObjetoPersistente {
+public class Estado4EliminarObjeto {
+
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("HibernateJpaPU");
         EntityManager em = emf.createEntityManager();
-        
+
         //Para recuperar un objeto no es necesario abrir una transaccion
-        
         //definimos la variable
         Contacto contacto = null;
-        
+
         //Recuperar un objeto(contacto) de la base de datos con id 4
         //1. transitivo
         contacto = em.find(Contacto.class, 4);
-        
-        //modificamos el objeto
-        contacto.setEmail("clara@mail.com");
-        
+
         //Iniciamos transacción
         em.getTransaction().begin();
-        
-        //2.estado persistente
-        em.merge(contacto);
+
+        //2.remove
+        em.remove(em.merge(contacto));
         em.getTransaction().commit();//sincronciacón con la base de datos + cerrar transaccion
-        
-        //3. detached o separado de la base de datos
+
+        //3. transitivo. Este objeto ya no se puede sincronizar con la base de datos. No esta en la bd
         System.out.println("contacto = " + contacto);
-        
+
     }
 }
