@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Appenders>
+        <!--Hay distintos tipos de appenders en este caso vamos a utilizar el appender de console SYSTEM_OUT(consola de java)
+        ya que vamos a  utilizar la consola para enviar la información-->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--Agregamos el siguiente patron para especificar como se va a mostrar en consola-->
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!--Para mostrar el sql que se va a ejecutar en nuestra aplicación
+        A nivel debuj que es el mas basico
+        additivity="false" => para que no se duplique la información en nuestro archivo de log
+        -->
+        <logger name="org.hibernate.sql" level="info" additivity="false">
+            <!--Referencia al apender que hemos creado anteriormente-->
+            <AppenderRef ref="Console"/>
+        </logger>
+        <!--Para mostrar los parametros que vayamos adjuntando a nuestros sql-s-->
+        <Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="info" additivity="false" >
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <!--Para indicar el nivel que va ha tener el log4j-->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
