@@ -10,8 +10,8 @@ public class Asignacion implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//Para que la primaryKey la gestione la base de datos
-    @Column(name = "id_asociacion")
-    private Integer idAsociacion;
+    @Column(name = "id_asignacion")
+    private Integer idAsignacion;
     
     @JoinColumn(name="id_alumno",referencedColumnName = "id_alumno")
     @ManyToOne
@@ -26,16 +26,16 @@ public class Asignacion implements Serializable{
     public Asignacion() {
     }
 
-    public Asignacion(Integer idAsociacion) {
-        this.idAsociacion = idAsociacion;
+    public Asignacion(Integer idAsignacion) {
+        this.idAsignacion = idAsignacion;
     }
 
-    public Integer getIdAsociacion() {
-        return idAsociacion;
+    public Integer getIdAsignacion() {
+        return idAsignacion;
     }
 
-    public void setIdAsociacion(Integer idAsociacion) {
-        this.idAsociacion = idAsociacion;
+    public void setIdAsignacion(Integer idAsignacion) {
+        this.idAsignacion = idAsignacion;
     }
 
     public Alumno getAlumno() {
@@ -64,13 +64,13 @@ public class Asignacion implements Serializable{
 
     @Override
     public String toString() {
-        return "Asignacion{" + "idAsociacion=" + idAsociacion + ", alumno=" + alumno + ", curso=" + curso + ", turno=" + turno + '}';
+        return "Asignacion{" + "idAsignacion=" + idAsignacion + ", alumno=" + alumno + ", curso=" + curso + ", turno=" + turno + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.idAsociacion);
+        hash = 23 * hash + Objects.hashCode(this.idAsignacion);
         return hash;
     }
 
@@ -86,7 +86,7 @@ public class Asignacion implements Serializable{
             return false;
         }
         final Asignacion other = (Asignacion) obj;
-        return Objects.equals(this.idAsociacion, other.idAsociacion);
+        return Objects.equals(this.idAsignacion, other.idAsignacion);
     }
     
 }

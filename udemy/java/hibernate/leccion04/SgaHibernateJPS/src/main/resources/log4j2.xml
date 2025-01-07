@@ -13,12 +13,12 @@
         A nivel debuj que es el mas basico
         additivity="false" => para que no se duplique la información en nuestro archivo de log
         -->
-        <logger name="org.hibernate.sql" level="debug" additivity="false">
+        <logger name="org.hibernate.sql" level="info" additivity="false">
             <!--Referencia al apender que hemos creado anteriormente-->
             <AppenderRef ref="Console"/>
         </logger>
         <!--Para mostrar los parametros que vayamos adjuntando a nuestros sql-s-->
-        <Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false" >
+        <Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="info" additivity="false" >
             <AppenderRef ref="Console"/>
         </Logger>
         <!--Para indicar el nivel que va ha tener el log4j-->
