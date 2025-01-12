@@ -9,6 +9,8 @@ package mx.com.gm;
  *
  * @author mikel
  */
+import java.util.ArrayList;
+import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import mx.com.gm.domain.Persona;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,9 +44,23 @@ public class ControladorInicio {
         persona.setEmail("jperez@mail.com");
         persona.setTelefono("22554477");
         
+        var persona2 = new Persona();
+        persona2.setNombre("Karla");
+        persona2.setApellido("Garcia");
+        persona2.setEmail("kgarcia@mail.com");
+        persona2.setTelefono("22996677");
+        
+//        var personas = new ArrayList();
+//        personas.add(persona);
+//        personas.add(persona2);
+//          o
+        var personas = Arrays.asList(persona,persona2);
+        
         model.addAttribute("mensaje", mensaje);//Enviar con llave valor
         model.addAttribute("saludo", saludo);
-        model.addAttribute("persona", persona);
+//        model.addAttribute("persona", persona);
+        model.addAttribute("personas", personas);
+        
         
         return "index";
         //el nombre de la pagina que se va a desplegar en el navegador
