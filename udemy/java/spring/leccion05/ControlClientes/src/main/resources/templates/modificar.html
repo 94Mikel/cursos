@@ -14,6 +14,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <a th:href="@{/}">Regresar</a>
         <br/>
         <form th:action="@{/guardar}" method="post" th:object="${persona}">
+            <input type="hidden" name="idPersona" th:field="*{idPersona}"/><!<!-- El id se utiliza para saber si hay que modificar o guardar la persona -->
             <br/>
             <label for="nombre">Nombre:</label>
             <input type="text" name="nombre" th:field="*{nombre}"/>

@@ -49,5 +49,13 @@ public class ControladorInicio {
         personaService.guardar(persona);
         return "redirect:/";//para redireccionar a la pagina de inicio
     }
+    
+    @GetMapping("/editar/{idPersona}")
+    public String editar(Persona persona, Model model) {//Spring crea la instacia de persona con el idPersona que recibimos
+        persona = personaService.encontrarPersona(persona);
+        model.addAttribute("persona", persona);
+        return "modificar";
+    }
+    
 
 }
