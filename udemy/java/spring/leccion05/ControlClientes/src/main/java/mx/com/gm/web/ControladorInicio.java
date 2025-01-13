@@ -57,5 +57,11 @@ public class ControladorInicio {
         return "modificar";
     }
     
+    @GetMapping("/eliminar")//Spring crea la instacia de persona con el idPersona que recibimos desde query parameter
+    public String eliminar(Persona persona) {
+        persona = personaService.encontrarPersona(persona);
+        personaService.eliminar(persona);
+        return "redirect:/";//para redireccionar a la pagina de inicio
+    }
 
 }
