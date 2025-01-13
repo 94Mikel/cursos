@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Plantilla</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <!-- Vamos a indicar este es un fragmento que utilizaremos en otras paginas -->
+        <header th:fragment="header">
+            <h1>Control de Clientes</h1>
+        </header>
+        
+        <footer th:fragmento="footer">
+            <p>Derechos Reservados <a href="https://es.wikipedia.org/wiki/Todos_los_derechos_reservados" target="_blank">Derechos</a></p>
+        </footer>
+        
+    </body>
+</html>
