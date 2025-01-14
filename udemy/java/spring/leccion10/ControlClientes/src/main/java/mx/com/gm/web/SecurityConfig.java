@@ -16,19 +16,36 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
     
+    //Autorización
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests
-                            .anyRequest().authenticated()
+                .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        // Permitir acceso a login y recursos estáticos
+                        .requestMatchers("/login","/resources/**").permitAll()
+                        //Restricción de acceso por rol
+                        .requestMatchers("/editar/**","/agregar/**", "/eliminar/**").hasRole("ADMIN")
+                        //Acceso a usuarios autenticados
+                        .requestMatchers("/").hasAnyRole("USER","ADMIN")
+                        //Cualquier otra solicitud requiere autenticación
+                        .anyRequest().authenticated()
                 )
-                .formLogin(formLogin ->
-                        formLogin.permitAll()
+                .formLogin(formLogin -> formLogin
+                        .loginPage("/login")//Página de login personalizada
+                        .defaultSuccessUrl("/",true) //Redirigir después del login exitoso
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login?logout")
+                )
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .accessDeniedPage("/errores/403")
                 );
         return http.build();
     }
     
+    //Autenticación
     @Bean
     public UserDetailsService userDetailsService() {
         UserDetails user = User.builder()
@@ -40,7 +57,7 @@ public class SecurityConfig {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder().encode("123"))
-                .roles("ADMIN","USER")
+                .roles("ADMIN","USER")//ROLE_ADMIN no se debe especificar ya que lo hace spring
                 .build();
         
         return new InMemoryUserDetailsManager(user, admin);

@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import mx.com.gm.domain.Persona;
 import mx.com.gm.servicio.PersonaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;//Vamos a agregar la información que queremos compartir con nuestra vista
 import org.springframework.validation.Errors;
@@ -31,12 +33,12 @@ public class ControladorInicio {
     //Spring lo esta simplificando todos los procesos
     //Con injeccion de dependencias obtenemos las clases gracias a las annotaciones
     //La fabrica de spring se encarga de instanciar las clases y nosotro los utilizamos directamente. Ejemplo esta clase Model
+    //@AutenticationPrincipal => para saber que usuario a echo login
     @GetMapping("/")
-    public String inicio(Model model) {
-
+    public String inicio(Model model, @AuthenticationPrincipal User user) {
         var personas = personaService.listarPersonas();
-
         log.info("ejecutando el controlador Spring MVC");
+        log.info("usuario que hizo login: "+user);
         model.addAttribute("personas", personas);
         return "index";
     }
@@ -72,6 +74,16 @@ public class ControladorInicio {
         persona = personaService.encontrarPersona(persona);
         personaService.eliminar(persona);
         return "redirect:/";//para redireccionar a la pagina de inicio
+    }
+    
+    @GetMapping("/login")
+    public String login(){
+        return "login";//Nombre de la plantilla de Thymeleaf (login.html)
+    }
+    
+    @GetMapping("/errores/403")
+    public String accessDenied(){
+        return "errores/403";//Nombre de la plantilla de Thymeleaf (403.html)
     }
 
 }
