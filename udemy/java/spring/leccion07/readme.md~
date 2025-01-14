@@ -1,5 +1,3 @@
-**Ejercicio:** Manejo de Plantillas con Thymeleaf
-
 # Plantillas con thymeleaf
 Thymeleaf es un motor de plantillas para aplicaciones Java que permite construir vistas dinámicas en aplicaciones web. 
 Está diseñado para trabajar con HTML, XML y otros lenguajes de marcado, 

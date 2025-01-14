@@ -1,5 +1,3 @@
-**Ejercicio:** Spring - Spring Data
-
 # Spring data JPA
 Spring Data JPA es un módulo del proyecto Spring Data que simplifica 
 y automatiza el acceso a datos en aplicaciones Java mediante el uso de Java Persistence API (JPA). 

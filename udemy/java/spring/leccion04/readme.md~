@@ -1,6 +1,3 @@
-**Ejercicio:** Manejo trasaccional => Creación de la capa de Servicio con
-Spring
-
 # Manejo de transacciones con Spring
 
 El manejo de transacciones en Spring es un aspecto clave para garantizar la integridad 

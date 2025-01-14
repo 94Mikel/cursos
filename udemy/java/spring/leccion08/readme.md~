@@ -1,5 +1,3 @@
-**Ejercicio:** Manejo de mensajes con Spring y Thymeleaf
-
 # Manejo de mensajes e internacionalización con spring
 
 El manejo de mensajes e internacionalización (i18n) en Spring Framework permite construir aplicaciones que admiten 

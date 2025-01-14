@@ -1,3 +1,9 @@
+**Ejercicio:** Spring - Introducción a Spring MVC Y Thymeleaf
+- HolaMundo con Thymeleaf y Spring MVC
+- Compartir información con Spring MVC y Thymeleaf
+- Creación clase de Dominio Persona
+- Creación de una lista de Personas
+
 # Introducción a Spring MVC y thymeleaf
 
 - Hola mundo con Thymeleaf y Spring MVC
