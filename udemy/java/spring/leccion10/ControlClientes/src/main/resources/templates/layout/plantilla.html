@@ -17,6 +17,9 @@
                 <a th:href="@{/(lang=es)}">ES</a> |
                 <a th:href="@{/(lang=en)}">EN</a> |
                 <span> [[#{plantilla.pie-pagina}]] <a href="https://es.wikipedia.org/wiki/Todos_los_derechos_reservados" target="_blank">Derechos</a></span>
+                <form method="POST" th:action="@{/logout}">
+                    <a href="#" onclick="this.parentNode.submit();">Logout</a>
+                </form>
             </div>
         </footer>
 
