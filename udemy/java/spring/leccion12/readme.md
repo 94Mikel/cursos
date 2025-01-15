@@ -1,5 +1,10 @@
 # Ejercicio:  Seguridad con spring framework y hibernate
 
+
+Configuramos nuestra aplicacion para utilizar la seguridad con tablas de la
+base de datos utilizando JPA
+
+
 Spring Framework y Hibernate JPA son herramientas ampliamente utilizadas en el desarrollo de aplicaciones empresariales en Java. 
 Ambos tienen capacidades que contribuyen a la seguridad de las aplicaciones, 
 y cuando se combinan, ofrecen una sólida base para proteger los datos y las operaciones de la aplicación. 

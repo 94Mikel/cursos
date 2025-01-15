@@ -25,7 +25,7 @@ INSERT INTO persona(nombre, apellido, email, telefono) VALUES('Iker','Bilbao','i
 INSERT INTO persona(nombre, apellido, email, telefono) VALUES('Ane','Garcia','ggarcia@mail.com','11223344');
 
 INSERT INTO usuario(username, password) VALUES('admin','123');
-INSERT INTO usuario(username, password) VALUES('usuario','123');
+INSERT INTO usuario(username, password) VALUES('user','123');
 
 INSERT INTO rol(nombre, id_usuario) VALUES('ROLE_ADMIN',1);
 INSERT INTO rol(nombre, id_usuario) VALUES('ROLE_USER',2);
