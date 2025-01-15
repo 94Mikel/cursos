@@ -15,16 +15,16 @@ Estas son las más importantes:
 	- Configurar un UserDetailsService para cargar los usuarios desde la base de datos.
 	- Usar BCryptPasswordEncoder para almacenar contraseñas de manera segura.
 >
-> @Bean
-> public PasswordEncoder passwordEncoder() {
-> 	return new BCryptPasswordEncoder();
-> }
+> @Bean  
+> public PasswordEncoder passwordEncoder() {  
+> 	return new BCryptPasswordEncoder();  
+> }  
 > 
-> @Bean 
-> public UserDetailsService userDetailsService(UserRepository userRepository) {
-> 	return username -> userRepository.findByUsername(username)
-> 		.orElseThrow(() -> new UsernameNotFoundException("User not found"));
-> }
+> @Bean  
+> public UserDetailsService userDetailsService(UserRepository userRepository) {  
+> 	return username -> userRepository.findByUsername(username)  
+> 		.orElseThrow(() -> new UsernameNotFoundException("User not found"));  
+> }  
 >
 
 ### Autorización
@@ -36,14 +36,14 @@ Estas son las más importantes:
 > @EnableGlobalMethodSecurity(prePostEnabled = true)
 > public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {}
 > 
-> @RestController
-> public class AdminController {
-> 	@PreAuthorize("hasRole('ADMIN')")
-> 	@GetMapping("/admin")
-> 	public String adminPage() {
-> 		return "Welcome, Admin!";
-> 	}
-> }
+> @RestController  
+> public class AdminController {  
+> 	@PreAuthorize("hasRole('ADMIN')")  
+> 	@GetMapping("/admin")  
+> 	public String adminPage() {  
+> 		return "Welcome, Admin!";  
+> 	}  
+> }  
 >
 
 ### Protección contra amenazas comunes
@@ -52,15 +52,15 @@ Estas son las más importantes:
 - **Headers de seguridad:** Protección contra ataques de tipo XSS y otras amenazas mediante políticas de encabezados HTTP.
 
 >
-> @Override
-> protected void configure(HttpSecurity http) throws Exception {
-> 	http.csrf().disable()
-> 		.authorizeRequests()
-> 		.antMatchers("/public/**").permitAll()
-> 		.antMatchers("/admin/**").hasRole("ADMIN")
-> 		.and()
-> 		.headers().xssProtection().and().contentSecurityPolicy("script-src 'self'");
-> }
+> @Override  
+> protected void configure(HttpSecurity http) throws Exception {  
+> 	http.csrf().disable()  
+> 		.authorizeRequests()  
+> 		.antMatchers("/public/**").permitAll()  
+> 		.antMatchers("/admin/**").hasRole("ADMIN")  
+> 		.and()  
+> 		.headers().xssProtection().and().contentSecurityPolicy("script-src 'self'");  
+> }  
 >
 
 ### OAuth2 y JWT
@@ -76,23 +76,23 @@ Aquí se explican algunos aspectos clave:
 - Spring Boot se integra con Bean Validation (Hibernate Validator).
 
 > 
-> @Entity
-> public class User {
-> 	@Id
-> 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-> 	private Long id;
+> @Entity  
+> public class User {  
+> 	@Id  
+> 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
+> 	private Long id;  
 > 
-> 	@NotNull
-> 	@Size(min = 3, max = 50)
-> 	private String username;
+> 	@NotNull  
+> 	@Size(min = 3, max = 50)  
+> 	private String username;  
 > 	
-> 	@NotNull
-> 	@Email
-> 	private String email;
+> 	@NotNull  
+> 	@Email  
+> 	private String email;  
 > 
-> 	@NotNull
-> 	@Size(min = 8)
-> 	private String password;
+> 	@NotNull  
+> 	@Size(min = 8)  
+> 	private String password;  
 > }
 >
 
