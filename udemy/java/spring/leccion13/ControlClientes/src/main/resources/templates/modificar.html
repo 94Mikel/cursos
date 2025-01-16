@@ -1,40 +1,14 @@
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
--->
-<html xmlns:th="http://www.thymeleaf.org" 
-      xmlns="http://www.w3.org/1999/xhtml">
-    <head>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="~{layout/plantilla :: head}">
         <title>Datos de la Persona</title>
         <meta charset="UTF-8"/>
     </head>
     <body>
-        <header th:replace="~{layout/plantilla :: header}"/>
-        <h2>[[#{persona.formulario}]]</h2>
-        <a th:href="@{/}">[[#{accion.regresar}]]</a>
-        <br/>
-        <form th:action="@{/guardar}" method="post" th:object="${persona}">
-            <input type="hidden" name="idPersona" th:field="*{idPersona}"/><!-- El id se utiliza para saber si hay que modificar o guardar la persona -->
-            <br/>
-            <label for="nombre">[[#{persona.nombre}]]:</label>
-            <input type="text" name="nombre" th:field="*{nombre}"/>
-            <!-- Fields => Para preguntar si  algunos de los campos del formulario contiene errores-->
-            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
-            <br/>
-            <label for="apellido">[[#{persona.apellido}]]:</label>
-            <input type="text" name="apelldio" th:field="*{apellido}"/>
-            <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error Apellido</span>
-            <br/>
-            <label for="email">[[#{persona.email}]]:</label>
-            <input type="text" name="email" th:field="*{email}"/>
-            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error Email</span>
-            <br/>
-            <label for="telefono">[[#{persona.telefono}]]:</label>
-            <input type="text" name="telefono" th:field="*{telefono}"/>
-            <br/>
-            <input type="submit" name="guardar" th:value="#{accion.guardar}"/>
-        </form>
-        <footer th:replace="~{layout/plantilla :: footer}"/>
+        <header th:replace="~{layout/plantilla :: header}"></header>
+        <section th:replace="~{layout/editarCliente :: editarCliente}"></section>
+        <footer th:replace="~{layout/plantilla :: footer}"></footer>        
     </body>
 </html>

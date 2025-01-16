@@ -9,28 +9,27 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-@Configuration//Agregamos que es un bean
-public class WebConfig implements WebMvcConfigurer {
-
-    //MANEJO DE MULTIPLES IDIOMAS
+@Configuration
+public class WebConfig implements WebMvcConfigurer{
+    
     @Bean
-    public LocaleResolver localeResolver() {
+    public LocaleResolver localeResolver(){
         var slr = new SessionLocaleResolver();
         //slr.setDefaultLocale(new Locale("es"));
         slr.setDefaultLocale(Locale.forLanguageTag("es"));
         return slr;
     }
-
+    
     @Bean
-    public LocaleChangeInterceptor localeChangeInterceptor() {
+    public LocaleChangeInterceptor localeChangeInterceptor(){
         var lci = new LocaleChangeInterceptor();
         lci.setParamName("lang");
         return lci;
     }
-
+    
     @Override
-    public void addInterceptors(InterceptorRegistry registro) {
+    public void addInterceptors(InterceptorRegistry registro){
         registro.addInterceptor(localeChangeInterceptor());
     }
-
+    
 }

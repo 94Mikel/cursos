@@ -15,19 +15,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-//Hay que utilizar el nombre talcual "userDetailsService" por que en automatico lo utilizara spring
-//Si cambiamos el nombre ya no lo va a reconocer
-//Con esto indicamos que la clase es un bean de spring de tipo de servicio 
 @Service("userDetailsService")
-@Slf4j//Manejo de log
+@Slf4j
 public class UsuarioService implements UserDetailsService{
 
     @Autowired
     private UsuarioDao usuarioDao;
     
     @Override
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {//Obtendra el usuario filtrado por un username
+    @Transactional(readOnly=true)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usuario usuario = usuarioDao.findByUsername(username);
         
         if(usuario == null){
@@ -36,12 +33,11 @@ public class UsuarioService implements UserDetailsService{
         
         var roles = new ArrayList<GrantedAuthority>();
         
-        for (Rol rol : usuario.getRoles()) {
+        for(Rol rol: usuario.getRoles()){
             roles.add(new SimpleGrantedAuthority(rol.getNombre()));
         }
         
-        return new User(usuario.getUsername(), usuario.getPassword(), roles);//clase de spring
-        
+        return new User(usuario.getUsername(), usuario.getPassword(), roles);
     }
     
 }

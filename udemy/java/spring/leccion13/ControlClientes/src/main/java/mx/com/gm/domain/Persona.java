@@ -1,14 +1,15 @@
-//    Las clases tienen que estar dentro del paquete mx.com.gm si no spring no los encuentra
 package mx.com.gm.domain;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
 import java.io.Serializable;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
-@Data//Gracias a lombok transaformamos esta clase en una clase java bean
+@Data
 @Entity
-@Table(name = "persona")//Mappear con el nombre de la base de datos
+@Table(name = "persona")
 public class Persona implements Serializable{
     
     private static final long serialVersionUID = 1L;
@@ -28,4 +29,7 @@ public class Persona implements Serializable{
     private String email;
     
     private String telefono;
+    
+    @NotNull
+    private Double saldo;
 }
