@@ -4,7 +4,7 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
     <!-- Define Persistence Unit -->
-    <persistence-unit name="my_persistence_unit">
+    <persistence-unit name="PersonaPU">
         <jta-data-source>jdbc/PersonaDb</jta-data-source>
     </persistence-unit>
 </persistence>
