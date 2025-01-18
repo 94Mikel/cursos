@@ -1,0 +1,24 @@
+# Angular & JavaEE
+## Creación del backEnd con JavaEE y RESTFul Web Service
+Realizado backEnd con EJB, JTA, JDBC, WebService...
+
+## Cors
+
+**CORS (Cross-Origin Resource Sharing)** es un mecanismo de seguridad utilizado por los navegadores web para controlar 
+cómo se permite que un recurso de un dominio (origen) sea solicitado desde otro dominio. 
+Este mecanismo protege a los usuarios de posibles ataques como el Cross-Site Request Forgery (CSRF), 
+garantizando que sólo ciertas solicitudes estén permitidas.
+
+### Contexto y Problema que Resuelve
+En las aplicaciones web, las solicitudes HTTP que se realizan desde un dominio a otro 
+(por ejemplo, desde mi-sitio.com hacia api.ejemplo.com) se consideran solicitudes de origen cruzado. 
+Por defecto, los navegadores bloquean estas solicitudes si el servidor que recibe la solicitud no permite explícitamente el acceso. 
+Este comportamiento se llama Same-Origin Policy (Política de Mismo Origen).
+
+### Funcionamiento de CORS
+- Cabeceras HTTP de CORS
+El servidor que recibe una solicitud de origen cruzado responde con ciertas cabeceras HTTP que indican si la solicitud está permitida. 
+Las cabeceras principales son:
+	- Access-Control-Allow-Origin
+	
+		Especifica qué dominios pueden acceder al recurso. Puede ser un dominio específico (https://ejemplo.com) o un asterisco (*) para permitir todos los dominios.
