@@ -1,6 +1,7 @@
 package beans;
 
 import org.apache.logging.log4j.*;
+import org.apache.struts2.ActionSupport;
 
 /*
 Una clase action de struts no necesariamente debe implementar o extender una clase de java.
@@ -11,7 +12,7 @@ Lo unico que tiene que tener nuestra clase de tipo action es la implementación 
 
 */
 
-public class HolaMundoAction {
+public class HolaMundoAction extends ActionSupport{
     
     Logger log = LogManager.getLogger(HolaMundoAction.class);
     
@@ -22,8 +23,9 @@ public class HolaMundoAction {
     
     private String saludosAtr;
     
+    @Override
     public String execute(){
-        log.info("ejecutando motodo execute desde struts2");
+        log.info("ejecutando metodo execute desde struts2");
         this.saludosAtr = "Saludos desde Struts2";
         return "exito";
     }
@@ -35,7 +37,5 @@ public class HolaMundoAction {
     public void setSaludosAtr(String saludosAtr) {
         this.saludosAtr = saludosAtr;
     }
-    
-    
     
 }
