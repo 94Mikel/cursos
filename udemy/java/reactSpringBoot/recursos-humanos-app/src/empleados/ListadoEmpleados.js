@@ -1,6 +1,30 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
 
 export default function ListadoEmpleados() {
+
+    const urlBase = "http://localhost:8080/rh-app/empleados";
+
+    //Arreglo. Utilizaremos el concepto de hub para estar pendiente de cualquier cambio de este arreglo
+    //useState => para estar monitoreando los cambios de este arreglo
+    const[empleados, setEmpleados] = useState([]);
+
+    //Se manda a llamar cuando se carga la pagina
+    useEffect(() => {
+        cargarEmpleados();//Llamos a este metodo cuando se carga la página
+    }, []);//con el arreglo vacio indicamos que se ejecutara solo una vez
+
+    /*
+        async => para llamadas asincronas
+        await => para esperar la respuesta del backend
+    */
+    const cargarEmpleados = async () => {
+        const resultado = await axios.get(urlBase);
+        console.log("Resultado cargar empleados");
+        console.log(resultado.data);
+        setEmpleados(resultado.data);//La data obtenida añadimos a nuestro arreglo de empleados
+    }
+
     return (
         //Se utiliza className porque no es html, sino un archivo JavaScript con html embebido
         //La palabra class en una palabra reservada y no se puede utilizar en react porque utilizar internamente
