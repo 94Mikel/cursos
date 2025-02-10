@@ -73,3 +73,14 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 - react-number-format => para formater los numeros. ponerlos $3.000,0
 - react-router-dom => para manejar las rutas en react
+
+## Atajos
+
+- rfc => para crear un componente de react.
+- ES7+ React/Redux/React-Native snippets => es la extension utilizada para esto.
+
+## Paculiaridades JSX
+
+- link => <https://react.dev/learn/javascript-in-jsx-with-curly-braces>
+- La palabra class esta reservada en JXS. En lugar de class hay que poner className
+- La palabar for esta reservada en JXS. En lugar de for hay que poner htmlFor
