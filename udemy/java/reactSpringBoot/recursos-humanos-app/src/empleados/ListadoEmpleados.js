@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { NumericFormat } from 'react-number-format';
 
 export default function ListadoEmpleados() {
 
@@ -7,7 +8,7 @@ export default function ListadoEmpleados() {
 
     //Arreglo. Utilizaremos el concepto de hub para estar pendiente de cualquier cambio de este arreglo
     //useState => para estar monitoreando los cambios de este arreglo
-    const[empleados, setEmpleados] = useState([]);
+    const [empleados, setEmpleados] = useState([]);
 
     //Se manda a llamar cuando se carga la pagina
     useEffect(() => {
@@ -50,23 +51,25 @@ export default function ListadoEmpleados() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {
+                        //Iteramos el arreglo de empleados
+                        //npm i react-number-format => para dar formato(numeric format)
+                        empleados.map((empleado, indice) => (
+                            <tr key={indice}>
+                                <th scope="row">{empleado.idEmpleado}</th>
+                                <td>{empleado.nombre}</td>
+                                <td>{empleado.departamento}</td>
+                                <td><NumericFormat
+                                    value={empleado.sueldo}
+                                    displayType={'text'}
+                                    thousandSeparator=','
+                                    prefix={'$'}
+                                    decimalScale={2}
+                                    fixedDecimalScale
+                                /></td>
+                            </tr>
+                        ))
+                    }
                 </tbody>
             </table>
 
