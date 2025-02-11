@@ -50,7 +50,6 @@ export default function EditarEmpleado() {
       Para evitar que los parámetros se pontan en el URL y sean parte del cuerpo de nuestro
       envio del formulario
     */
-
     e.preventDefault();
     await axios.put(`${urlBase}/${id}`, empleado);
     //Redirigimos a la pagina de inicio

@@ -69,23 +69,25 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
-## Modulos instalados
+### Modulos instalados
 
 - react-number-format => para formater los numeros. ponerlos $3.000,0
 - react-router-dom => para manejar las rutas en react
 
-## Atajos
+### Atajos
 
 - rfc => para crear un componente de react.
 - ES7+ React/Redux/React-Native snippets => es la extension utilizada para esto.
 
-## Paculiaridades JSX
+### Paculiaridades JSX
 
 - link => <https://react.dev/learn/javascript-in-jsx-with-curly-braces>
 - La palabra class esta reservada en JXS. En lugar de class hay que poner className
 - La palabar for esta reservada en JXS. En lugar de for hay que poner htmlFor
 
-## Operador spread
+<https://legacy.reactjs.org/docs/introducing-jsx.html>
+
+### Operador spread
 
 Permite a un elemento iterable tal como un arreglo o cadena ser expandido en lugares donde cero o más argumentos o elementos son esperados, o a un objeto ser expandido en lugares donde cero o más pares de valores clave son esperados.
 
@@ -97,4 +99,76 @@ const numbers = [1, 2, 3];
 
 console.log(sum(...numbers));
 // Expected output: 6
+
+<https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax>
+
+### useState
+
+useState es un hook en React que permite agregar estado a los componentes funcionales. Antes de los hooks, solo los componentes de clase podían manejar estado. Con useState, los componentes funcionales pueden recordar valores entre renderizados.
+
+<https://react.dev/reference/react/useState>
+
+#### Explicación:
+
+- **useState(0):** Inicializa el estado con 0.
+- **[contador, setContador]**
+  - **contador**: es el valor actual del estado.
+  - **setContador**: es la función para actualizarlo.
+- **setContador(contador + 1)**: Modifica el estado y React vuelve a renderizar el componente con el nuevo valor.
+
+useState es útil para manejar estados como:
+
+- Contadores
+- Formularios(inputs, checkboxes, etc)
+- Mostrar y ocultar elementos (modales, menús, etc)
+
+<https://react.dev/reference/react/useState>
+
+### preventDefault
+
+Es un método de los eventos en JavaScript que evita el comportamiento predeterminado de un elemento. En React, se usa comúnmente en formularios y enlaces para evitar acciones no deseadas, como el envío de un formulario o la navegación a otra página.
+
+<https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault>
+
+### useEffect
+
+Es un hook que permite manejar efectos secundarios en los componentes funcionales. Se usa para realizar tareas como:
+
+- Llamadas a APIs
+- Suscripciones a eventos
+- Manipulación del DOM
+- Temporizadores (setTimeout, setInterval)
+
+useEffect(() => {  
+  console.log("El contador cambió:",  contador);  
+}, [contador]);  
+
+1. **Primer argumento**: Una función que se ejecuta cuando React renderiza el componente.
+2. **Segundo argumento ([contador])**: La dependencia. useEffect se ejecutará cada vez que contador cambie.
+3. Para ejecutar el efecto solo una vez (por ejemplo, obtener datos de una API), se pasa(segundo argumento) un array vacío [].
+
+<https://react.dev/reference/react/useEffect>
+
+### react-router-dom
+
+#### useParams
+
+Es un **hook** de react-router-dom que permite acceder a los parámetros de la URL en un componente de React. Es útil cuando una ruta tiene valores dinámicos que cambian según el contenido.
+
+- Es útil cuando necesitamos extraer valores de la URL en rutas dinámicas.
+- Se usa comúnmente para mostrar contenido específico según el ID o categoría.
+- Es parte del sistema de enrutamiento de react-router-dom y facilita la navegación en aplicaciones SPA.
+
+#### useNavigate
+
+Es un **hook** de react-router-dom que se usa para navegar programáticamente entre diferentes rutas en una aplicación de React.
+
+##### Funcionamiento
+
+El hook useNavigate devuelve una función que permite cambiar la ruta actual a otra dentro de la aplicación.
+
+##### Conclusión
+
+useNavigate es una herramienta poderosa en react-router-dom que permite cambiar de ruta de forma programática en React. Es la evolución del antiguo useHistory y facilita la navegación dentro de una SPA (Single Page Application).
+
 

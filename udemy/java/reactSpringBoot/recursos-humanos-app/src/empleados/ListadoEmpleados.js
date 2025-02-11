@@ -27,6 +27,11 @@ export default function ListadoEmpleados() {
         setEmpleados(resultado.data);//La data obtenida añadimos a nuestro arreglo de empleados
     }
 
+    const eliminarEmpleado = async id => {
+        await axios.delete(`${urlBase}/${id}`);
+        cargarEmpleados();
+    }
+
     return (
         //Se utiliza className porque no es html, sino un archivo JavaScript con html embebido
         //La palabra class en una palabra reservada y no se puede utilizar en react porque utilizar internamente
@@ -77,6 +82,12 @@ export default function ListadoEmpleados() {
                                         >
                                             Editar
                                         </Link>
+                                        <button
+                                            onClick={() => eliminarEmpleado(empleado.idEmpleado)}
+                                            className='btn btn-danger btn-sm'    
+                                        >
+                                            Eliminar
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
