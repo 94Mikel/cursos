@@ -52,7 +52,7 @@ export default function EditarEmpleado() {
     */
 
     e.preventDefault();
-    await axios.post(urlBase, empleado);
+    await axios.put(`${urlBase}/${id}`, empleado);
     //Redirigimos a la pagina de inicio
     navegacion('/');
   }
