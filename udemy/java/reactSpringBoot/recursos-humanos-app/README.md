@@ -84,3 +84,17 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - link => <https://react.dev/learn/javascript-in-jsx-with-curly-braces>
 - La palabra class esta reservada en JXS. En lugar de class hay que poner className
 - La palabar for esta reservada en JXS. En lugar de for hay que poner htmlFor
+
+## Operador spread
+
+Permite a un elemento iterable tal como un arreglo o cadena ser expandido en lugares donde cero o más argumentos o elementos son esperados, o a un objeto ser expandido en lugares donde cero o más pares de valores clave son esperados.
+
+function sum(x, y, z) {
+  return x + y + z;
+}
+
+const numbers = [1, 2, 3];
+
+console.log(sum(...numbers));
+// Expected output: 6
+
