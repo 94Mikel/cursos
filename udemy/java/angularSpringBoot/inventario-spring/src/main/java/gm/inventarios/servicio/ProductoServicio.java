@@ -26,12 +26,12 @@ public class ProductoServicio implements IProductoServicio {
     }
 
     @Override
-    public void guardarProducto(Producto producto) {
+    public Producto guardarProducto(Producto producto) {
         /*
          * Save realiza => si id_producto es null realiza un update si no un insert
          * 
         */
-        this.productoRepositorio.save(producto);
+        return this.productoRepositorio.save(producto);
     }
 
     @Override
