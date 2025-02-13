@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 7.0//EN"
+    "http://struts.apache.org/dtds/struts-7.0.dtd">
+
+<struts>
+    <package name="struts2" extends="struts-default">
+        <!--Recibimos la accion saludor y definimos la clase java que se va a ejecutar-->
+        <action name="saludar" class="beans.HolaMundoAction">
+            <result name="exito">/saludos.jsp</result><!--Una vez terminada la accion execute llamamos al jsp-->
+        </action>
+    </package>
+</struts>
