@@ -27,7 +27,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 // ContextPath para todas las peticiones.Las peteniciones tiene que llevar
 // "inventario-app"
 @RequestMapping("inventario-app")
-@CrossOrigin(value = "http://localhost:4200") // El front en esta en el puerto 4200
+/*
+ * Angular esta en el puerto 4200
+ * Para que no de error de cross hay que añadir esta anotación.
+ */
+@CrossOrigin(value = "http://localhost:4200")
 public class ProductoControlador {
 
     private static final Logger logger = LoggerFactory.getLogger(ProductoControlador.class);
