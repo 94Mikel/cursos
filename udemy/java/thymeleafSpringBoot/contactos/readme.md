@@ -6,4 +6,19 @@
 - Para realizar el hot reload de los ficheros de la vista, html, css... hay que añadir an el application.propertie lo siguiente:
   - spring.web.resources.static-locations[0]=file:src/main/resources/templates
   - spring.web.resources.static-locations[1]=classpath:/templates/
-- 
+
+## Arquitectura back
+
+    - modelo + repositorio + servicio
+      - modelo
+        - lombok + persistence
+      - repositorio
+        - JPA
+      - servicio
+        - Autowired
+
+## Arquitectura front mvc
+
+    - Navegador(cliente): http://localhost:8080/
+    - Navegador <=> (backend) controlador <=> Servicio <=> Repositorio <=> DB
+    -  
