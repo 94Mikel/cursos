@@ -19,15 +19,16 @@ public class ContactoControlador {
     private static final Logger logger = LoggerFactory.getLogger(ContactoControlador.class);
 
     @Autowired
-    private ContactoServicio contactoServicio;
+    ContactoServicio contactoServicio;
 
     @GetMapping("/")
     public String iniciar(ModelMap modelo) {
+        logger.info("aaaaaaaaaaaaaaaa");
         List<Contacto> contactos = contactoServicio.listarContactos();
+        
         contactos.forEach((contacto) -> logger.info(contacto.toString()));
         modelo.put("contactos", contactos);//compartimos la información con la capa de presentacion
         return "index";//index.html => redireccionamos a index
     }
-    
 
 }
