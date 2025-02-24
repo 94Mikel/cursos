@@ -1,0 +1,8 @@
+CREATE TABLE transaccion (
+    id SERIAL PRIMARY KEY,
+    usuario_id VARCHAR(450) NOT NULL UNIQUE,
+    fecha_transaccion date NOT NULL,
+    monto decimal(18,2) NOT NULL,
+    tipo_transaccion_id INTEGER NOT NULL UNIQUE,
+    nota VARCHAR(1000)
+);
