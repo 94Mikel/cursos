@@ -56,3 +56,14 @@ Alternativa:
 - Es un framework que permite hacer llamadas de procedimiento remoto.
 - La idea de gRPC es que nos permite comunicarnos de una manera muy rápida entre distintas aplicaciones.
 
+## Front-End
+
+- Parte que el usuario visualiza.
+- html, css, js
+- Con JavaScript poremos ejecutar un lenguaje de programación en el navegador
+del usuario.
+
+## Back-End
+
+- La parte trasera de la aplicación.
+- C# + base de datos.
