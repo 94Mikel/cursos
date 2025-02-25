@@ -11,4 +11,10 @@
 
 Consisten en crear una clase de validación que vamos a poder reutilizar en distintos modelos.
 
-Los atributos de validación permiten especificar reglas de validación para las propiedades del modelo. En el ejemplo siguiente de la aplicación de ejemplo se muestra una clase de modelo anotada con atributos de validación. El atributo [ClassicMovie] es un atributo de validación personalizado y los demás están integrados. No se muestra [ClassicMovieWithClientValidator], que indica una manera alternativa de implementar un atributo personalizado.
+- Validaciones por modelo
+
+Las validaciones a nivel del modelo nos sirven para realizar validaciones dentro de la clase.
+
+La ventaja de estas es que te permiten realizar validaciones complejas de varios campos.
+
+La desventaja es que este tipo de validación esta acoplada al modelo en cuestión, lo que significa que no te permite reutilizar mucho código.
