@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
+using ManejoPresupuesto.Validaciones;
 
 namespace ManejoPresupuesto.Models
 {
@@ -11,24 +12,10 @@ namespace ManejoPresupuesto.Models
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]//requerir el campo nombre
-        [StringLength(maximumLength:50, MinimumLength = 3, ErrorMessage = "La longitud del campo {0} debe estar entre {2} y {1}")]
-        [Display(Name = "Nombre del tipo cuenta")]//Para mostrar en el label del formulario
+        [PrimeraLetraMayuscula]
         public string Nombre { get; set; }
         public int UsuarioId { get; set; }
         public int Orden { get; set; }
-
-        /*Pruebas de otras validaciones por defecto*/
-
-        [Required(ErrorMessage = "El campo {0} es requerido")]
-        [EmailAddress(ErrorMessage = "El campo debe ser un correo electronico válido")]
-        public string Email {get; set;}
-        [Range(minimum: 18, maximum:130, ErrorMessage = "El valor debe estar entre {1} y {2}")]
-        public int Edad{get;set;}
-        [Url(ErrorMessage = "El campo debe ser una URL valida")]
-        public string URL{get;set;}
-        [CreditCard(ErrorMessage = "La tarjeta de credito no es valida")]
-        [Display(Name = "Tarjeta de Crédito")]
-        public string TarjetaDeCredito{get;set;}
 
     }
 }
