@@ -5,6 +5,10 @@
 - Ofreceremos a nuestros usuarios una herramienta de reportería.
 - Exportar a Excel.
 
+## Curiosidades
+
+- ctor => para crear el constructor automáticamente.
+
 ## Validaciones personalizadas
 
 - Validaciones por atributo
@@ -50,4 +54,13 @@ Dapper nos ayudara a mapear lso resultados de un query a clases de  CSharp.
 PackageReference Include="Dapper" Version="21.35"
 - dotnet add package npgsql.EntityFrameworkCore.PostgreSQL => añadir postgresql al proyecto
 - dotnet add package npgsql.EntityFrameworkCore.PostgreSQL.Design => añadir postgresql al proyecto
+
+## Insertando un Tipo de Cuenta en la Base de Datos
+
+Vamos ahora a colocar el código para insertar una cuenta en la base de datos.
+Crearemos un servicio, es decir, una clase que vamos a porder utilizar con el sistema de inyecccion de dependencias.
+La idea es que no queremos colocar el código de acceso a datos en nuestro controlador.
+Para separar las responsabilidades de en la aplicación.
+
+Cuando a una clase le llamamos repositorio es porque esta va a ser utilizada para acceder a una base de datos.
 

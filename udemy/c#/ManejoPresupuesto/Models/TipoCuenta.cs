@@ -14,7 +14,7 @@ namespace ManejoPresupuesto.Models
         [Required(ErrorMessage = "El campo {0} es requerido")]//requerir el campo nombre
         // [PrimeraLetraMayuscula]
         public string Nombre { get; set; }
-        public int UsuarioId { get; set; }
+        public int IdUsuario { get; set; }
         public int Orden { get; set; }
         /*
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
