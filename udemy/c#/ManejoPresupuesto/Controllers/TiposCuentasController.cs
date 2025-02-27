@@ -20,21 +20,27 @@ namespace ManejoPresupuesto.Controllers
 
         public IActionResult Crear()
         {
-
             //var connection = new NpgsqlConnection(connectionString);
 
             return View();
         }
 
+        /*
+            NOTE
+            Utilizamos programación asincrona
+            Devolvemos IActionResult. si estas solo Task es como void pero en programacion asincrona.
+            Si se llama a un metodo con async await el metodo también tiene que trabajar con async await
+        */
+
         [HttpPost]
-        public IActionResult Crear(TipoCuenta tipoCuenta)
+        public async Task<IActionResult> Crear(TipoCuenta tipoCuenta)
         {
             if(!ModelState.IsValid){
                 return View(tipoCuenta);
             }
 
-            tipoCuenta.IdUsuario = 1;
-            repositorioTiposCuentas.Crear(tipoCuenta);
+            tipoCuenta.IdUsuario = 2;
+            await repositorioTiposCuentas.Crear(tipoCuenta);
             
             //TODO ir a otra vista al insertar en la bd => tipoCuenta
             return View();

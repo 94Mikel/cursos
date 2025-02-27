@@ -64,3 +64,22 @@ Para separar las responsabilidades de en la aplicación.
 
 Cuando a una clase le llamamos repositorio es porque esta va a ser utilizada para acceder a una base de datos.
 
+## Programación Asincrona
+
+En c# un metodo pude ser sincrono a asincrono.
+
+### Metodo sincrono
+
+- Un metodo síncrono es aquel el cual, al ser ejecutado, debemos esperar a que termine y no podemos hacer nada mientras tanto.
+- Un metodo sincrono es aquel que retorna al finalizar su procesamiento.
+
+### Metodo asincrono
+
+- Las funciones asíncronas se ejecutan y de inmediato retornan, aún si no han terminado de ejecutarse.
+- La programación asíncrona la debemos utilizar cuando realizamos operaciones I/O(cuando nos relacionamos con otros sistema aparte).
+- La ventaja de usar programación asíncrona es que nuestros sistemas son así mas eficientes.
+- En C#, para urilizar programación asíncrona utilizamos async-await.
+- Cuando la función asincrona finaliza resumimos la ejecución del código. Para poder utilizar awari tenemos que marcar el medio en donde éste se encuentra con Async.
+- Un metodo asincrono retorna inmediatamente, aún sin haber terminado el procesamiento.
+  - Retorna tipicamente un tipo de dato llamado task que representa una operación que va a finalizar en el futuro(una promesa).
+- Combinando await y task es que podemos esperar de manera asincrónica la finalización de la tarea representada por Task.

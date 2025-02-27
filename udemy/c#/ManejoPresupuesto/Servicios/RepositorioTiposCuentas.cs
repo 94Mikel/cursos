@@ -18,7 +18,7 @@ namespace ManejoPresupuesto.Servicios
 
     public interface IRepositorioTiposCuentas
     {
-        void Crear(TipoCuenta tipoCuenta);
+        Task Crear(TipoCuenta tipoCuenta);
     }
 
     public class RepositorioTiposCuentas: IRepositorioTiposCuentas
@@ -31,14 +31,17 @@ namespace ManejoPresupuesto.Servicios
         }
 
         //Metodo para crear un tipo cuenta en la base de datos.
-        public void Crear(TipoCuenta tipoCuenta)
+        //Marcamos como asincrona y retoran un datos de tipo Task(promesa)
+        //querySingle => para llamada sincronas
+        //querySingleAsync => para llamada asincronas
+        public async Task Crear(TipoCuenta tipoCuenta)
         {
             /*
                 QuerySingle => para realizar querys que devuelva un solo resultado.
                 despues de insertar queresmo extraer el id insertado.
             */
             using var connection = new NpgsqlConnection(connectionString);
-            var id = connection.QuerySingle<int>(
+            var id = await connection.QuerySingleAsync<int>(
                 $@"
                 INSERT INTO tipo_cuenta (nombre, id_usuario, orden)
                 VALUES(@Nombre, @IdUsuario, 0);
