@@ -28,6 +28,12 @@ La desventaja es que este tipo de validación esta acoplada al modelo en cuesti�
 Son validaciones que ocurren dentro de una acción.
 Las usamos típicamente cuando las validaciones involucran bases de datos.
 
+### Validaciones con JavaScript Utilizando remote
+
+Realizar accion especial, la cual va a servir para realizar esta validación.
+Se utiliza el atributo remote para llamar dicha acción desde el navegador del usuario utilizando javaScript.
+Remote es un atributo que nos permite realizar validaciones de manera remota, es decir, desde JavaScript(cliente) pero realizando una llamada hacia nuestra aplicación de ASP .NET CORE.
+
 ## Comunicacion con la bd - Conection String
 
 - Un conection string o cadena de conexión es un conjunto de valores relacionados con una base de datos y como acceder a ella.

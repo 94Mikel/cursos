@@ -16,17 +16,17 @@ namespace ManejoPresupuesto.Servicios
     IConfiguration => para acceder al conection string
     */
 
-    public interface IRepositorioTiposCuentas
+    public interface IRepositorioTipoCuenta
     {
         Task Crear(TipoCuenta tipoCuenta);
         Task<bool> Existe(string nombre, int idUsuario);
 
     }
 
-    public class RepositorioTiposCuentas: IRepositorioTiposCuentas
+    public class RepositorioTipoCuenta: IRepositorioTipoCuenta
     {
         private readonly string connectionString;
-        public RepositorioTiposCuentas(IConfiguration configuration)
+        public RepositorioTipoCuenta(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("DefaultConnection") ??
             throw new ApplicationException("Connection string is missing");

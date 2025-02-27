@@ -9,13 +9,13 @@ namespace ManejoPresupuesto.Controllers
 
 {
     //Heredamos de la clase controller
-    public class TiposCuentasController : Controller
+    public class TipoCuentaController : Controller
     {
-        private readonly IRepositorioTiposCuentas repositorioTiposCuentas;
+        private readonly IRepositorioTipoCuenta repositorioTipoCuenta;
 
-        public TiposCuentasController(IRepositorioTiposCuentas repositorioTiposCuentas)
+        public TipoCuentaController(IRepositorioTipoCuenta repositorioTipoCuenta)
         {
-            this.repositorioTiposCuentas = repositorioTiposCuentas;
+            this.repositorioTipoCuenta = repositorioTipoCuenta;
         }
 
         public IActionResult Crear()
@@ -46,7 +46,7 @@ namespace ManejoPresupuesto.Controllers
 
             //FIXME La validación se realizar al pulsar el boton de enviar(crear) se tiene que realziar segun escriba.
 
-            var yaExisteTipoCuenta = await repositorioTiposCuentas.Existe(tipoCuenta.Nombre, tipoCuenta.IdUsuario);
+            var yaExisteTipoCuenta = await repositorioTipoCuenta.Existe(tipoCuenta.Nombre, tipoCuenta.IdUsuario);
 
             if (yaExisteTipoCuenta)
             {
@@ -60,10 +60,28 @@ namespace ManejoPresupuesto.Controllers
                 return View(tipoCuenta);
             }
 
-            await repositorioTiposCuentas.Crear(tipoCuenta);
+            await repositorioTipoCuenta.Crear(tipoCuenta);
 
             //TODO ir a otra vista al insertar en la bd => tipoCuenta
             return View();
+        }
+
+        //Nos comunicamos con el cliente para validar si el tipo cuenta es el mismo(frontEnd => al escribir en el input text).
+        [HttpGet]
+        public async Task<IActionResult> VerificarExisteTipoCuenta(string nombre)
+        {
+
+            //FIXME hardcodeamos el idUsuario
+            var idUsuario = 1;
+            var yaExisteTipoCuenta = await repositorioTipoCuenta.Existe(nombre, idUsuario);
+
+            if (yaExisteTipoCuenta)
+            {
+                return Json($"El nombre {nombre} ya existe");
+            }
+
+            return Json(true);
+
         }
 
     }
