@@ -12,13 +12,13 @@ namespace ManejoPresupuesto.Models
     public class TipoCuenta//: IValidatableObject
     {
 
+        //NOTE: Remote
         /*
-            NOTE
             Con Remote llamamos al metodo get de VerificarExisteTipoCuenta para verificar si existe el nombre.
             Con esto realizamos la validación cuando se pierde el foco del input text.
         */
 
-        public int Id { get; set; }
+        public int IdTipoCuenta { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]//requerir el campo nombre
         [Remote(action: "VerificarExisteTipoCuenta", controller:"TipoCuenta")]
         // [PrimeraLetraMayuscula]

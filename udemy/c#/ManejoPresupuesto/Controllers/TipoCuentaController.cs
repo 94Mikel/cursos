@@ -18,6 +18,13 @@ namespace ManejoPresupuesto.Controllers
             this.repositorioTipoCuenta = repositorioTipoCuenta;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            //FIXME Quitar el Hardcoreo.
+            var idUsuario = 1;
+            return View(await repositorioTipoCuenta.Obtener(idUsuario));
+        }
+
         public IActionResult Crear()
         {
             //var connection = new NpgsqlConnection(connectionString);
@@ -25,9 +32,8 @@ namespace ManejoPresupuesto.Controllers
             return View();
         }
 
+        // NOTE:Programación asíncrona
         /*
-            NOTE
-            PROGRAMACIÓN ASÍNCRONA
             Devolvemos IActionResult. si estas solo Task es como void pero en programacion asincrona.
             Si se llama a un metodo con async await el metodo también tiene que trabajar con async await
         */
@@ -44,11 +50,7 @@ namespace ManejoPresupuesto.Controllers
             //FIXME corregiremos mas adelante. El usuario tiene que especificar.
             tipoCuenta.IdUsuario = 1;
 
-            //FIXME La validación se realizar al pulsar el boton de enviar(crear) se tiene que realziar segun escriba.
-
-            var yaExisteTipoCuenta = await repositorioTipoCuenta.Existe(tipoCuenta.Nombre, tipoCuenta.IdUsuario);
-
-            if (yaExisteTipoCuenta)
+            if (await repositorioTipoCuenta.Existe(tipoCuenta.Nombre, tipoCuenta.IdUsuario))
             {
                 //Agregar error al model state.
                 ModelState.AddModelError(
@@ -62,8 +64,8 @@ namespace ManejoPresupuesto.Controllers
 
             await repositorioTipoCuenta.Crear(tipoCuenta);
 
-            //TODO ir a otra vista al insertar en la bd => tipoCuenta
-            return View();
+            //Redirijir a la accion Index.
+            return RedirectToAction("Index");
         }
 
         //Nos comunicamos con el cliente para validar si el tipo cuenta es el mismo(frontEnd => al escribir en el input text).
@@ -73,9 +75,8 @@ namespace ManejoPresupuesto.Controllers
 
             //FIXME hardcodeamos el idUsuario
             var idUsuario = 1;
-            var yaExisteTipoCuenta = await repositorioTipoCuenta.Existe(nombre, idUsuario);
 
-            if (yaExisteTipoCuenta)
+            if (await repositorioTipoCuenta.Existe(nombre, idUsuario))
             {
                 return Json($"El nombre {nombre} ya existe");
             }

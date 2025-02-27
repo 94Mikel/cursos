@@ -8,9 +8,8 @@ using Npgsql;
 
 namespace ManejoPresupuesto.Servicios
 {
+    //NOTE: Inyección de dependencias
     /*
-    NOTE
-    INYECCION DE DEPENDENCIAS
     Vamos a mantenernos utilizando el principio de inyeccion de dependencias.
     Nuestras clases deben de depender de abstracciones y no de tipos concretos.
     IConfiguration => para acceder al conection string
@@ -20,10 +19,11 @@ namespace ManejoPresupuesto.Servicios
     {
         Task Crear(TipoCuenta tipoCuenta);
         Task<bool> Existe(string nombre, int idUsuario);
+        Task<IEnumerable<TipoCuenta>> Obtener(int idUsuario);
 
     }
 
-    public class RepositorioTipoCuenta: IRepositorioTipoCuenta
+    public class RepositorioTipoCuenta : IRepositorioTipoCuenta
     {
         private readonly string connectionString;
         public RepositorioTipoCuenta(IConfiguration configuration)
@@ -32,9 +32,8 @@ namespace ManejoPresupuesto.Servicios
             throw new ApplicationException("Connection string is missing");
         }
 
+        //NOTE: Programación asíncrona
         /*
-            NOTE
-            PROGRAMACIÓN ASÍNCRONA
             Metodo para crear un tipo cuenta en la base de datos.
             Marcamos como asincrona y retoran un datos de tipo Task(promesa)
             querySingle => para llamada sincronas
@@ -53,12 +52,11 @@ namespace ManejoPresupuesto.Servicios
                 VALUES(@Nombre, @IdUsuario, 0);
                 SELECT currval(pg_get_serial_sequence('tipo_cuenta','id_tipo_cuenta'));", tipoCuenta);
 
-            tipoCuenta.Id = id;
+            tipoCuenta.IdTipoCuenta = id;
         }
 
+        // NOTE: Validación personalizada a nivel de controlador
         /*
-            NOTE
-            VALIDACIÓN PERSONALIZADA A NIVEL DE CONTROLADOR
             Metodo que nos permitira verificar si ya existe un tipo cuenta con el nombre indicado.
             con programación asincrona.
             bool => igual a boolean retornamos true o false.
@@ -66,15 +64,31 @@ namespace ManejoPresupuesto.Servicios
             QueryFirstOrDefaultAsync => El primer registro o un valor por defecto en caso en el que no exista dicho registro.
                 <int> => porque quiero traer un numero entero. Valor por defecto 0
         */
-        public async Task<bool> Existe(string nombre, int idUsuario) {
-            using  var connection = new NpgsqlConnection(connectionString);
+        public async Task<bool> Existe(string nombre, int idUsuario)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
             var existe = await connection.QueryFirstOrDefaultAsync<int>
             (
                 @"SELECT 1 FROM tipo_cuenta WHERE nombre = @Nombre AND id_usuario = @IdUsuario;",
-                new {nombre, idUsuario}
+                new { nombre, idUsuario }
             );
 
             return existe == 1;
+        }
+        // NOTE: Obtener listado de tipoCuenta desde la base de datos.
+        /*
+            Queremos el listado de tipoCuenta del usuario que esta utilizando la aplicacion.
+            QueryAsync => permite realizar un select y devuelve un conjunto de resultados 
+            y mappea ese conjunto de resultados a una clase(tipo de datos especifico).
+        */
+        public async Task<IEnumerable<TipoCuenta>> Obtener(int idUsuario)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryAsync<TipoCuenta>
+            (
+                "SELECT id_tipo_cuenta, nombre, orden FROM tipo_cuenta WHERE id_usuario = @idUsuario",
+                new {idUsuario}
+            );
         }
 
     }
