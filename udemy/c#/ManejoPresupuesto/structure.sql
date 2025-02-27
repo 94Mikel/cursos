@@ -14,7 +14,7 @@ CREATE TABLE usuario (
 
 CREATE TABLE tipo_cuenta (
     id_tipo_cuenta SERIAL PRIMARY KEY,
-    id_usuario INTEGER UNIQUE NOT NULL REFERENCES usuario(id_usuario),
+    id_usuario INTEGER NOT NULL REFERENCES usuario(id_usuario),
     nombre VARCHAR(50) NOT NULL,
     orden INTEGER NOT NULL
 );
@@ -55,3 +55,10 @@ CREATE TABLE transaccion (
     monto decimal(18,2) NOT NULL,
     nota VARCHAR(1000)
 );
+
+
+-- INSERCIÓN
+
+---- USUARIO
+
+INSERT INTO usuario(email,email_normalizado,password_hash) VALUES('prueba@mail.com','PRUEBA@MAIL.COM','abc');

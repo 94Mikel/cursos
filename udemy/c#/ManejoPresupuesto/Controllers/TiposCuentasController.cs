@@ -27,7 +27,7 @@ namespace ManejoPresupuesto.Controllers
 
         /*
             NOTE
-            Utilizamos programación asincrona
+            PROGRAMACIÓN ASÍNCRONA
             Devolvemos IActionResult. si estas solo Task es como void pero en programacion asincrona.
             Si se llama a un metodo con async await el metodo también tiene que trabajar con async await
         */
@@ -35,13 +35,33 @@ namespace ManejoPresupuesto.Controllers
         [HttpPost]
         public async Task<IActionResult> Crear(TipoCuenta tipoCuenta)
         {
-            if(!ModelState.IsValid){
+            //Validación por atributo
+            if (!ModelState.IsValid)
+            {
                 return View(tipoCuenta);
             }
 
-            tipoCuenta.IdUsuario = 2;
+            //FIXME corregiremos mas adelante. El usuario tiene que especificar.
+            tipoCuenta.IdUsuario = 1;
+
+            //FIXME La validación se realizar al pulsar el boton de enviar(crear) se tiene que realziar segun escriba.
+
+            var yaExisteTipoCuenta = await repositorioTiposCuentas.Existe(tipoCuenta.Nombre, tipoCuenta.IdUsuario);
+
+            if (yaExisteTipoCuenta)
+            {
+                //Agregar error al model state.
+                ModelState.AddModelError(
+                    nameof(tipoCuenta.Nombre),
+                    $"El nombre {tipoCuenta.Nombre} ya existe"
+                );
+
+                //Devolver la vista pasando el objeto tipoCuenta.
+                return View(tipoCuenta);
+            }
+
             await repositorioTiposCuentas.Crear(tipoCuenta);
-            
+
             //TODO ir a otra vista al insertar en la bd => tipoCuenta
             return View();
         }

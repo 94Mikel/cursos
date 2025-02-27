@@ -11,17 +11,22 @@
 
 ## Validaciones personalizadas
 
-- Validaciones por atributo
+### Validaciones por atributo
 
 Consisten en crear una clase de validación que vamos a poder reutilizar en distintos modelos.
 
-- Validaciones por modelo
+### Validaciones por modelo
 
 Las validaciones a nivel del modelo nos sirven para realizar validaciones dentro de la clase.
 
 La ventaja de estas es que te permiten realizar validaciones complejas de varios campos.
 
 La desventaja es que este tipo de validación esta acoplada al modelo en cuestión, lo que significa que no te permite reutilizar mucho código.
+
+### Validaciones a nivel del controlador
+
+Son validaciones que ocurren dentro de una acción.
+Las usamos típicamente cuando las validaciones involucran bases de datos.
 
 ## Comunicacion con la bd - Conection String
 
