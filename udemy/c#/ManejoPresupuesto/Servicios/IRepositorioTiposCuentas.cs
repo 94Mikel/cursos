@@ -10,6 +10,7 @@ namespace ManejoPresupuesto.Servicios
     {
         Task Crear(TipoCuenta tipoCuenta);
         Task<bool> Existe(string nombre, int idUsuario);
+        Task Borrar(int id);
         Task<IEnumerable<TipoCuenta>> Obtener(int idUsuario);
 
         Task<TipoCuenta> ObtenerPorId(int id, int usuarioId);
