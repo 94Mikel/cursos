@@ -10,7 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 //Nuestro repositorio no va ha compartir datos.
-builder.Services.AddTransient<IRepositorioTipoCuenta, RepositorioTipoCuenta>();
+builder.Services.AddTransient<IRepositorioTiposCuentas, RepositorioTiposCuentas>();
+builder.Services.AddTransient<IServicioUsuarios, ServicioUsuarios>();
 
 var app = builder.Build();
 

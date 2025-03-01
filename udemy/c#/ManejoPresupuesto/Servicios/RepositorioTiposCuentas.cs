@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
@@ -15,18 +16,10 @@ namespace ManejoPresupuesto.Servicios
     IConfiguration => para acceder al conection string
     */
 
-    public interface IRepositorioTipoCuenta
-    {
-        Task Crear(TipoCuenta tipoCuenta);
-        Task<bool> Existe(string nombre, int idUsuario);
-        Task<IEnumerable<TipoCuenta>> Obtener(int idUsuario);
-
-    }
-
-    public class RepositorioTipoCuenta : IRepositorioTipoCuenta
+    public class RepositorioTiposCuentas : IRepositorioTiposCuentas
     {
         private readonly string connectionString;
-        public RepositorioTipoCuenta(IConfiguration configuration)
+        public RepositorioTiposCuentas(IConfiguration configuration)
         {
             connectionString = configuration.GetConnectionString("DefaultConnection") ??
             throw new ApplicationException("Connection string is missing");
@@ -48,11 +41,11 @@ namespace ManejoPresupuesto.Servicios
             using var connection = new NpgsqlConnection(connectionString);
             var id = await connection.QuerySingleAsync<int>(
                 $@"
-                INSERT INTO tipo_cuenta (nombre, id_usuario, orden)
-                VALUES(@Nombre, @IdUsuario, 0);
-                SELECT currval(pg_get_serial_sequence('tipo_cuenta','id_tipo_cuenta'));", tipoCuenta);
+                INSERT INTO tipos_cuentas (nombre, usuario_id, orden)
+                VALUES(@Nombre, @usuarioId, 0);
+                SELECT currval(pg_get_serial_sequence('tipos_cuentas','id'));", tipoCuenta);
 
-            tipoCuenta.IdTipoCuenta = id;
+            tipoCuenta.Id = id;
         }
 
         // NOTE: Validación personalizada a nivel de controlador
@@ -64,13 +57,13 @@ namespace ManejoPresupuesto.Servicios
             QueryFirstOrDefaultAsync => El primer registro o un valor por defecto en caso en el que no exista dicho registro.
                 <int> => porque quiero traer un numero entero. Valor por defecto 0
         */
-        public async Task<bool> Existe(string nombre, int idUsuario)
+        public async Task<bool> Existe(string nombre, int usuarioId)
         {
             using var connection = new NpgsqlConnection(connectionString);
             var existe = await connection.QueryFirstOrDefaultAsync<int>
             (
-                @"SELECT 1 FROM tipo_cuenta WHERE nombre = @Nombre AND id_usuario = @IdUsuario;",
-                new { nombre, idUsuario }
+                @"SELECT 1 FROM tipos_cuentas WHERE nombre = @Nombre AND usuario_id = @usuarioId;",
+                new { nombre, usuarioId }
             );
 
             return existe == 1;
@@ -81,17 +74,36 @@ namespace ManejoPresupuesto.Servicios
             QueryAsync => permite realizar un select y devuelve un conjunto de resultados 
             y mappea ese conjunto de resultados a una clase(tipo de datos especifico).
         */
-        public async Task<IEnumerable<TipoCuenta>> Obtener(int idUsuario)
+        public async Task<IEnumerable<TipoCuenta>> Obtener(int usuarioId)
         {
             using var connection = new NpgsqlConnection(connectionString);
             return await connection.QueryAsync<TipoCuenta>
             (
-                "SELECT id_tipo_cuenta, nombre, orden FROM tipo_cuenta WHERE id_usuario = @idUsuario",
-                new {idUsuario}
+                "SELECT id, nombre, orden FROM tipos_cuentas WHERE usuario_id = @usuarioId",
+                new { usuarioId }
+            );
+        }
+
+        public async Task Actualizar(TipoCuenta tipoCuenta)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            await connection.ExecuteAsync(
+                "UPDATE tipos_cuentas SET nombre = @Nombre WHERE id = @Id",
+                tipoCuenta
+                );
+        }
+
+        public async Task<TipoCuenta> ObtenerPorId(int id, int usuarioId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<TipoCuenta>(
+                @"SELECT id, nombre, orden 
+                FROM tipos_cuentas 
+                WHERE id = @Id AND usuario_id = @UsuarioId",
+                new { id, usuarioId }
             );
         }
 
     }
-
 
 }

@@ -18,12 +18,12 @@ namespace ManejoPresupuesto.Models
             Con esto realizamos la validación cuando se pierde el foco del input text.
         */
 
-        public int IdTipoCuenta { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]//requerir el campo nombre
-        [Remote(action: "VerificarExisteTipoCuenta", controller:"TipoCuenta")]
+        [Remote(action: "VerificarExisteTipoCuenta", controller:"TiposCuentas")]
         // [PrimeraLetraMayuscula]
         public string Nombre { get; set; }
-        public int IdUsuario { get; set; }
+        public int UsuarioId { get; set; }
         public int Orden { get; set; }
         /*
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
