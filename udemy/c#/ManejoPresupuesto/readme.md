@@ -94,3 +94,12 @@ En c# un metodo pude ser sincrono a asincrono.
 - Un metodo asincrono retorna inmediatamente, aún sin haber terminado el procesamiento.
   - Retorna tipicamente un tipo de dato llamado task que representa una operación que va a finalizar en el futuro(una promesa).
 - Combinando await y task es que podemos esperar de manera asincrónica la finalización de la tarea representada por Task.
+
+## jQuery UI
+
+jQuery UI es una biblioteca de componentes construidos sobre la biblioteca jQuery que permiten desarrollar sobre un conjunto de plug-ins, widgets y efectos visuales preconstruidos para la creación de aplicaciones web. Cada componente o módulo se desarrolla de acuerdo a la filosofía de jQuery.
+
+En esta aplicacion se utiliza shostable de jquery ui.
+
+Para traer el jquery-ui a nuestro proyecto descargamos la libreria desde
+<https://jqueryui.com/> y le damos a stable. Luego descomprimimos el archivo y lo movemos a wwwroot/lib/
