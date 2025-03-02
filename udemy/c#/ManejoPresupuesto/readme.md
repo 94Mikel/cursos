@@ -103,3 +103,9 @@ En esta aplicacion se utiliza shostable de jquery ui.
 
 Para traer el jquery-ui a nuestro proyecto descargamos la libreria desde
 <https://jqueryui.com/> y le damos a stable. Luego descomprimimos el archivo y lo movemos a wwwroot/lib/
+
+## AJAX => Asynchronous JavaScript and XML
+
+Es una técnica de desarrollo web para crear aplicaciones web asíncronas. Estas aplicaciones se ejecutan en el cliente, es decir, en el navegador de los usuarios mientras se mantiene la comunicación asíncrona con el servidor en segundo plano. De esta forma es posible interactuar con el servidor sin necesidad de recargar la página web, mejorando la interactividad, velocidad y usabilidad en las aplicaciones.
+
+Ajax es una tecnología asíncrona, en el sentido de que los datos adicionales se solicitan al servidor y se cargan en segundo plano sin interferir con la visualización ni el comportamiento de la página, aunque existe la posibilidad de configurar las peticiones como síncronas de tal forma que la interactividad de la página se detiene hasta la espera de la respuesta por parte del servidor.

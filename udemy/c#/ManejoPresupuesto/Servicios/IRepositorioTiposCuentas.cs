@@ -16,5 +16,7 @@ namespace ManejoPresupuesto.Servicios
         Task<TipoCuenta> ObtenerPorId(int id, int usuarioId);
 
         Task Actualizar(TipoCuenta tipoCuenta);
+
+        Task Ordenar(IEnumerable<TipoCuenta> tipoCuentasOrdenados);
     }
 }

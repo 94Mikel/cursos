@@ -85,8 +85,9 @@ namespace ManejoPresupuesto.Controllers
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var tipoCuentaExiste = await repositorioTiposCuentas.ObtenerPorId(tipoCuenta.Id, usuarioId);
 
-            if(tipoCuentaExiste is null){
-                return RedirectToAction("NoEncontrado","Home");
+            if (tipoCuentaExiste is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
             }
 
             await repositorioTiposCuentas.Actualizar(tipoCuenta);
@@ -100,19 +101,21 @@ namespace ManejoPresupuesto.Controllers
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var tipoCuenta = await repositorioTiposCuentas.ObtenerPorId(id, usuarioId);
 
-            if(tipoCuenta is null){
+            if (tipoCuenta is null)
+            {
                 return RedirectToAction("NoEncontrado", "Home");
             }
 
             return View(tipoCuenta);
         }
 
-        public async Task<IActionResult> Borrar (int id)
+        public async Task<IActionResult> Borrar(int id)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var tipoCuenta = await repositorioTiposCuentas.ObtenerPorId(id, usuarioId);
 
-            if(tipoCuenta is null){
+            if (tipoCuenta is null)
+            {
                 return RedirectToAction("NoEncontrado", "Home");
             }
 
@@ -125,7 +128,8 @@ namespace ManejoPresupuesto.Controllers
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var tipoCuenta = await repositorioTiposCuentas.ObtenerPorId(id, usuarioId);
 
-            if(tipoCuenta is null){
+            if (tipoCuenta is null)
+            {
                 return RedirectToAction("NoEncontrado", "Home");
             }
 
@@ -149,6 +153,48 @@ namespace ManejoPresupuesto.Controllers
 
             return Json(true);
 
+        }
+
+        // NOTE: ordenamos la tabla mendian ajax
+        /*
+            En el cuerpo recibimos el arreglo de id.
+            Los ids vendran en un orden especifico 
+            y se actualizara la orden de las filas en base a esto.
+        */
+        [HttpPost]
+        public async Task<IActionResult> Ordenar([FromBody] int[] ids)
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var tiposCuentas = await repositorioTiposCuentas.Obtener(usuarioId);
+            //Obtener los ids de los tipos cuentas que yo estory extrayendo aquí.
+            var idsTiposCuentas = tiposCuentas.Select(x => x.Id);
+
+            //Verificar que este listado de aquí sea vacío.
+            //Preguntamos si existe un id que esta en ids y que no esta n idsTiposCuentas.
+            var idsTiposCuentasNoPertenecenAlUsuario = ids.Except(idsTiposCuentas).ToList();
+
+            //Si hay algun id que no coincide
+            if (idsTiposCuentasNoPertenecenAlUsuario.Count > 0)
+            {
+                return Forbid();
+            }
+
+            /*
+                Mappeo.
+                Crear arreglo de tipos cuentas.
+            */
+            var tiposCuentasOrdenados = ids.Select(
+                (valor, indice) => new TipoCuenta()
+                {
+                    Id = valor,
+                    Orden = indice + 1
+                }
+            ).AsEnumerable();
+
+            //Actualizar en la base de datos.
+            await repositorioTiposCuentas.Ordenar(tiposCuentasOrdenados);
+
+            return Ok();
         }
 
     }
