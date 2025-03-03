@@ -116,3 +116,13 @@ Es un programa (o procedimiento) almacenado físicamente en una base de datos. S
 
 Los procedimientos pueden ser ventajosos: cuando una base de datos es manipulada desde muchos programas externos. Al incluir la lógica de la aplicación en la base de datos utilizando procedimientos almacenados, la necesidad de embeber la misma lógica en todos los programas que acceden a los datos es reducida. Esto puede simplificar la creación y, particularmente, el mantenimiento de los programas involucrados.
 
+## Resumen
+
+- Vimos que podemos crear formularios que se sincronizan con modelos utilizando **tag helpers**.
+- Vimos que podemos colocar **validadores** a nuestros modelos, las cuales podemos correr tanto front como en el back.
+- Nos enteramos de que es una regla importante el **no confiar en la data** que nos llega desde el front. E implementamos distintos mecanismos para evitar que usuarios maliciosos realicen acciones indebidas.
+- Aprendimos que la **programación asíncrona** nos permite ejecutar funciones que retornan una promesa de que habra una respuesta en el futuro. Esto hace que tengamos un software que haga varias tareas al mismo tiempo y se hace más eficiente.
+- Realizamos un **crud** de nuestra entidad tipo cuentas.
+- Aprendimos a **conectarnos con una base de datos** y utilizamos **dapper** para ejecutar cuadros y procedimientos almacenados desde nuestra aplicación de mvc.
+- Vimos que podemos implementar una funcionalidad de arrastre de una manera bien sencialla con **jquery-ui**.
+- Utilizamos el Fetch API para hacer peticiones http con JavaScript.
