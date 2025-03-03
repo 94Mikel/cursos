@@ -31,21 +31,38 @@ namespace ManejoPresupuesto.Servicios
             Marcamos como asincrona y retoran un datos de tipo Task(promesa)
             querySingle => para llamada sincronas
             querySingleAsync => para llamada asincronas
+            tipos_cuentas_insertar => procedimiento almacenado
         */
         public async Task Crear(TipoCuenta tipoCuenta)
         {
             /*
                 QuerySingle => para realizar querys que devuelva un solo resultado.
                 despues de insertar queresmo extraer el id insertado.
-            */
-            using var connection = new NpgsqlConnection(connectionString);
-            var id = await connection.QuerySingleAsync<int>(
-                $@"
-                INSERT INTO tipos_cuentas (nombre, usuario_id, orden)
-                VALUES(@Nombre, @usuarioId, 0);
-                SELECT currval(pg_get_serial_sequence('tipos_cuentas','id'));", tipoCuenta);
 
-            tipoCuenta.Id = id;
+                Hay que crear un objeto para enviar solo el nombre y el usuario_id al procedimiento.
+                commandType => para indicar que utilizaremos un procedimiento almacenado.
+            */
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand("SELECT * FROM tipos_cuentas_insertar(@nombre, @usuario_id)", conn))
+                {
+                    cmd.Parameters.AddWithValue("usuario_id", tipoCuenta.UsuarioId);
+                    cmd.Parameters.AddWithValue("nombre", tipoCuenta.Nombre);
+
+                    object result = cmd.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        int id = Convert.ToInt32(result);
+                        Console.WriteLine($"El ID del usuario es: {id}");
+                        tipoCuenta.Id = id;
+                    }
+                    else
+                    {
+                        throw new ApplicationException("No se ha obtenido el id");
+                    }
+                }
+            }
         }
 
         // NOTE: Validación personalizada a nivel de controlador

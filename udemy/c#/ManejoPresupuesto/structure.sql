@@ -62,3 +62,30 @@ CREATE TABLE transacciones (
 ---- USUARIO
 
 INSERT INTO usuarios(email,email_normalizado,password_hash) VALUES('prueba@mail.com','PRUEBA@MAIL.COM','abc');
+
+
+-- PROCEDIMIENTO ALMACENADO tipos_cuentas_insertar
+-- Necesitamos obtener el orden mas grande para sumarle 1 al insertar un tipos_cuentas.
+
+CREATE OR REPLACE FUNCTION tipos_cuentas_insertar(
+        -- Parametros de entrada del procedimietno almacenado
+        v_nombre VARCHAR(50),
+        v_usuario_id INT
+) RETURNS INTEGER AS $$
+DECLARE 
+    v_orden int; --Variable interna
+    v_id int;
+BEGIN
+    -- COALESCE => si el valor es distinto de nulo se usa.
+    -- Si no, utiliza 0. Para casos que no hay registros.
+    SELECT COALESCE(MAX(orden), 0)+1 INTO v_orden
+    FROM tipos_cuentas
+    WHERE usuario_id = v_usuario_id;
+
+    INSERT INTO tipos_cuentas(nombre,usuario_id,orden)
+    VALUES(v_nombre, v_usuario_id, v_orden) RETURNING id INTO v_id;
+
+    RETURN v_id;
+
+END;
+$$ LANGUAGE plpgsql;
