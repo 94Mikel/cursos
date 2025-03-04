@@ -9,19 +9,21 @@
     tarjeta de crédito, stay_current_landscape de ahorro, préstamo, etc.
 </h5>
 
-<form asp-controller="CuentasController" asp-action="Crear">
+<form asp-controller="Cuentas" asp-action="Crear">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" asp-for="TiposCuentas" />
 
     <div class="mb-3">
         <label asp-for="Nombre" class="form-label"></label>
         <input asp-for="Nombre" class="form-control" />
         <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
-
+    
     <div class="mb-3">
         <label asp-for="TipoCuentaId" class="form-label"></label>
         <select asp-for="TipoCuentaId" asp-items="Model.TiposCuentas" class="form-select"></select>
-        <span asp-validation-for="Nombre" class="text-danger"></span>
+        <span asp-validation-for="TipoCuentaId" class="text-danger"></span>
     </div>
 
     <div class="mb-3">
