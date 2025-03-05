@@ -32,8 +32,8 @@ namespace ManejoPresupuesto.Controllers
         public async Task<IActionResult> Index()
         {
             //FIXME Quitar el Hardcodeo.
-            var idUsuario = servicioUsuarios.ObtenerUsuarioId();
-            return View(await repositorioTiposCuentas.Obtener(idUsuario));
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            return View(await repositorioTiposCuentas.Obtener(usuarioId));
         }
 
         public IActionResult Crear()
@@ -83,7 +83,7 @@ namespace ManejoPresupuesto.Controllers
         public async Task<ActionResult> Editar(TipoCuenta tipoCuenta)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
-            var tipoCuentaExiste = await repositorioTiposCuentas.ObtenerPorId(tipoCuenta.Id, usuarioId);
+            var tipoCuentaExiste = await repositorioTiposCuentas.ObtenerPorId(tipoCuenta.TipoCuentaId, usuarioId);
 
             if (tipoCuentaExiste is null)
             {
@@ -123,17 +123,17 @@ namespace ManejoPresupuesto.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> BorrarTipoCuenta(int id)
+        public async Task<IActionResult> BorrarTipoCuenta(int TipoCuentaId)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
-            var tipoCuenta = await repositorioTiposCuentas.ObtenerPorId(id, usuarioId);
+            var tipoCuenta = await repositorioTiposCuentas.ObtenerPorId(TipoCuentaId, usuarioId);
 
             if (tipoCuenta is null)
             {
                 return RedirectToAction("NoEncontrado", "Home");
             }
 
-            await repositorioTiposCuentas.Borrar(id);
+            await repositorioTiposCuentas.Borrar(TipoCuentaId);
 
             return RedirectToAction("Index");
         }
@@ -143,10 +143,10 @@ namespace ManejoPresupuesto.Controllers
         public async Task<IActionResult> VerificarExisteTipoCuenta(string nombre)
         {
 
-            //FIXME hardcodeamos el idUsuario
-            var idUsuario = servicioUsuarios.ObtenerUsuarioId();
+            //FIXME hardcodeamos el usuarioId
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
 
-            if (await repositorioTiposCuentas.Existe(nombre, idUsuario))
+            if (await repositorioTiposCuentas.Existe(nombre, usuarioId))
             {
                 return Json($"El nombre {nombre} ya existe");
             }
@@ -167,7 +167,7 @@ namespace ManejoPresupuesto.Controllers
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var tiposCuentas = await repositorioTiposCuentas.Obtener(usuarioId);
             //Obtener los ids de los tipos cuentas que yo estory extrayendo aquí.
-            var idsTiposCuentas = tiposCuentas.Select(x => x.Id);
+            var idsTiposCuentas = tiposCuentas.Select(x => x.TipoCuentaId);
 
             //Verificar que este listado de aquí sea vacío.
             //Preguntamos si existe un id que esta en ids y que no esta n idsTiposCuentas.
@@ -186,7 +186,7 @@ namespace ManejoPresupuesto.Controllers
             var tiposCuentasOrdenados = ids.Select(
                 (valor, indice) => new TipoCuenta()
                 {
-                    Id = valor,
+                    TipoCuentaId = valor,
                     Orden = indice + 1
                 }
             ).AsEnumerable();

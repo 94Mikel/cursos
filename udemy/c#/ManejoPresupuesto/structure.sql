@@ -4,7 +4,7 @@
 -- Es util para realizar comparaciones rapidas entre datos que tengan las mismas mayusculas.
 
 CREATE TABLE usuarios (
-    id SERIAL PRIMARY KEY,
+    usuario_id SERIAL PRIMARY KEY,
     email VARCHAR(256) NOT NULL,
     email_normalizado VARCHAR(256) NOT NULL,
     password_hash VARCHAR NOT NULL
@@ -13,15 +13,15 @@ CREATE TABLE usuarios (
 -- CUENTAS
 
 CREATE TABLE tipos_cuentas (
-    id SERIAL PRIMARY KEY,
-    usuario_id INTEGER NOT NULL REFERENCES usuarios(id),
+    tipo_cuenta_id SERIAL PRIMARY KEY,
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(usuario_id) ON DELETE CASCADE,
     nombre VARCHAR(50) NOT NULL,
     orden INTEGER NOT NULL
 );
 
 CREATE TABLE cuentas (
-    id SERIAL PRIMARY KEY,
-    tipo_cuenta_id INTEGER NOT NULL REFERENCES tipos_cuentas(id),
+    cuenta_id SERIAL PRIMARY KEY,
+    tipo_cuenta_id INTEGER NOT NULL REFERENCES tipos_cuentas(tipo_cuenta_id) ON DELETE CASCADE,
     nombre VARCHAR(50) NOT NULL,
     balance DECIMAL(18,2) NOT NULL,
     descripcion VARCHAR(1000)
@@ -30,27 +30,27 @@ CREATE TABLE cuentas (
 -- OPERACION
 
 CREATE TABLE tipos_operaciones (
-    id SERIAL PRIMARY KEY,
+    tipo_operacion_id SERIAL PRIMARY KEY,
     descripcion VARCHAR(50) NOT NULL
 );
 
 -- CATEGORIA
 
 CREATE TABLE categorias (
-    id SERIAL PRIMARY KEY,
-    tipo_operacion_id INTEGER NOT NULL REFERENCES tipos_operaciones(id),
-    usuario_id INTEGER NOT NULL REFERENCES usuarios(id),
+    categoria_id SERIAL PRIMARY KEY,
+    tipo_operacion_id INTEGER NOT NULL REFERENCES tipos_operaciones(tipo_operacion_id) ON DELETE CASCADE,
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(usuario_id) ON DELETE CASCADE,
     nombre VARCHAR(50)
 );
 
 -- TRANSACCIONES
 
 CREATE TABLE transacciones (
-    id SERIAL PRIMARY KEY,
-    usuario_id INTEGER NOT NULL REFERENCES usuarios(id),
-    cuenta_id INTEGER NOT NULL REFERENCES cuentas(id),
-    tipo_operacion_id INTEGER NOT NULL REFERENCES tipos_operaciones(id),
-    categoria_id INTEGER NOT NULL REFERENCES categorias(id),
+    transacion_id SERIAL PRIMARY KEY,
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(usuario_id) ON DELETE CASCADE,
+    cuenta_id INTEGER NOT NULL REFERENCES cuentas(cuenta_id) ON DELETE CASCADE,
+    tipo_operacion_id INTEGER NOT NULL REFERENCES tipos_operaciones(tipo_operacion_id) ON DELETE CASCADE,
+    categoria_id INTEGER NOT NULL REFERENCES categorias(categoria_id) ON DELETE CASCADE,
     fecha_transaccion date NOT NULL,
     monto decimal(18,2) NOT NULL,
     nota VARCHAR(1000)
@@ -83,7 +83,7 @@ BEGIN
     WHERE usuario_id = v_usuario_id;
 
     INSERT INTO tipos_cuentas(nombre,usuario_id,orden)
-    VALUES(v_nombre, v_usuario_id, v_orden) RETURNING id INTO v_id;
+    VALUES(v_nombre, v_usuario_id, v_orden) RETURNING tipo_cuenta_id INTO v_id;
 
     RETURN v_id;
 

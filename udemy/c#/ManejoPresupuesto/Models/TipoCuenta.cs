@@ -18,7 +18,7 @@ namespace ManejoPresupuesto.Models
             Con esto realizamos la validación cuando se pierde el foco del input text.
         */
 
-        public int Id { get; set; }
+        public int TipoCuentaId { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]//requerir el campo nombre
         [Remote(action: "VerificarExisteTipoCuenta", controller:"TiposCuentas")]
         // [PrimeraLetraMayuscula]

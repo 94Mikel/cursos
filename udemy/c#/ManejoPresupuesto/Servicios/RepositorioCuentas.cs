@@ -22,11 +22,11 @@ namespace ManejoPresupuesto.Servicios
             using var connection = new NpgsqlConnection(connectionString);
             var id = await connection.QuerySingleAsync<int>(
                 @"INSERT INTO cuentas (nombre, tipo_cuenta_id, descripcion, balance)
-                VALUES(@Nombre, @TipoCuentaId, @Descripcion, @Balance) RETURNING Id",
+                VALUES(@Nombre, @TipoCuentaId, @Descripcion, @Balance) RETURNING cuenta_id",
                 cuenta
             );
 
-            cuenta.Id = id;
+            cuenta.cuentaId = id;
         }
 
         public async Task<IEnumerable<Cuenta>> Buscar(int usuarioId)
@@ -37,9 +37,9 @@ namespace ManejoPresupuesto.Servicios
             */
             using var connection = new NpgsqlConnection(connectionString);
             return await connection.QueryAsync<Cuenta>(
-                @"SELECT cuentas.id, cuentas.nombre, balance, tc.nombre AS TipoCuenta 
-                FROM cuentas 
-                INNER JOIN tipos_cuentas tc ON tc.id = cuentas.id 
+                @"SELECT c.cuenta_id, c.nombre, c.balance, tc.nombre AS TipoCuenta 
+                FROM cuentas AS c 
+                INNER JOIN tipos_cuentas AS tc using(tipo_cuenta_id)
                 WHERE tc.usuario_id = @UsuarioId ORDER BY tc.orden;",
                 new { usuarioId }
             );

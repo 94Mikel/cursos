@@ -50,6 +50,7 @@ namespace ManejoPresupuesto.Controllers
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var modelo = new CuentaCreacionViewModel();
             modelo.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
+            modelo.TipoCuenta = "a";
             return View(modelo);
             //Cargar el modelo que vamos a enviar a la vista.
         }
@@ -62,6 +63,8 @@ namespace ManejoPresupuesto.Controllers
                 Necesitamos validar si el tipo cuenta que recibo del usuario, 
                 existe y es accesible para este usuario id.
             */
+
+            //Hay que parsear Balance de 4,25 a 4.25
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var tipoCuenta = await repositorioTiposCuentas.ObtenerPorId(cuenta.TipoCuentaId, usuarioId);
 
@@ -88,7 +91,7 @@ namespace ManejoPresupuesto.Controllers
                 Para listar los tipos cuentas con texto y valor(orden), para mostrar ordenados en el select.
             */
             var tiposCuentas = await repositorioTiposCuentas.Obtener(usuarioId);
-            return tiposCuentas.Select(x => new SelectListItem(x.Nombre, x.Id.ToString()));
+            return tiposCuentas.Select(x => new SelectListItem(x.Nombre, x.TipoCuentaId.ToString()));
         }
     }
 }

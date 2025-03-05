@@ -55,7 +55,7 @@ namespace ManejoPresupuesto.Servicios
                     {
                         int id = Convert.ToInt32(result);
                         Console.WriteLine($"El ID del usuario es: {id}");
-                        tipoCuenta.Id = id;
+                        tipoCuenta.TipoCuentaId = id;
                     }
                     else
                     {
@@ -96,7 +96,7 @@ namespace ManejoPresupuesto.Servicios
             using var connection = new NpgsqlConnection(connectionString);
             return await connection.QueryAsync<TipoCuenta>
             (
-                @"SELECT id, nombre, orden 
+                @"SELECT tipo_cuenta_id AS TipoCuentaId, nombre, orden 
                 FROM tipos_cuentas 
                 WHERE usuario_id = @usuarioId
                 ORDER BY Orden",
@@ -108,7 +108,7 @@ namespace ManejoPresupuesto.Servicios
         {
             using var connection = new NpgsqlConnection(connectionString);
             await connection.ExecuteAsync(
-                "UPDATE tipos_cuentas SET nombre = @Nombre WHERE id = @Id",
+                "UPDATE tipos_cuentas SET nombre = @Nombre WHERE tipo_cuenta_id = @TipoCuentaId",
                 tipoCuenta
                 );
         }
@@ -117,9 +117,9 @@ namespace ManejoPresupuesto.Servicios
         {
             using var connection = new NpgsqlConnection(connectionString);
             return await connection.QueryFirstOrDefaultAsync<TipoCuenta>(
-                @"SELECT id, nombre, orden 
+                @"SELECT tipo_cuenta_id AS TipoCuentaId, nombre, orden, usuario_id AS UsuarioId
                 FROM tipos_cuentas 
-                WHERE id = @Id AND usuario_id = @UsuarioId",
+                WHERE tipo_cuenta_id = @Id AND usuario_id = @UsuarioId",
                 new { id, usuarioId }
             );
         }
@@ -128,7 +128,7 @@ namespace ManejoPresupuesto.Servicios
         {
             using var connection = new NpgsqlConnection(connectionString);
             await connection.ExecuteAsync(
-                "DELETE FROM tipos_cuentas WHERE id = @id",
+                "DELETE FROM tipos_cuentas WHERE tipo_cuenta_id = @id",
                 new { id }
             );
         }
@@ -139,7 +139,7 @@ namespace ManejoPresupuesto.Servicios
         */
         public async Task Ordenar(IEnumerable<TipoCuenta> tipoCuentasOrdenados)
         {
-            var query = "UPDATE tipos_cuentas SET orden = @Orden WHERE id = @Id";
+            var query = "UPDATE tipos_cuentas SET orden = @Orden WHERE tipo_cuenta_id = @TipoCuentaId";
             using var connection = new NpgsqlConnection(connectionString);
             await connection.ExecuteAsync(query, tipoCuentasOrdenados);
 
