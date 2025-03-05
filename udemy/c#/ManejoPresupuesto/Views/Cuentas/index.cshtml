@@ -1,0 +1,39 @@
+@model IEnumerable<IndiceCuentasViewModel>
+@{
+    ViewData["Title"] = "Cuentas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<a asp-action="Crear" class="btn btn-primary mb-3">Crear nuevo</a>
+
+<div class="contenedor-totales mb-3">
+    <div>
+        <div>
+            <strong>Activos</strong>
+        </div>
+        <div class="activo">
+            <!--
+            Vamos a tener balances positivos y negativos. 
+            Colocamos primero los mayores de 0 es decir los postivos.
+            -->
+            @Model.Where(i => i.Balance > 0).Sum(i => i.Balance)
+        </div>
+    </div>
+    <div>
+        <div>
+            <strong>Pasivos</strong>
+        </div>
+        <div>
+            @Model.Where(i => i.Balance < 0).Sum(i => i.Balance)
+        </div>
+    </div>
+    <div>
+        <div>
+            <strong>Total</strong>
+        </div>
+        <div>
+            @Model.Sum(i => i.Balance)
+        </div>
+    </div>
+</div>

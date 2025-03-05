@@ -126,3 +126,29 @@ Los procedimientos pueden ser ventajosos: cuando una base de datos es manipulada
 - Aprendimos a **conectarnos con una base de datos** y utilizamos **dapper** para ejecutar cuadros y procedimientos almacenados desde nuestra aplicación de mvc.
 - Vimos que podemos implementar una funcionalidad de arrastre de una manera bien sencialla con **jquery-ui**.
 - Utilizamos el Fetch API para hacer peticiones http con JavaScript.
+
+## Entidad cuentas
+
+### Modelo
+
+A traves de una cuenta, el usuario podrá manejar distintos balances, por ejemplo, una cuenta puede ser de banco, una tarjeta de crédito, un préstamo, etc.
+
+- Creamos una clase con las mismas propiedades que nuestra tabla de cuentas.
+
+### Insertar cuentas
+
+- Para insertar la cuenta en la bd necesitamos un repositorio de cuentas.
+- Tambien necesitamos realizar un httpPost en cuentasController.
+
+### Indice de Cuentas
+
+#### Query
+
+- Ya que podemos grabar cuentas, hay que crear la funcionalidad de mostrar el listado de cuentas del usuario.
+- Estas cuentas tienen que estar agrupadas por tipos de cuentas.
+- Se realizara un cálculo de sumatoria total y por tipo cuenta de los distintos balances.
+
+#### Vista
+
+Implementamos la vista de nuestro indice de cuentas.
+Vamos a agrupar cada cuenta agrupada por tipo de cuenta, mostrando los balances de las cuentas individules y por grupo.

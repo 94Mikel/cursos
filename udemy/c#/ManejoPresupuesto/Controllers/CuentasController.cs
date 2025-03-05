@@ -22,6 +22,28 @@ namespace ManejoPresupuesto.Controllers
             this.repositorioCuentas = repositorioCuentas;
         }
 
+        public async Task<IActionResult> Index()
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var cuentasConTipoCuenta = await repositorioCuentas.Buscar(usuarioId);
+
+            //NOTE: index 
+            /*
+            Se realiza una típica operación de GroupBy en la cual vamos a agrupar por tipo cuenta.
+            Agrupamos el registro por tipoCuenta
+            */
+
+            var modelo = cuentasConTipoCuenta
+                .GroupBy(x => x.TipoCuenta)
+                .Select(grupo => new IndiceCuentasViewModel
+                {
+                    TipoCuenta = grupo.Key,
+                    Cuentas = grupo.AsEnumerable()
+                }).ToList();
+
+            return View(modelo);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Crear()
         {

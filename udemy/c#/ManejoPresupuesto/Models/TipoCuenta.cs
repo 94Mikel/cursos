@@ -25,31 +25,6 @@ namespace ManejoPresupuesto.Models
         public string Nombre { get; set; }
         public int UsuarioId { get; set; }
         public int Orden { get; set; }
-        /*
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (Nombre != null && Nombre.Length > 0)
-            {
-                var primeraLetra = Nombre[0].ToString();
-
-                if (primeraLetra != primeraLetra.ToUpper())
-                {
-                    // new[] {nameof(Nombre)} => para indicar que le afecta al campo nombre.
-                    //Error a nivel de campo
-                    yield return new ValidationResult(
-                        "La primera letra debe ser mayúscula",
-                        new[] { nameof(Nombre) }
-                    );
-
-                    //Error a nivel de modelo
-                    //Son perfecto para indecar un errores generales(no de campo)
-                    yield return new ValidationResult(
-                        "La primera letra debe ser mayúscula"
-                    );
-                }
-            }
-        }
-        */
         
     }
 }
