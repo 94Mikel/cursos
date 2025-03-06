@@ -152,3 +152,9 @@ A traves de una cuenta, el usuario podrá manejar distintos balances, por ejempl
 
 Implementamos la vista de nuestro indice de cuentas.
 Vamos a agrupar cada cuenta agrupada por tipo de cuenta, mostrando los balances de las cuentas individules y por grupo.
+
+### Aislamiento css
+
+El fichero custom.css es para toda la aplicacion. 
+Es mejor utilizar el css para cada cshtml correspondiente para tener el diseño de la aplicacion ordenada.
+
