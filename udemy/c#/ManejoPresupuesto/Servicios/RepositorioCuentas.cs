@@ -26,7 +26,7 @@ namespace ManejoPresupuesto.Servicios
                 cuenta
             );
 
-            cuenta.cuentaId = id;
+            cuenta.CuentaId = id;
         }
 
         public async Task<IEnumerable<Cuenta>> Buscar(int usuarioId)
@@ -37,12 +37,41 @@ namespace ManejoPresupuesto.Servicios
             */
             using var connection = new NpgsqlConnection(connectionString);
             return await connection.QueryAsync<Cuenta>(
-                @"SELECT c.cuenta_id, c.nombre, c.balance, tc.nombre AS TipoCuenta 
+                @"SELECT c.cuenta_id AS CuentaId, c.nombre, c.balance, tc.nombre AS TipoCuenta 
                 FROM cuentas AS c 
                 INNER JOIN tipos_cuentas AS tc using(tipo_cuenta_id)
                 WHERE tc.usuario_id = @UsuarioId ORDER BY tc.orden;",
                 new { usuarioId }
             );
         }
+
+        public async Task<Cuenta> ObtenerPorId(int CuentaId, int usuarioId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<Cuenta>
+            (
+                @"SELECT c.cuenta_id AS CuentaId, c.nombre, c.balance, c.descripcion, tc.tipo_cuenta_id AS TipoCuentaID
+                FROM cuentas AS c 
+                INNER JOIN tipos_cuentas AS tc using(tipo_cuenta_id)
+                WHERE tc.usuario_id = @UsuarioId AND c.cuenta_id = @CuentaId
+                ORDER BY tc.orden;",
+                new {CuentaId, usuarioId}
+            );
+        }
+
+        public async Task Actualizar(CuentaCreacionViewModel cuenta)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            await connection.ExecuteAsync 
+            (
+                @"UPDATE cuentas 
+                SET nombre = @Nombre, 
+                    balance = @Balance, 
+                    descripcion = @Descripcion, 
+                    tipo_cuenta_id = @TipoCuentaId
+                WHERE cuenta_id = @CuentaId", cuenta
+            );
+        }
+
     }
 }

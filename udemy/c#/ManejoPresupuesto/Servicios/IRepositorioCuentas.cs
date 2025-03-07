@@ -10,5 +10,8 @@ namespace ManejoPresupuesto.Servicios
     {
         Task Crear(Cuenta cuenta);
         Task<IEnumerable<Cuenta>> Buscar(int usuarioId);
+        Task<Cuenta> ObtenerPorId(int cuentaId, int usuarioId);
+
+        Task Actualizar(CuentaCreacionViewModel cuenta);
     }
 }

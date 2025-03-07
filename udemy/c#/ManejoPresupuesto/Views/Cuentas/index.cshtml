@@ -16,6 +16,8 @@
         return balance >= 0 ? "activo" : "pasivo";
     }
 
+    var total = @Model.Sum(i => i.BalancePositivo - (i.BalanceNegativo * -1));
+    var totalClass = total > 0 ? "activo" : "pasivo";
 }
 
 
@@ -33,7 +35,7 @@
             Vamos a tener balances positivos y negativos. 
             Colocamos primero los mayores de 0 es decir los postivos.
             -->
-            @FormatearBalance(@Model.Where(i => i.Balance > 0).Sum(i => i.Balance))
+            @FormatearBalance(@Model.Sum(i => i.BalancePositivo));
         </div>
     </div>
     <div>
@@ -41,15 +43,15 @@
             <strong>Pasivos</strong>
         </div>
         <div class="pasivo">
-            @FormatearBalance(@Model.Where(i => i.Balance < 0).Sum(i => i.Balance))
+            @FormatearBalance(@Model.Sum(i => i.BalanceNegativo));
         </div>
     </div>
     <div>
         <div>
             <strong>Total</strong>
         </div>
-        <div>
-            @FormatearBalance(@Model.Sum(i => i.Balance))
+        <div class="@totalClass">
+            @FormatearBalance(@total);
         </div>
     </div>
 </div>
@@ -62,34 +64,36 @@
             <h2 class="accordion-header" id="cabeceraUno">
                 @{
                     //Para generar dinamicamente un id para los accordions porque lo necesita para abrir y cerrar
-                    var id = tipoCuenta.TipoCuenta.Replace(" ","");
+                    var id = tipoCuenta.TipoCuenta.Replace(" ", "");
                     var dataBSTarget = "#" + id;
                     //Si el balance de la cuenta es positivo se utiliza la clase activo sino pasivo.
                     var claseTipoCuenta = ObtenerClaseBalance(tipoCuenta.Balance);
                 }
-                <button 
-                    class="accordion-button" 
-                    type="button" 
-                    data-bs-toggle="collapse"
-                    data-bs-target="@dataBSTarget"    
-                >
-                <span class="me-3">
-                    <span><strong>@tipoCuenta.TipoCuenta</strong></span>
-                    <span class="@claseTipoCuenta">@FormatearBalance(tipoCuenta.Balance)</span>
-                </span>
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="@dataBSTarget">
+                    <span class="me-3">
+                        <span><strong>@tipoCuenta.TipoCuenta</strong></span>
+                        <span class="@claseTipoCuenta">@FormatearBalance(tipoCuenta.Balance)</span>
+                    </span>
                 </button>
             </h2>
             <div id="@id" class="accordion-collapse collapse show">
                 <div>
                     <ul class="list-group">
-                        @foreach(var cuenta in tipoCuenta.Cuentas)
+                        @foreach (var cuenta in tipoCuenta.Cuentas)
                         {
                             var claseCuenta = ObtenerClaseBalance(cuenta.Balance);
                             <li class="list-group-item">
-                                <span class="list-group-item">
-                                    <span><strong>@cuenta.Nombre</strong></span>
-                                    <span class="@claseCuenta">@FormatearBalance(cuenta.Balance)</span>
+                                <span>
+                                    <strong>@cuenta.Nombre</strong>
+                                    <strong>@cuenta.CuentaId</strong>
+                                    <a asp-action="Editar" asp-route-id="@cuenta.CuentaId" class="btn-primary btn">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a class="btn-danger btn">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
                                 </span>
+                                <span class="@claseCuenta">@FormatearBalance(cuenta.Balance)</span>
                             </li>
                         }
                     </ul>

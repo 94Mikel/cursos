@@ -10,7 +10,7 @@ namespace ManejoPresupuesto.Models
 {
     public class Cuenta
     {
-        public int cuentaId { get; set; }
+        public int CuentaId { get; set; }
         [Required(ErrorMessage = "El campo {0} es requerido")]
         [StringLength(maximumLength: 50)]
         [PrimeraLetraMayuscula]

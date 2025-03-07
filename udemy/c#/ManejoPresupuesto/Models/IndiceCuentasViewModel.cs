@@ -17,5 +17,7 @@ namespace ManejoPresupuesto.Models
             Se calcula automáticamente 
         */
         public decimal Balance => Cuentas.Sum( x => x.Balance);
+        public decimal BalancePositivo => Cuentas.Where(i => i.Balance > 0).Sum(i => i.Balance);
+        public decimal BalanceNegativo => Cuentas.Where(i => i.Balance < 0).Sum(i => i.Balance);
     }
 }
