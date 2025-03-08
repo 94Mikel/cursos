@@ -158,3 +158,17 @@ Vamos a agrupar cada cuenta agrupada por tipo de cuenta, mostrando los balances 
 El fichero custom.css es para toda la aplicacion. 
 Es mejor utilizar el css para cada cshtml correspondiente para tener el diseño de la aplicacion ordenada.
 
+## Mappeador
+
+Un mapeador busca centralizar la lógica de copiado de datos entre objetos.
+Esto evita que andemos repitiendo código de mapeo y además evita que tengamos que hacer dicho mapeo manualmente. Ya que es mejor automatizarlo para minimizar los posibles errores por descuido.
+Un mapeado muy famoso en el mundo de .NET es **AutoMapper**.
+
+Utilizaremos **AutoMapper** para evitar tener que hacer el mapeo manual:
+
+- Instalar la libreria de AutoMapper => dotnet add package AutoMapper.
+- A automapper hay que indicarle de que clase a que clase queremos mappear. 
+- Lo hacemos en una clase profile.
+
+La ventaja de utilizar AutoMapper es que te ahorras el tener que hacer el mapeo de manera manual. Esto hace que sea mas dificil cometer errores humanos.
+

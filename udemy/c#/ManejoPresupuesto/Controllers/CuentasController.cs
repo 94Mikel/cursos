@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ManejoPresupuesto.Models;
 using ManejoPresupuesto.Servicios;
 using Microsoft.AspNetCore.Mvc;
@@ -14,12 +15,20 @@ namespace ManejoPresupuesto.Controllers
         private readonly IRepositorioTiposCuentas repositorioTiposCuentas;
         private readonly IServicioUsuarios servicioUsuarios;
         private readonly IRepositorioCuentas repositorioCuentas;
+        private readonly IMapper mapper;
 
-        public CuentasController(IRepositorioTiposCuentas repositorioTiposCuentas, IServicioUsuarios servicioUsuarios, IRepositorioCuentas repositorioCuentas)
+        public CuentasController
+        (
+            IRepositorioTiposCuentas repositorioTiposCuentas, 
+            IServicioUsuarios servicioUsuarios, 
+            IRepositorioCuentas repositorioCuentas,
+            IMapper mapper
+        )
         {
             this.repositorioTiposCuentas = repositorioTiposCuentas;
             this.servicioUsuarios = servicioUsuarios;
             this.repositorioCuentas = repositorioCuentas;
+            this.mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
@@ -93,15 +102,8 @@ namespace ManejoPresupuesto.Controllers
                 return RedirectToAction("NoEncontrado", "Home");
             }
 
-            //Realizamos mappeo de cuenta a CuentaCreacionViewModel
-            var modelo = new CuentaCreacionViewModel()
-            {
-                CuentaId = cuenta.CuentaId,
-                Nombre = cuenta.Nombre,
-                TipoCuentaId = cuenta.TipoCuentaId,
-                Descripcion = cuenta.Descripcion,
-                Balance = cuenta.Balance
-            };
+            //Realizamos automapper de Cuenta a CuentaCreacionViewModel
+            var modelo = mapper.Map<CuentaCreacionViewModel>(cuenta);
 
             modelo.TiposCuentas = await ObtenerTiposCuentas(usuarioId);
             return View(modelo);
