@@ -172,3 +172,9 @@ Utilizaremos **AutoMapper** para evitar tener que hacer el mapeo manual:
 
 La ventaja de utilizar AutoMapper es que te ahorras el tener que hacer el mapeo de manera manual. Esto hace que sea mas dificil cometer errores humanos.
 
+## Categorías
+
+Las categorías nos van a permitir indicar maneras de agrupar transacciones.
+Ejemplo: No es lo mismo gastar 500 euros en pizza que un libro.
+Es importante que los usuarios puedan no solamente registrar sus gastos, sino tambíen poder registrar en qué gastan su dinero.
+Lo mismo para los ingresos.
