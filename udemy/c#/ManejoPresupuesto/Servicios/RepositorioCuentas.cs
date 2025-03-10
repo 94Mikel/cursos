@@ -73,5 +73,15 @@ namespace ManejoPresupuesto.Servicios
             );
         }
 
+        public async Task Borrar(int id) 
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            await connection.ExecuteAsync
+            (
+                "DELETE FROM cuentas WHERE cuenta_id = @Id", 
+                new {id}
+            );
+        }
+
     }
 }

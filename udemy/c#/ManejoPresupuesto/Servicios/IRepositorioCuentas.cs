@@ -9,6 +9,8 @@ namespace ManejoPresupuesto.Servicios
     public interface IRepositorioCuentas
     {
         Task Crear(Cuenta cuenta);
+
+        Task Borrar(int id);
         Task<IEnumerable<Cuenta>> Buscar(int usuarioId);
         Task<Cuenta> ObtenerPorId(int cuentaId, int usuarioId);
 
