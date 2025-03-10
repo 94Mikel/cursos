@@ -22,7 +22,7 @@ namespace ManejoPresupuesto.Servicios
             var id = await connection.QuerySingleAsync<int>
             (
                 @"INSERT INTO categorias (nombre, tipo_operacion_id, usuario_id)
-                VALUES(@Nombre, @TipoOperacionId,@UsuarioId) RETURNING categoria_id;",
+                VALUES(@Nombre, @TipoOperacionId, @UsuarioId) RETURNING categoria_id;",
                 categoria
             );
             categoria.CategoriaId = id;

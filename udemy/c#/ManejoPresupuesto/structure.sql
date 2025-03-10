@@ -63,6 +63,11 @@ CREATE TABLE transacciones (
 
 INSERT INTO usuarios(email,email_normalizado,password_hash) VALUES('prueba@mail.com','PRUEBA@MAIL.COM','abc');
 
+---- TIPOS OPERACIONES
+
+INSERT INTO tipos_operaciones(descripcion) VALUES('Ingresos');
+INSERT INTO tipos_operaciones(descripcion) VALUES('Gastos');
+
 
 -- PROCEDIMIENTO ALMACENADO tipos_cuentas_insertar
 -- Necesitamos obtener el orden mas grande para sumarle 1 al insertar un tipos_cuentas.
