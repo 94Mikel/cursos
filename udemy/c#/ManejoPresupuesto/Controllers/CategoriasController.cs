@@ -23,6 +23,13 @@ namespace ManejoPresupuesto.Controllers
             this.servicioUsuarios = servicioUsuarios;
         }
 
+        public async Task<IActionResult> Index() 
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var categorias = await repositorioCategorias.Obtener(usuarioId);
+            return View(categorias);
+        }
+
         [HttpGet]
         public IActionResult Crear()
         {
@@ -42,7 +49,6 @@ namespace ManejoPresupuesto.Controllers
             await repositorioCategorias.Crear(categoria);
 
             return RedirectToAction("Index");
-
         }
 
     }

@@ -27,5 +27,21 @@ namespace ManejoPresupuesto.Servicios
             );
             categoria.CategoriaId = id;
         }
+
+        public async Task<IEnumerable<Categoria>> Obtener(int usuarioId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryAsync<Categoria> 
+            (
+               @"SELECT 
+                categoria_id AS CategoriaId, 
+                tipo_operacion_id AS TipoOperacionId, 
+                usuario_id AS UsuarioId,
+                nombre AS Nombre
+               FROM categorias
+               WHERE usuario_id = @usuarioId",
+               new {usuarioId} 
+            );
+        }
     }
 }
