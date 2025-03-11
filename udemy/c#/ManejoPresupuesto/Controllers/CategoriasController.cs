@@ -23,7 +23,7 @@ namespace ManejoPresupuesto.Controllers
             this.servicioUsuarios = servicioUsuarios;
         }
 
-        public async Task<IActionResult> Index() 
+        public async Task<IActionResult> Index()
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var categorias = await repositorioCategorias.Obtener(usuarioId);
@@ -39,7 +39,8 @@ namespace ManejoPresupuesto.Controllers
         [HttpPost]
         public async Task<IActionResult> Crear(Categoria categoria)
         {
-            if(!ModelState.IsValid){
+            if (!ModelState.IsValid)
+            {
                 return View(categoria);
             }
 
@@ -51,5 +52,39 @@ namespace ManejoPresupuesto.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Editar(int id)
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var categoria = await repositorioCategorias.ObtenerPorId(id, usuarioId);
+
+            if (categoria is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
+            }
+
+            return View(categoria);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Editar(Categoria categoriaEditar)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(categoriaEditar);
+            }
+
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var categoria = await repositorioCategorias.ObtenerPorId(categoriaEditar.CategoriaId, usuarioId);
+
+            if (categoria is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
+            }
+
+            categoriaEditar.UsuarioId = usuarioId;
+            await repositorioCategorias.Actualizar(categoriaEditar);
+            return RedirectToAction("Index");
+
+        }
     }
 }

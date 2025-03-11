@@ -43,5 +43,32 @@ namespace ManejoPresupuesto.Servicios
                new {usuarioId} 
             );
         }
+
+        public async Task<Categoria> ObtenerPorId(int id, int usuarioId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<Categoria>
+            (
+                @"SELECT 
+                    categoria_id AS CategoriaId, 
+                    tipo_operacion_id AS TipoOperacionId, 
+                    usuario_id AS UsuarioId,
+                    nombre AS Nombre
+                FROM categorias
+                WHERE categoria_id = @Id AND usuario_id = @UsuarioId",
+                new {id, usuarioId}
+            );
+        }
+
+        public async Task Actualizar(Categoria categoria)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            await connection.ExecuteAsync(
+                @"UPDATE categorias 
+                SET nombre = @Nombre, tipo_operacion_id = @TipoOperacionId
+                WHERE categoria_id = @CategoriaId",
+                categoria
+            );
+        }
     }
 }
