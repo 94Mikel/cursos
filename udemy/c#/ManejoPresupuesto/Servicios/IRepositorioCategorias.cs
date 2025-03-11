@@ -12,5 +12,6 @@ namespace ManejoPresupuesto.Servicios
         Task<IEnumerable<Categoria>> Obtener(int usuarioId);
         Task<Categoria> ObtenerPorId(int id, int usuarioId);
         Task Actualizar(Categoria categoria);
+        Task Borrar(int id);
     }
 }

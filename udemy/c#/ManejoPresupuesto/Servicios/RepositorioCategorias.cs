@@ -31,7 +31,7 @@ namespace ManejoPresupuesto.Servicios
         public async Task<IEnumerable<Categoria>> Obtener(int usuarioId)
         {
             using var connection = new NpgsqlConnection(connectionString);
-            return await connection.QueryAsync<Categoria> 
+            return await connection.QueryAsync<Categoria>
             (
                @"SELECT 
                 categoria_id AS CategoriaId, 
@@ -40,7 +40,7 @@ namespace ManejoPresupuesto.Servicios
                 nombre AS Nombre
                FROM categorias
                WHERE usuario_id = @usuarioId",
-               new {usuarioId} 
+               new { usuarioId }
             );
         }
 
@@ -56,7 +56,7 @@ namespace ManejoPresupuesto.Servicios
                     nombre AS Nombre
                 FROM categorias
                 WHERE categoria_id = @Id AND usuario_id = @UsuarioId",
-                new {id, usuarioId}
+                new { id, usuarioId }
             );
         }
 
@@ -70,5 +70,16 @@ namespace ManejoPresupuesto.Servicios
                 categoria
             );
         }
+
+        public async Task Borrar(int categoriaId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            await connection.ExecuteAsync (
+                @"DELETE FROM categorias
+                WHERE categoria_id = @CategoriaId",
+                new {categoriaId}
+            );
+        }
+
     }
 }
