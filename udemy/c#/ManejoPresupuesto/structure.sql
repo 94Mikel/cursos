@@ -49,7 +49,6 @@ CREATE TABLE transacciones (
     transacion_id SERIAL PRIMARY KEY,
     usuario_id INTEGER NOT NULL REFERENCES usuarios(usuario_id) ON DELETE CASCADE,
     cuenta_id INTEGER NOT NULL REFERENCES cuentas(cuenta_id) ON DELETE CASCADE,
-    tipo_operacion_id INTEGER NOT NULL REFERENCES tipos_operaciones(tipo_operacion_id) ON DELETE CASCADE,
     categoria_id INTEGER NOT NULL REFERENCES categorias(categoria_id) ON DELETE CASCADE,
     fecha_transaccion date NOT NULL,
     monto decimal(18,2) NOT NULL,
@@ -69,7 +68,10 @@ INSERT INTO tipos_operaciones(descripcion) VALUES('Ingresos');
 INSERT INTO tipos_operaciones(descripcion) VALUES('Gastos');
 
 
--- PROCEDIMIENTO ALMACENADO tipos_cuentas_insertar
+-- PROCEDIMIENTOS ALMACENADOS 
+
+-- tipos_cuentas_insertar
+
 -- Necesitamos obtener el orden mas grande para sumarle 1 al insertar un tipos_cuentas.
 
 CREATE OR REPLACE FUNCTION tipos_cuentas_insertar(
@@ -89,6 +91,33 @@ BEGIN
 
     INSERT INTO tipos_cuentas(nombre,usuario_id,orden)
     VALUES(v_nombre, v_usuario_id, v_orden) RETURNING tipo_cuenta_id INTO v_id;
+
+    RETURN v_id;
+
+END;
+$$ LANGUAGE plpgsql;
+
+
+-- transacciones_insertar
+
+CREATE OR REPLACE FUNCTION transacciones_insertar(
+        -- Parametros de entrada del procedimietno almacenado
+        v_usuario_id INT,
+        v_fecha_transaccion DATE,
+        v_monto DECIMAL(18,2),
+        v_categoria_id INT,
+        v_cuenta_id INT,
+        v_nota VARCHAR(1000)
+) RETURNS INTEGER AS $$
+DECLARE 
+    v_id int;
+BEGIN
+
+    INSERT INTO transacciones(usuario_id, fecha_transaccion, monto, categoria_id, cuenta_id, nota)
+    VALUES(v_usuario_id, v_fecha_transaccion, ABS(v_monto), v_categoria_id, v_cuenta_id, v_nota)
+    RETURNING transacion_id INTO v_id;
+
+    UPDATE cuentas SET balance = balance + v_monto WHERE cuenta_id = v_cuenta_id;
 
     RETURN v_id;
 
