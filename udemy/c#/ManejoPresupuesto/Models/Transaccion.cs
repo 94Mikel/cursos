@@ -20,10 +20,12 @@ namespace ManejoPresupuesto.Models
             Range => El número debe ser entre 1 y maximo valor enteros.
         */
         [Range(1, maximum: int.MaxValue, ErrorMessage = "Debe seleccionar una categoría")]
+        [Display(Name = "Categoría")]
         public int CategoriaId { get; set; }
         [StringLength(maximumLength:1000, ErrorMessage = "La nota no puede pasar de {1} caracteres")]
         public string Nota { get; set; }
         [Range(1, maximum: int.MaxValue, ErrorMessage = "Debe seleccionar una cuenta")]
+        [Display(Name = "Cuenta")]
         public int CuentaId { get; set; }
     }
 }
