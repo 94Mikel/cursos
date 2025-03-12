@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ManejoPresupuesto.Controllers
 {
-    public class TransaccionesControler: Controller
+    public class TransaccionesController: Controller
     {
         private readonly IServicioUsuarios servicioUsuarios;
         private readonly IRepositorioCuentas repositorioCuentas;
 
-        public TransaccionesControler
+        public TransaccionesController
         (
             IServicioUsuarios servicioUsuarios, 
             IRepositorioCuentas repositorioCuentas

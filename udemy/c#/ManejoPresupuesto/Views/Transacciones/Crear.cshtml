@@ -1,0 +1,24 @@
+@model TransaccionCreacionViewModel
+
+@{
+    ViewData["Title"] = "Crear transaccion";
+}
+
+<h1>Crear Transaccion</h1>
+<h5>
+    Una transacción te permite indecar tus ingresos y gastos 
+</h5>
+
+<form asp-controller="TransaccionesController" asp-action="Crear">
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+
+    <div class="mb-3">
+        <label asp-for="FechaTransaccion" class="form-label"></label>
+        <input asp-for="FechaTransaccion" class="form-control"></input>
+        <span asp-validation-for="FechaTransaccion" class="text-danger"></span>
+    </div>
+</form> 
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

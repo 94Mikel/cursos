@@ -10,6 +10,9 @@ namespace ManejoPresupuesto.Models
     {
         public int TransaccionId { get; set; }
         public int UsuarioId { get; set; }
+        [Display(Name = "Fecha Transacción")]
+        [DataType(DataType.Date)]//para poner la fecha sin la hora
+        //DateTime.Parse(DateTime.Now.ToString("g")); formetar la fecha
         public DateTime FechaTransaccion { get; set; } = DateTime.Today;
         public decimal Monto { get; set; }
         //Atributos de Categoria id
