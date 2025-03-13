@@ -24,17 +24,21 @@
     </div>
     <div class="mb-3">
         <label asp-for="TipoOperacionId" class="form-label"></label>
-        <select 
-            asp-for="TipoOperacionId" 
-            asp-items="Html.GetEnumSelectList<TipoOperacion>()" 
-            class="form-select">
+        <select asp-for="TipoOperacionId" asp-items="Html.GetEnumSelectList<TipoOperacion>()" class="form-select">
         </select>
         <span class="text-danger" asp-validation-for="CuentaId"></span>
     </div>
-    <!--Categorias relacionadas con el tipo operacion-->
+    <!--
+        Categorias relacionadas con el tipo operacion
+        El campo categoría es un campo especial, pues representa lo que se conoce
+        como un dropdown cascada o dependiente.
+        Los valores de categoría dependen de otro campo(tipoOperacion).
+        Si el usuario desea registrar un ingreso tiene que aparecer las categorias relacionadas con ingreso.
+        Si el usuario desea registrar un gasto tiene que aparecer las categorias relacionadas con gasto.
+    -->
     <div class="mb-3">
         <label asp-for="CategoriaId" class="form-label"></label>
-        <select asp-for="CategoriaId" class="form-select"></select>
+        <select asp-for="CategoriaId" asp-items="Model.Categorias" class="form-select"></select>
         <span class="text-danger" asp-validation-for="CategoriaId"></span>
     </div>
     <div class="mb-3">
@@ -55,4 +59,34 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <!--
+                            Añadimos jquery para realizar la accion.
+                    -->
+    <script>
+
+        const urlObtenerCategorias = '@Url.Action("ObtenerCategorias")';
+
+        $(function () {
+            $("#TipoOperacionId").change(async function () {
+                const valorSeleccionado = $(this).val();
+
+                const respuesta = await fetch(urlObtenerCategorias, {
+                    method: 'POST',
+                    body: valorSeleccionado,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const json = await respuesta.json();
+                console.log(json);
+                const opciones = 
+                    json.map(categoria => `<option value=${categoria.value}>${categoria.text}</option>`);
+                console.log(opciones);
+                $("#CategoriaId").html(opciones);
+            })
+        })
+    </script>
+
 }

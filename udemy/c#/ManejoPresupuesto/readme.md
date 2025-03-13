@@ -178,3 +178,14 @@ Las categorías nos van a permitir indicar maneras de agrupar transacciones.
 Ejemplo: No es lo mismo gastar 500 euros en pizza que un libro.
 Es importante que los usuarios puedan no solamente registrar sus gastos, sino tambíen poder registrar en qué gastan su dinero.
 Lo mismo para los ingresos.
+
+## DropDown
+
+Es un control de interface gráfica que permite a los usuarios seleccionar un elemento de una lista desplegable.
+Dependiendo del framework de .NET que estés usando, hay diferentes controles de dropdown.
+
+Su función principal es permitir la selección de un elemento dentro de una lista desplegable.
+
+### En ASP .NET con Razor
+
+Se usa la etiqueta **select** en Razor con TagHelpers o **ViewData/ViewBag**.
