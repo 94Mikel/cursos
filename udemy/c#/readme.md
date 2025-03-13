@@ -6,7 +6,7 @@
 - Con C# podemos desarrollar distintos tipos de app
 - Es un lenguaje fuertemente tipado
 - Es basado en clases
-- Nos permite trabajar con fiones de primera clase
+- Nos permite trabajar con funciones de primera clase
 - LINQ y expresiones lambda
 
 ## ASP .NET Core framework
@@ -43,7 +43,7 @@ la vista que muestre el contenido final al usuario.
 
 ## Blazor
 
-ASP .NET CORE y Blazor renderizan el html en el servidor y lo envian al cliente talcual.
+ASP .NET CORE y Blazor renderizan el html en el servidor y lo envian al cliente alcual.
 Alternativa:
 
 - Enviar código de C# al navegador del usuario.
