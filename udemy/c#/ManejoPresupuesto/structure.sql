@@ -1,3 +1,5 @@
+-- BASE DE DATOS PSQL --
+
 -- USUARIO
 
 -- El email_normalizado nos sirve para tener en mayusculas el email.
@@ -50,7 +52,7 @@ CREATE TABLE transacciones (
     usuario_id INTEGER NOT NULL REFERENCES usuarios(usuario_id) ON DELETE CASCADE,
     cuenta_id INTEGER NOT NULL REFERENCES cuentas(cuenta_id) ON DELETE CASCADE,
     categoria_id INTEGER NOT NULL REFERENCES categorias(categoria_id) ON DELETE CASCADE,
-    fecha_transaccion date NOT NULL,
+    fecha_transaccion DATETIME NOT NULL,
     monto decimal(18,2) NOT NULL,
     nota VARCHAR(1000)
 );
@@ -98,16 +100,16 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- transacciones_insertar
+-- transacciones_insertar (integer, timestamp without time zone, numeric, integer, integer, text)
 
 CREATE OR REPLACE FUNCTION transacciones_insertar(
         -- Parametros de entrada del procedimietno almacenado
         v_usuario_id INT,
-        v_fecha_transaccion DATE,
+        v_fecha_transaccion TIMESTAMP,
         v_monto DECIMAL(18,2),
         v_categoria_id INT,
         v_cuenta_id INT,
-        v_nota VARCHAR(1000)
+        v_nota TEXT
 ) RETURNS INTEGER AS $$
 DECLARE 
     v_id int;

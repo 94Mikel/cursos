@@ -9,8 +9,10 @@
     Una transacción te permite indecar tus ingresos y gastos
 </h5>
 
-<form asp-controller="TransaccionesController" asp-action="Crear">
+<form asp-action="Crear">
     <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    <input type="hidden" asp-for="Cuentas">
+    <input type="hidden" asp-for="Categorias">
 
     <div class="mb-3">
         <label asp-for="FechaTransaccion" class="form-label"></label>
@@ -52,7 +54,7 @@
         <span asp-validation-for="Nota" class="text-danger"></span>
     </div>
 
-    <button class="btn btn-primary">Enviar</button>
+    <button type="submit" class="btn btn-primary">Enviar</button>
     <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 
 </form>
