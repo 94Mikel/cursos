@@ -20,6 +20,10 @@ namespace ManejoPresupuesto.Servicios
         public AutoMapperProfiles()
         {
             CreateMap<Cuenta, CuentaCreacionViewModel>();
+            /*
+                ReverseMap => para realizar ambos mapeos(veceversa)
+            */
+            CreateMap<TransaccionCreacionViewModel, Transaccion>().ReverseMap();
         }
     }
 }

@@ -77,5 +77,39 @@ namespace ManejoPresupuesto.Servicios
                 }
             }
         }
+
+        public async Task Actualizar(Transaccion transaccion, decimal montoAnterior, int cuentaAnteriorId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            await connection.ExecuteAsync
+            (
+                "transacciones_actualizar",
+                new 
+                {
+                    transaccion.TransaccionId,
+                    transaccion.FechaTransaccion,
+                    transaccion.Monto,
+                    transaccion.CategoriaId,
+                    transaccion.CuentaId,
+                    transaccion.Nota,
+                    montoAnterior,
+                    cuentaAnteriorId
+                },
+                commandType: System.Data.CommandType.StoredProcedure
+            );
+        }
+
+        public async Task<Transaccion> ObtenerPorId(int TransaccionId, int UsuarioId)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryFirstOrDefaultAsync<Transaccion>
+            (
+                @"SELECT tra.*, cat.tipo_operacion_id 
+                FROM transacciones AS tra INNER JOIN categorias AS cat 
+                USING (categoria_id) 
+                WHERE tra.transaccion_id = @TransaccionId AND tra.usuario_id = @UsuarioId",
+                new {TransaccionId, UsuarioId}
+            );
+        }
     }
 }
