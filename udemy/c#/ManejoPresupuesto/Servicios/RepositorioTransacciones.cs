@@ -8,7 +8,7 @@ using Npgsql;
 
 namespace ManejoPresupuesto.Servicios
 {
-    public class RepositorioTransacciones: IRepositorioTransacciones
+    public class RepositorioTransacciones : IRepositorioTransacciones
     {
         private readonly string connectionString;
 
@@ -77,9 +77,25 @@ namespace ManejoPresupuesto.Servicios
                 }
             }
         }
+        /*
+        Se produjo una excepción de tipo 'Npgsql.PostgresException' en System.Private.CoreLib.dll pero 
+        no se controló en el código del usuario: 
+        '42883: no existe el procedimiento 
+        «transacciones_actualizar
+        (TransaccionId => integer, 
+        FechaTransaccion => timestamp without time zone, 
+        Monto => numeric, 
+        CategoriaId => integer, 
+        CuentaId => integer, 
+        Nota => text, 
+        montoAnterior => numeric, 
+        cuentaAnteriorId => integer)»
+        */
+
 
         public async Task Actualizar(Transaccion transaccion, decimal montoAnterior, int cuentaAnteriorId)
         {
+            /*
             using var connection = new NpgsqlConnection(connectionString);
             await connection.ExecuteAsync
             (
@@ -89,14 +105,72 @@ namespace ManejoPresupuesto.Servicios
                     transaccion.TransaccionId,
                     transaccion.FechaTransaccion,
                     transaccion.Monto,
-                    transaccion.CategoriaId,
-                    transaccion.CuentaId,
-                    transaccion.Nota,
                     montoAnterior,
-                    cuentaAnteriorId
+                    transaccion.CuentaId,
+                    cuentaAnteriorId,
+                    transaccion.CategoriaId,
+                    transaccion.Nota
                 },
                 commandType: System.Data.CommandType.StoredProcedure
             );
+            */
+            /*
+            using (var conn = new NpgsqlConnection(connectionString))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand
+                    (
+                        @"SELECT * 
+                        FROM transacciones_actualizar
+                        (
+                        @transaccion_id, 
+                        @fecha_transaccion,
+                        @monto,
+                        @monto_anterior,
+                        @cuenta_id,
+                        @cuenta_anterior_id,
+                        @categoria_id,
+                        @nota
+                        )", 
+                        conn
+                    )
+                )
+                {
+                    cmd.Parameters.AddWithValue("transaccion_id", transaccion.TransaccionId);
+                    cmd.Parameters.AddWithValue("fecha_transaccion", transaccion.FechaTransaccion);
+                    cmd.Parameters.AddWithValue("monto", transaccion.Monto);
+                    cmd.Parameters.AddWithValue("monto_anterior", montoAnterior);
+                    cmd.Parameters.AddWithValue("cuenta_id", transaccion.CuentaId);
+                    cmd.Parameters.AddWithValue("cuenta_anterior_id", cuentaAnteriorId);
+                    cmd.Parameters.AddWithValue("categoria_id", transaccion.CategoriaId);
+                    cmd.Parameters.AddWithValue("nota", transaccion.Nota);
+
+                    cmd.ExecuteScalar();
+                }
+            }
+            */
+            using var connection = new NpgsqlConnection(connectionString);
+
+            try
+            {
+                await using var dataSource = NpgsqlDataSource.Create(connectionString);
+                await using var cmd = dataSource.CreateCommand("CALL transacciones_actualizar($1,$2,$3,$4,$5,$6,$7,$8)");
+
+                cmd.Parameters.AddWithValue(transaccion.TransaccionId);
+                cmd.Parameters.AddWithValue(transaccion.FechaTransaccion);
+                cmd.Parameters.AddWithValue(transaccion.Monto);
+                cmd.Parameters.AddWithValue(montoAnterior);
+                cmd.Parameters.AddWithValue(transaccion.CuentaId);
+                cmd.Parameters.AddWithValue(cuentaAnteriorId);
+                cmd.Parameters.AddWithValue(transaccion.CategoriaId);
+                cmd.Parameters.AddWithValue(transaccion.Nota);
+
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (NpgsqlException ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
         }
 
         public async Task<Transaccion> ObtenerPorId(int TransaccionId, int UsuarioId)
@@ -104,11 +178,19 @@ namespace ManejoPresupuesto.Servicios
             using var connection = new NpgsqlConnection(connectionString);
             return await connection.QueryFirstOrDefaultAsync<Transaccion>
             (
-                @"SELECT tra.*, cat.tipo_operacion_id 
+                @"SELECT 
+                tra.transaccion_id AS TransaccionId,
+                tra.usuario_id AS UsuarioId ,
+                tra.cuenta_id AS CuentaId,
+                tra.categoria_id AS CategoriaId,
+                tra.fecha_transaccion AS FechaTransaccion,
+                tra.monto AS Monto,
+                tra.nota AS Nota,
+                cat.tipo_operacion_id 
                 FROM transacciones AS tra INNER JOIN categorias AS cat 
                 USING (categoria_id) 
                 WHERE tra.transaccion_id = @TransaccionId AND tra.usuario_id = @UsuarioId",
-                new {TransaccionId, UsuarioId}
+                new { TransaccionId, UsuarioId }
             );
         }
     }

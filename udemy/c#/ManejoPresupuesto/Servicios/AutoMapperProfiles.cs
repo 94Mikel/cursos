@@ -24,6 +24,8 @@ namespace ManejoPresupuesto.Servicios
                 ReverseMap => para realizar ambos mapeos(veceversa)
             */
             CreateMap<TransaccionCreacionViewModel, Transaccion>().ReverseMap();
+            CreateMap<TransaccionActualizacionViewModel, Transaccion>().ReverseMap();
+
         }
     }
 }

@@ -104,7 +104,7 @@ namespace ManejoPresupuesto.Controllers
                 modelo.MontoAnterior = modelo.Monto * -1;
             }
 
-            modelo.cuentaAnteriorId = transaccion.CuentaId;
+            modelo.CuentaAnteriorId = transaccion.CuentaId;
             modelo.Categorias = await ObtenerCategorias(usuarioId, transaccion.TipoOperacionId);
             modelo.Cuentas = await ObtenerCuentas(usuarioId);
 
@@ -145,7 +145,7 @@ namespace ManejoPresupuesto.Controllers
             await repositorioTransacciones.Actualizar(
                 transaccion,
                 modelo.MontoAnterior,
-                modelo.cuentaAnteriorId
+                modelo.CuentaAnteriorId
             );
 
             return RedirectToAction("Index");

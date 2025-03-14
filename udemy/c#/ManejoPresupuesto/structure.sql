@@ -133,7 +133,6 @@ CREATE OR REPLACE PROCEDURE transacciones_actualizar(
         v_fecha_transaccion TIMESTAMP,
         v_monto DECIMAL(18,2),
         v_monto_anterior DECIMAL(18,2),
-        v_cuenta_anterior DECIMAL(18,2),
         v_cuenta_id INT,
         v_cuenta_anterior_id INT,
         v_categoria_id INT,
@@ -144,14 +143,16 @@ AS $$
 BEGIN
 
     -- Revertir transacción anterior --
-    UPDATE cuentas SET balance = balance - v_monto_anterior WHERE cuenta_id = v_cuenta_anterior_id;
+    UPDATE cuentas 
+    SET balance = balance - v_monto_anterior 
+    WHERE cuenta_id = v_cuenta_anterior_id;
 
     -- Realizar nueva transacción --
     UPDATE Cuentas
     SET Balance = Balance + v_monto
     WHERE cuenta_id = v_cuenta_id;
 
-    UPDATE Tansacciones
+    UPDATE Transacciones
     SET monto = ABS(v_monto), fecha_transaccion = v_fecha_transaccion,
     categoria_id = v_categoria_id, cuenta_id = v_cuenta_id, nota = v_nota 
     WHERE transaccion_id = v_transaccion_id;
