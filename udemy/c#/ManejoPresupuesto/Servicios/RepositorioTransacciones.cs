@@ -77,78 +77,33 @@ namespace ManejoPresupuesto.Servicios
                 }
             }
         }
-        /*
-        Se produjo una excepción de tipo 'Npgsql.PostgresException' en System.Private.CoreLib.dll pero 
-        no se controló en el código del usuario: 
-        '42883: no existe el procedimiento 
-        «transacciones_actualizar
-        (TransaccionId => integer, 
-        FechaTransaccion => timestamp without time zone, 
-        Monto => numeric, 
-        CategoriaId => integer, 
-        CuentaId => integer, 
-        Nota => text, 
-        montoAnterior => numeric, 
-        cuentaAnteriorId => integer)»
-        */
+
+        public async Task<IEnumerable<Transaccion>> ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta modelo)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryAsync<Transaccion>
+            (
+                @"SELECT 
+                    t.transaccion_id AS TransaccionId, 
+                    t.monto AS Monto, 
+                    t.fecha_transaccion AS FechaTransaccion, 
+                    c.nombre AS Categoria,
+                    cu.nombre AS Cuenta,
+                    c.tipo_operacion_id AS TipoOperacionId
+                FROM transacciones AS t
+                INNER JOIN categotias AS c 
+                USING (categoria_id)
+                INNER JOIN cuentas cu
+                USING (cuenta_id)
+                WHERE t.cuenta_id = @CuentaId AND t.UsuarioId = @UsuarioId
+                AND FechaTransaccion BETWEEN @FechaInicio AND @FechaFin",
+                modelo
+            );
+        }
 
 
         public async Task Actualizar(Transaccion transaccion, decimal montoAnterior, int cuentaAnteriorId)
         {
-            /*
-            using var connection = new NpgsqlConnection(connectionString);
-            await connection.ExecuteAsync
-            (
-                "transacciones_actualizar",
-                new 
-                {
-                    transaccion.TransaccionId,
-                    transaccion.FechaTransaccion,
-                    transaccion.Monto,
-                    montoAnterior,
-                    transaccion.CuentaId,
-                    cuentaAnteriorId,
-                    transaccion.CategoriaId,
-                    transaccion.Nota
-                },
-                commandType: System.Data.CommandType.StoredProcedure
-            );
-            */
-            /*
-            using (var conn = new NpgsqlConnection(connectionString))
-            {
-                conn.Open();
-                using (var cmd = new NpgsqlCommand
-                    (
-                        @"SELECT * 
-                        FROM transacciones_actualizar
-                        (
-                        @transaccion_id, 
-                        @fecha_transaccion,
-                        @monto,
-                        @monto_anterior,
-                        @cuenta_id,
-                        @cuenta_anterior_id,
-                        @categoria_id,
-                        @nota
-                        )", 
-                        conn
-                    )
-                )
-                {
-                    cmd.Parameters.AddWithValue("transaccion_id", transaccion.TransaccionId);
-                    cmd.Parameters.AddWithValue("fecha_transaccion", transaccion.FechaTransaccion);
-                    cmd.Parameters.AddWithValue("monto", transaccion.Monto);
-                    cmd.Parameters.AddWithValue("monto_anterior", montoAnterior);
-                    cmd.Parameters.AddWithValue("cuenta_id", transaccion.CuentaId);
-                    cmd.Parameters.AddWithValue("cuenta_anterior_id", cuentaAnteriorId);
-                    cmd.Parameters.AddWithValue("categoria_id", transaccion.CategoriaId);
-                    cmd.Parameters.AddWithValue("nota", transaccion.Nota);
-
-                    cmd.ExecuteScalar();
-                }
-            }
-            */
             using var connection = new NpgsqlConnection(connectionString);
 
             try

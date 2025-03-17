@@ -16,19 +16,22 @@ namespace ManejoPresupuesto.Controllers
         private readonly IServicioUsuarios servicioUsuarios;
         private readonly IRepositorioCuentas repositorioCuentas;
         private readonly IMapper mapper;
+        private readonly IRepositorioTransacciones repositorioTransacciones;
 
         public CuentasController
         (
             IRepositorioTiposCuentas repositorioTiposCuentas,
             IServicioUsuarios servicioUsuarios,
             IRepositorioCuentas repositorioCuentas,
-            IMapper mapper
+            IMapper mapper,
+            IRepositorioTransacciones repositorioTransacciones
         )
         {
             this.repositorioTiposCuentas = repositorioTiposCuentas;
             this.servicioUsuarios = servicioUsuarios;
             this.repositorioCuentas = repositorioCuentas;
             this.mapper = mapper;
+            this.repositorioTransacciones = repositorioTransacciones;
         }
 
         public async Task<IActionResult> Index()
@@ -49,6 +52,63 @@ namespace ManejoPresupuesto.Controllers
                     TipoCuenta = grupo.Key,
                     Cuentas = grupo.AsEnumerable()
                 }).ToList();
+
+            return View(modelo);
+        }
+
+        public async Task<IActionResult> Detalle(int id, int mes, int ano)
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var cuenta = await repositorioCuentas.ObtenerPorId(id, usuarioId);
+
+            if (cuenta is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
+            }
+
+            DateTime fechaInicio;
+            DateTime fechaFin;
+
+            if (mes <= 0 || mes > 12 || ano <= 1990)
+            {
+                var hoy = DateTime.Today;
+                fechaInicio = new DateTime(hoy.Year, hoy.Month, 1);
+            }
+            else
+            {
+                fechaInicio = new DateTime(ano, mes, 1);
+            }
+
+            fechaFin = fechaInicio.AddMonths(1).AddDays(-1);
+
+            var ObtenerTransaccionesPorCuenta = new ObtenerTransaccionesPorCuenta()
+            {
+                CuentaId = id,
+                UsuarioId = usuarioId,
+                FechaInicio = fechaInicio,
+                FechaFin = fechaFin
+            };
+
+            var transacciones = await repositorioTransacciones.ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta);
+
+            var modelo = new ReporteTransaccionesDetalladas();
+            ViewBag.Cuenta = cuenta.Nombre;
+
+            /*
+                Agrupamos nuestras transacciones por fecha. 
+                Esto nos va a permitir mostrarle al usuario cada transacción por día en un mes.
+            */
+            var transaccionesPorFecha = 
+                transacciones.OrderByDescending(x => x.FechaTransaccion)
+                .GroupBy(x => x.FechaTransaccion)
+                .Select(grupo => new ReporteTransaccionesDetalladas.TransaccionesPorFecha(){
+                    FechaTransaccion = grupo.Key,
+                    Transacciones = grupo.AsEnumerable()
+                });
+            
+            modelo.TransaccionesAgrupadas = transaccionesPorFecha;
+            modelo.FechaInicio = fechaInicio;
+            modelo.FechaFin = fechaFin;
 
             return View(modelo);
         }
@@ -138,21 +198,23 @@ namespace ManejoPresupuesto.Controllers
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var cuenta = await repositorioCuentas.ObtenerPorId(id, usuarioId);
 
-            if(cuenta is null){
-                return RedirectToAction("NoEncontrado","Home") ;
+            if (cuenta is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
             }
 
             return View(cuenta);
         }
 
         [HttpPost]
-        public async Task<IActionResult> BorrarCuenta(int CuentaId) 
+        public async Task<IActionResult> BorrarCuenta(int CuentaId)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var cuenta = await repositorioCuentas.ObtenerPorId(CuentaId, usuarioId);
 
-            if(cuenta is null){
-                return RedirectToAction("NoEncontrado","Home") ;
+            if (cuenta is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
             }
 
             await repositorioCuentas.Borrar(CuentaId);

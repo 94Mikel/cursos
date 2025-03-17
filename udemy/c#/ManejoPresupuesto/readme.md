@@ -127,38 +127,42 @@ Los procedimientos pueden ser ventajosos: cuando una base de datos es manipulada
 - Vimos que podemos implementar una funcionalidad de arrastre de una manera bien sencialla con **jquery-ui**.
 - Utilizamos el Fetch API para hacer peticiones http con JavaScript.
 
-## Entidad cuentas
+---
 
-### Modelo
+## Los otros CRUDs
+
+### Entidad cuentas
+
+#### Modelo
 
 A traves de una cuenta, el usuario podrá manejar distintos balances, por ejemplo, una cuenta puede ser de banco, una tarjeta de crédito, un préstamo, etc.
 
 - Creamos una clase con las mismas propiedades que nuestra tabla de cuentas.
 
-### Insertar cuentas
+#### Insertar cuentas
 
 - Para insertar la cuenta en la bd necesitamos un repositorio de cuentas.
 - Tambien necesitamos realizar un httpPost en cuentasController.
 
-### Indice de Cuentas
+#### Indice de Cuentas
 
-#### Query
+##### Query
 
 - Ya que podemos grabar cuentas, hay que crear la funcionalidad de mostrar el listado de cuentas del usuario.
 - Estas cuentas tienen que estar agrupadas por tipos de cuentas.
 - Se realizara un cálculo de sumatoria total y por tipo cuenta de los distintos balances.
 
-#### Vista
+##### Vista
 
 Implementamos la vista de nuestro indice de cuentas.
 Vamos a agrupar cada cuenta agrupada por tipo de cuenta, mostrando los balances de las cuentas individules y por grupo.
 
-### Aislamiento css
+#### Aislamiento css
 
 El fichero custom.css es para toda la aplicacion. 
 Es mejor utilizar el css para cada cshtml correspondiente para tener el diseño de la aplicacion ordenada.
 
-## Mappeador
+### Mappeador
 
 Un mapeador busca centralizar la lógica de copiado de datos entre objetos.
 Esto evita que andemos repitiendo código de mapeo y además evita que tengamos que hacer dicho mapeo manualmente. Ya que es mejor automatizarlo para minimizar los posibles errores por descuido.
@@ -172,20 +176,35 @@ Utilizaremos **AutoMapper** para evitar tener que hacer el mapeo manual:
 
 La ventaja de utilizar AutoMapper es que te ahorras el tener que hacer el mapeo de manera manual. Esto hace que sea mas dificil cometer errores humanos.
 
-## Categorías
+### Categorías
 
 Las categorías nos van a permitir indicar maneras de agrupar transacciones.
 Ejemplo: No es lo mismo gastar 500 euros en pizza que un libro.
 Es importante que los usuarios puedan no solamente registrar sus gastos, sino tambíen poder registrar en qué gastan su dinero.
 Lo mismo para los ingresos.
 
-## DropDown
+### DropDown
 
 Es un control de interface gráfica que permite a los usuarios seleccionar un elemento de una lista desplegable.
 Dependiendo del framework de .NET que estés usando, hay diferentes controles de dropdown.
 
 Su función principal es permitir la selección de un elemento dentro de una lista desplegable.
 
-### En ASP .NET con Razor
+#### En ASP .NET con Razor
 
 Se usa la etiqueta **select** en Razor con TagHelpers o **ViewData/ViewBag**.
+
+### Resumen
+
+- Trabajamos con los **CRUDs** de las demás entidades que componen nuestro proyecto. Creación, lectura, actualización y borrado de las demás entidades.
+- Aprendimos a trabajar con **Drop Downs** o **select** para permitirle al usuario seleccionar una opción de varias opciones existentes.
+- Vimos el **aislamiento de CSS** que nos permite tener reglas de estilo que sólo aplican a una vista en particular.
+- **AutoMapper** para mapear nuestros objetos estre sí con un drop down cascada.
+- Con **DropDown cascada** pudimos filtrar los valores de un dropdown en base a otro drop down.
+- Vimos como trabajar con fechas en un formulario, tanto para trabajar con la hora como sin ella.
+
+---
+
+## Reportes
+
+Con los repoetes los usuarios van a poder ver los resúmenes de sus movimientos para así saber a dónde se va su dinero.

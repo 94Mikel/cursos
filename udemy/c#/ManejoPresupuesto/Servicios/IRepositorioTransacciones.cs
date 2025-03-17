@@ -12,5 +12,6 @@ namespace ManejoPresupuesto.Servicios
         Task Actualizar(Transaccion transaccion, decimal montoAnterior, int cuentaAnterior);
         Task<Transaccion> ObtenerPorId(int TransaccionId, int UsuarioId);
         Task Borrar(int id);
+        Task<IEnumerable<Transaccion>> ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta modelo);
     }
 }
