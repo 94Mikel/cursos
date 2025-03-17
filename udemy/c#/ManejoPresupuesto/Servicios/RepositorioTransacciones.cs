@@ -193,5 +193,22 @@ namespace ManejoPresupuesto.Servicios
                 new { TransaccionId, UsuarioId }
             );
         }
+
+        public async Task Borrar(int id)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            try
+            {
+                await using var dataSource = NpgsqlDataSource.Create(connectionString);
+                await using var cmd = dataSource.CreateCommand("CALL transacciones_borrar($1)");
+
+                cmd.Parameters.AddWithValue(id);
+                await cmd.ExecuteNonQueryAsync();
+            }
+            catch (NpgsqlException ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+            }
+        }
     }
 }

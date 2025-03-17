@@ -117,7 +117,7 @@ BEGIN
 
     INSERT INTO transacciones(usuario_id, fecha_transaccion, monto, categoria_id, cuenta_id, nota)
     VALUES(v_usuario_id, v_fecha_transaccion, ABS(v_monto), v_categoria_id, v_cuenta_id, v_nota)
-    RETURNING transacion_id INTO v_id;
+    RETURNING transaccion_id INTO v_id;
 
     UPDATE cuentas SET balance = balance + v_monto WHERE cuenta_id = v_cuenta_id;
 
@@ -155,6 +155,44 @@ BEGIN
     UPDATE Transacciones
     SET monto = ABS(v_monto), fecha_transaccion = v_fecha_transaccion,
     categoria_id = v_categoria_id, cuenta_id = v_cuenta_id, nota = v_nota 
+    WHERE transaccion_id = v_transaccion_id;
+
+    COMMIT;
+
+END;
+$$;
+
+-- transacciones_borrar -- TODO
+CREATE OR REPLACE PROCEDURE transacciones_borrar(
+        -- Parametros de entrada del procedimietno almacenado
+        v_transaccion_id INT
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_monto DECIMAL(18,2);
+    v_cuenta_id INTEGER;
+    v_tipo_operacion_id INTEGER;
+    v_factor_multiplicativo INTEGER = 1;    
+BEGIN
+
+    SELECT tra.monto, tra.cuenta_id, cat.tipo_operacion_id
+    INTO v_monto, v_cuenta_id, v_tipo_operacion_id
+    FROM transacciones AS tra
+    INNER JOIN categorias AS cat USING(categoria_id)
+    WHERE tra.transaccion_id = v_transaccion_id;
+
+    IF v_tipo_operacion_id = 2 THEN
+        v_factor_multiplicativo := -1;
+    END IF;
+
+    v_monto := v_monto * v_factor_multiplicativo;
+
+    UPDATE cuentas
+    SET balance = balance - v_monto
+    WHERE cuenta_id = v_cuenta_id;
+
+    DELETE FROM transacciones
     WHERE transaccion_id = v_transaccion_id;
 
     COMMIT;

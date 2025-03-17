@@ -11,5 +11,6 @@ namespace ManejoPresupuesto.Servicios
         Task Crear(Transaccion transaccion);
         Task Actualizar(Transaccion transaccion, decimal montoAnterior, int cuentaAnterior);
         Task<Transaccion> ObtenerPorId(int TransaccionId, int UsuarioId);
+        Task Borrar(int id);
     }
 }

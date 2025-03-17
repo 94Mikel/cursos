@@ -152,6 +152,20 @@ namespace ManejoPresupuesto.Controllers
 
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Borrar(int TransaccionId)
+        {
+            var usuarioId = servicioUsuarios.ObtenerUsuarioId();
+            var transaccion = await repositorioTransacciones.ObtenerPorId(TransaccionId, usuarioId);
+
+            if(transaccion is null){
+                return RedirectToAction("NoEncontrado","Home");
+            }
+
+            await repositorioTransacciones.Borrar(TransaccionId);
+            return RedirectToAction("Index");
+        }
+
         private async Task<IEnumerable<SelectListItem>> ObtenerCuentas(int usuarioId)
         {
             var cuentas = await repositorioCuentas.Buscar(usuarioId);
