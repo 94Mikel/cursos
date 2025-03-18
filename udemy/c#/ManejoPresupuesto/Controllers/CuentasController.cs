@@ -117,6 +117,7 @@ namespace ManejoPresupuesto.Controllers
             ViewBag.mesPosterior = fechaInicio.AddMonths(1).Month;
             //Año posteriro sumando un mes
             ViewBag.anoPosterior = fechaInicio.AddMonths(1).Year;
+            ViewBag.urlRetorno = HttpContext.Request.Path + HttpContext.Request.QueryString;
 
             return View(modelo);
         }

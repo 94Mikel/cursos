@@ -224,3 +224,7 @@ Se usa comúnmente en aplicaciones **ASP.NET MVC.**
 #### Cuando usar ViewBag
 
 Cuando necesitas **pasar datos simples** (como cadenas o números) de un controlador a una vista.
+
+### Debolver al usuario a donde estaba con los links
+
+- Utilizamos el parametro urlRetorno y redireccionamos a la página correspondiente con LocalRedirect

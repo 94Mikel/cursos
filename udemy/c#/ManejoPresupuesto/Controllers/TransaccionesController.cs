@@ -88,7 +88,7 @@ namespace ManejoPresupuesto.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Editar(int id)
+        public async Task<IActionResult> Editar(int id, string urlRetorno = null)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var transaccion = await repositorioTransacciones.ObtenerPorId(id, usuarioId);
@@ -112,6 +112,7 @@ namespace ManejoPresupuesto.Controllers
             modelo.Cuentas = await ObtenerCuentas(usuarioId);
             modelo.Cuenta = "a";
             modelo.Categoria = "a";
+            modelo.UrlRetorno = urlRetorno;
 
             return View(modelo);
         }
@@ -153,22 +154,34 @@ namespace ManejoPresupuesto.Controllers
                 modelo.CuentaAnteriorId
             );
 
-            return RedirectToAction("Index");
+            if (string.IsNullOrEmpty(modelo.UrlRetorno))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return LocalRedirect(modelo.UrlRetorno);
 
         }
 
         [HttpPost]
-        public async Task<IActionResult> Borrar(int TransaccionId)
+        public async Task<IActionResult> Borrar(int TransaccionId, string urlRetorno = null)
         {
             var usuarioId = servicioUsuarios.ObtenerUsuarioId();
             var transaccion = await repositorioTransacciones.ObtenerPorId(TransaccionId, usuarioId);
 
-            if(transaccion is null){
-                return RedirectToAction("NoEncontrado","Home");
+            if (transaccion is null)
+            {
+                return RedirectToAction("NoEncontrado", "Home");
             }
 
             await repositorioTransacciones.Borrar(TransaccionId);
-            return RedirectToAction("Index");
+
+            if (string.IsNullOrEmpty(urlRetorno))
+            {
+                return RedirectToAction("Index");
+            }
+
+            return LocalRedirect(urlRetorno);
         }
 
         private async Task<IEnumerable<SelectListItem>> ObtenerCuentas(int usuarioId)
