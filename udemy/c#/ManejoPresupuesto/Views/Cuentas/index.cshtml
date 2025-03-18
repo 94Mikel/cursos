@@ -84,7 +84,7 @@
                             var claseCuenta = ObtenerClaseBalance(cuenta.Balance);
                             <li class="list-group-item">
                                 <span>
-                                    <strong>@cuenta.Nombre</strong>
+                                    <strong><a asp-action="Detalle" asp-route-id="@cuenta.CuentaId">@cuenta.Nombre</a></strong>
                                     <a asp-action="Editar" asp-route-id="@cuenta.CuentaId" class="btn-primary btn">
                                         <i class="bi bi-pencil"></i>
                                     </a>

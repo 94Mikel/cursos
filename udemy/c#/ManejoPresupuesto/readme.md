@@ -159,7 +159,7 @@ Vamos a agrupar cada cuenta agrupada por tipo de cuenta, mostrando los balances 
 
 #### Aislamiento css
 
-El fichero custom.css es para toda la aplicacion. 
+El fichero custom.css es para toda la aplicacion.
 Es mejor utilizar el css para cada cshtml correspondiente para tener el diseño de la aplicacion ordenada.
 
 ### Mappeador
@@ -171,7 +171,7 @@ Un mapeado muy famoso en el mundo de .NET es **AutoMapper**.
 Utilizaremos **AutoMapper** para evitar tener que hacer el mapeo manual:
 
 - Instalar la libreria de AutoMapper => dotnet add package AutoMapper.
-- A automapper hay que indicarle de que clase a que clase queremos mappear. 
+- A automapper hay que indicarle de que clase a que clase queremos mappear.
 - Lo hacemos en una clase profile.
 
 La ventaja de utilizar AutoMapper es que te ahorras el tener que hacer el mapeo de manera manual. Esto hace que sea mas dificil cometer errores humanos.
@@ -194,7 +194,7 @@ Su función principal es permitir la selección de un elemento dentro de una lis
 
 Se usa la etiqueta **select** en Razor con TagHelpers o **ViewData/ViewBag**.
 
-### Resumen
+### Resumen => Los otros CRUDs
 
 - Trabajamos con los **CRUDs** de las demás entidades que componen nuestro proyecto. Creación, lectura, actualización y borrado de las demás entidades.
 - Aprendimos a trabajar con **Drop Downs** o **select** para permitirle al usuario seleccionar una opción de varias opciones existentes.
@@ -208,3 +208,19 @@ Se usa la etiqueta **select** en Razor con TagHelpers o **ViewData/ViewBag**.
 ## Reportes
 
 Con los repoetes los usuarios van a poder ver los resúmenes de sus movimientos para así saber a dónde se va su dinero.
+
+### ViewBag
+
+En ASP.NET, **ViewBag** es un objeto dinámico que permite pasar datos desde un **Controlador** a una Vista de forma temporal.
+Se usa comúnmente en aplicaciones **ASP.NET MVC.**
+
+#### Características principales de ViewBag
+
+- Es un **objeto dinámico**, lo que significa que puedes agregar propiedades sin necesidad de declararlas previamente.
+- Solo es válido **durante la solicitud actual**. No persiste entre peticiones.
+- Se basa en **ViewData**, pero con una sintaxis más sencilla.
+- Se almacena en **ViewData**, que es un diccionario de tipo ViewDataDictionary.
+
+#### Cuando usar ViewBag
+
+Cuando necesitas **pasar datos simples** (como cadenas o números) de un controlador a una vista.

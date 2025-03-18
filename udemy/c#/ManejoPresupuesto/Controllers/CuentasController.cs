@@ -92,7 +92,7 @@ namespace ManejoPresupuesto.Controllers
             var transacciones = await repositorioTransacciones.ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta);
 
             var modelo = new ReporteTransaccionesDetalladas();
-            ViewBag.Cuenta = cuenta.Nombre;
+            ViewBag.Cuenta = cuenta.Nombre;//Enviar informacion a la vista
 
             /*
                 Agrupamos nuestras transacciones por fecha. 
@@ -109,6 +109,14 @@ namespace ManejoPresupuesto.Controllers
             modelo.TransaccionesAgrupadas = transaccionesPorFecha;
             modelo.FechaInicio = fechaInicio;
             modelo.FechaFin = fechaFin;
+
+            // Enviar a las vistas con ViewBag
+            ViewBag.mesAnterior = fechaInicio.AddMonths(-1).Month;
+            //Hace un mes que año era
+            ViewBag.anoAnterior = fechaInicio.AddMonths(-1).Year;
+            ViewBag.mesPosterior = fechaInicio.AddMonths(1).Month;
+            //Año posteriro sumando un mes
+            ViewBag.anoPosterior = fechaInicio.AddMonths(1).Year;
 
             return View(modelo);
         }

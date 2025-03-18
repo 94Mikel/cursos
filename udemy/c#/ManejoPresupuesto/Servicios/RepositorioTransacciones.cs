@@ -91,12 +91,12 @@ namespace ManejoPresupuesto.Servicios
                     cu.nombre AS Cuenta,
                     c.tipo_operacion_id AS TipoOperacionId
                 FROM transacciones AS t
-                INNER JOIN categotias AS c 
+                INNER JOIN categorias AS c 
                 USING (categoria_id)
                 INNER JOIN cuentas cu
                 USING (cuenta_id)
-                WHERE t.cuenta_id = @CuentaId AND t.UsuarioId = @UsuarioId
-                AND FechaTransaccion BETWEEN @FechaInicio AND @FechaFin",
+                WHERE t.cuenta_id = @CuentaId AND t.usuario_id = @UsuarioId
+                AND t.fecha_transaccion BETWEEN @FechaInicio AND @FechaFin",
                 modelo
             );
         }

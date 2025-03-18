@@ -46,6 +46,9 @@ namespace ManejoPresupuesto.Controllers
             modelo.Cuentas = await ObtenerCuentas(usuarioId);
             //Para mostrar las categorias segun el tipoOperacion seleccionado.
             modelo.Categorias = await ObtenerCategorias(usuarioId, modelo.TipoOperacionId);
+            modelo.Cuenta = "a";
+            modelo.Categoria = "a";
+
             return View(modelo);
         }
 
@@ -107,6 +110,8 @@ namespace ManejoPresupuesto.Controllers
             modelo.CuentaAnteriorId = transaccion.CuentaId;
             modelo.Categorias = await ObtenerCategorias(usuarioId, transaccion.TipoOperacionId);
             modelo.Cuentas = await ObtenerCuentas(usuarioId);
+            modelo.Cuenta = "a";
+            modelo.Categoria = "a";
 
             return View(modelo);
         }
