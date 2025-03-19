@@ -19,23 +19,6 @@ namespace ManejoPresupuesto.Servicios
 
         public async Task Crear(Transaccion transaccion)
         {
-            /*
-            using var connection = new NpgsqlConnection(connectionString);
-            var categoriaId = await connection.QuerySingleAsync<int>
-            (
-                "transacciones_insertar",
-                new {
-                    transaccion.UsuarioId,
-                    transaccion.FechaTransaccion,
-                    transaccion.Monto,
-                    transaccion.CategoriaId,
-                    transaccion.CuentaId,
-                    transaccion.Nota
-                },
-                commandType: System.Data.CommandType.StoredProcedure
-            );
-            transaccion.CategoriaId = categoriaId;
-            */
             using (var conn = new NpgsqlConnection(connectionString))
             {
                 conn.Open();
@@ -101,6 +84,29 @@ namespace ManejoPresupuesto.Servicios
             );
         }
 
+        public async Task<IEnumerable<Transaccion>> ObtenerPorUsuarioId(ParametroObtenerTrasaccionesPorUsuario modelo)
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryAsync<Transaccion>
+            (
+                @"SELECT 
+                    t.transaccion_id AS TransaccionId, 
+                    t.monto AS Monto, 
+                    t.fecha_transaccion AS FechaTransaccion, 
+                    c.nombre AS Categoria,
+                    cu.nombre AS Cuenta,
+                    c.tipo_operacion_id AS TipoOperacionId
+                FROM transacciones AS t
+                INNER JOIN categorias AS c 
+                USING (categoria_id)
+                INNER JOIN cuentas cu
+                USING (cuenta_id)
+                WHERE t.usuario_id = @UsuarioId
+                AND t.fecha_transaccion BETWEEN @FechaInicio AND @FechaFin
+                ORDER BY t.fecha_trasaccion DESC",
+                modelo
+            );
+        }
 
         public async Task Actualizar(Transaccion transaccion, decimal montoAnterior, int cuentaAnteriorId)
         {

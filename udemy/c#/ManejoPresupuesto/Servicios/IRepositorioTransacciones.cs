@@ -13,5 +13,6 @@ namespace ManejoPresupuesto.Servicios
         Task<Transaccion> ObtenerPorId(int TransaccionId, int UsuarioId);
         Task Borrar(int id);
         Task<IEnumerable<Transaccion>> ObtenerPorCuentaId(ObtenerTransaccionesPorCuenta modelo);
+        Task<IEnumerable<Transaccion>> ObtenerPorUsuarioId(ParametroObtenerTrasaccionesPorUsuario modelo);
     }
 }
