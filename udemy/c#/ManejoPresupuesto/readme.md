@@ -228,3 +228,14 @@ Cuando necesitas **pasar datos simples** (como cadenas o números) de un control
 ### Debolver al usuario a donde estaba con los links
 
 - Utilizamos el parametro urlRetorno y redireccionamos a la página correspondiente con LocalRedirect
+
+### Vista parcial
+
+Vista reutilizable que se puede insertar dentro de otra vista principal. Es similar a un "componente" que se puede compartir en múltiples páginas para evitar la duplicación de código.
+
+#### Características
+
+1. **Reutilizable:** Se puede incluir en varias vistas principales.
+2. **No tiene un diseño completo:** Generalmente, no incluye Layout porque forma parte de otra vista.
+3. **Útil para componentes pequeños:** Como menús, tarjetas de productos, formularios de comentarios, etc.
+4. **Mejora la modularidad:** Divide la interfaz en partes más manejables.

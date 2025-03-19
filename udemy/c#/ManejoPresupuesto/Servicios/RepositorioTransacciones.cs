@@ -103,7 +103,7 @@ namespace ManejoPresupuesto.Servicios
                 USING (cuenta_id)
                 WHERE t.usuario_id = @UsuarioId
                 AND t.fecha_transaccion BETWEEN @FechaInicio AND @FechaFin
-                ORDER BY t.fecha_trasaccion DESC",
+                ORDER BY t.fecha_transaccion DESC",
                 modelo
             );
         }

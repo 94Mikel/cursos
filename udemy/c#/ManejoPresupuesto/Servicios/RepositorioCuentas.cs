@@ -50,7 +50,7 @@ namespace ManejoPresupuesto.Servicios
             using var connection = new NpgsqlConnection(connectionString);
             return await connection.QueryFirstOrDefaultAsync<Cuenta>
             (
-                @"SELECT c.cuenta_id AS CuentaId, c.nombre, c.balance, c.descripcion, tc.tipo_cuenta_id AS TipoCuentaID
+                @"SELECT c.cuenta_id AS CuentaId, c.nombre, c.balance, c.descripcion, tc.tipo_cuenta_id AS TipoCuentaId
                 FROM cuentas AS c 
                 INNER JOIN tipos_cuentas AS tc using(tipo_cuenta_id)
                 WHERE tc.usuario_id = @UsuarioId AND c.cuenta_id = @CuentaId
