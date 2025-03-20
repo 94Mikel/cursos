@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ManejoPresupuesto.Models;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ManejoPresupuesto.Servicios
 {
@@ -21,6 +22,23 @@ namespace ManejoPresupuesto.Servicios
             this.httpContext = httpContextAccessor.HttpContext;
         }
 
+        public async Task<IEnumerable<ResultadoObtenerPorSemana>> ObtenerReporteSemanal(int usuarioId, int mes, int ano, dynamic ViewBag)
+        {
+            (DateTime fechaInicio, DateTime fechaFin) = GenerarFechaInicioYFin(mes, ano);
+            var parametro = new ParametroObtenerTrasaccionesPorUsuario()
+            {
+                UsuarioId = usuarioId,
+                FechaInicio = fechaInicio,
+                FechaFin = fechaFin
+            };
+
+            AsignarValoresAlViewBag(ViewBag, fechaInicio);
+            var modelo = await repositorioTransacciones.ObtenerPorSemana(parametro);
+            return modelo;
+
+        }
+
+
         public async Task<ReporteTransaccionesDetalladas>
         ObtenerReporteTransaccionesDetalladas(int usuarioId, int mes, int ano, dynamic ViewBag)
         {
@@ -37,7 +55,7 @@ namespace ManejoPresupuesto.Servicios
 
             var modelo = GenerarReporteTransaccionesDetalladas(fechaInicio, fechaFin, transacciones);
             AsignarValoresAlViewBag(ViewBag, fechaInicio);
-            
+
             return modelo;
 
         }

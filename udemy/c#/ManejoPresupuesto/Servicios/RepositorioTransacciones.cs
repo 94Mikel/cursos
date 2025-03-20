@@ -155,6 +155,28 @@ namespace ManejoPresupuesto.Servicios
             );
         }
 
+        public async Task<IEnumerable<ResultadoObtenerPorSemana>> ObtenerPorSemana(
+            ParametroObtenerTrasaccionesPorUsuario modelo
+        )
+        {
+            using var connection = new NpgsqlConnection(connectionString);
+            return await connection.QueryAsync<ResultadoObtenerPorSemana>(@"
+                SELECT 
+                    ROUND(EXTRACT(DAY FROM AGE(fecha_transaccion, @FechaInicio)) / 7 + 1) AS semana, 
+                    SUM(t.monto) AS Monto, 
+                    cat.tipo_operacion_id AS TipoOperacionId 
+                FROM transacciones AS t 
+                INNER JOIN categorias AS cat USING(categoria_id) 
+                WHERE 
+                    t.usuario_id = @UsuarioId AND 
+                    t.fecha_transaccion 
+                BETWEEN @FechaInicio AND @FechaFin 
+                GROUP BY 
+                    ROUND(EXTRACT(DAY FROM AGE(fecha_transaccion, '2025-03-01')) / 7 + 1), 
+                    cat.tipo_operacion_id;
+            ",modelo);
+        }
+
         public async Task Borrar(int id)
         {
             using var connection = new NpgsqlConnection(connectionString);
