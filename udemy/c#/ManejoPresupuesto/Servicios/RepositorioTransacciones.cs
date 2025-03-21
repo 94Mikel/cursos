@@ -169,12 +169,12 @@ namespace ManejoPresupuesto.Servicios
                 INNER JOIN categorias AS cat USING(categoria_id) 
                 WHERE 
                     t.usuario_id = @UsuarioId AND 
-                    t.fecha_transaccion 
-                BETWEEN @FechaInicio AND @FechaFin 
+                    fecha_transaccion BETWEEN @FechaInicio AND @FechaFin 
                 GROUP BY 
                     ROUND(EXTRACT(DAY FROM AGE(fecha_transaccion, '2025-03-01')) / 7 + 1), 
-                    cat.tipo_operacion_id;
-            ",modelo);
+                    cat.tipo_operacion_id,
+                    fecha_transaccion
+            ", modelo);
         }
 
         public async Task Borrar(int id)
